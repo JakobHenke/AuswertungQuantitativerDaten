@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R Kurs - 4&nbsp; Skalenniveaus und deskriptive Datenanalyse</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Pakete und Datentransformationen.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Skalenniveaus und deskriptive Datenanaylse.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Skalenniveaus und deskriptive Datenanalyse</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R Kurs</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Einleitung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Willkommen zum Kurs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Objekte, Daten, Funktionen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Objekte, Daten, Funktionen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pakete und Datentransformationen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Pakete und Datentransformationen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Skalenniveaus und deskriptive Datenanaylse.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Skalenniveaus und deskriptive Datenanalyse</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#skalenniveaus-und-zentrale-lagemaße" id="toc-skalenniveaus-und-zentrale-lagemaße" class="nav-link active" data-scroll-target="#skalenniveaus-und-zentrale-lagemaße"><span class="header-section-number">4.1</span> Skalenniveaus und zentrale Lagemaße</a></li>
+  <li><a href="#deskiptive-datenanalyse" id="toc-deskiptive-datenanalyse" class="nav-link" data-scroll-target="#deskiptive-datenanalyse"><span class="header-section-number">4.2</span> Deskiptive Datenanalyse</a>
+  <ul class="collapse">
+  <li><a href="#modus" id="toc-modus" class="nav-link" data-scroll-target="#modus"><span class="header-section-number">4.2.1</span> Modus</a></li>
+  <li><a href="#median" id="toc-median" class="nav-link" data-scroll-target="#median"><span class="header-section-number">4.2.2</span> Median</a></li>
+  <li><a href="#mittelwert-und-standardabweichung" id="toc-mittelwert-und-standardabweichung" class="nav-link" data-scroll-target="#mittelwert-und-standardabweichung"><span class="header-section-number">4.2.3</span> Mittelwert und Standardabweichung</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Skalenniveaus und deskriptive Datenanalyse</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In diesem Kapitel werden wir uns mit der deskriptiven Datenanalyse beschäftigen. Bevor Sie lernen, wie das in R geht, benötigen Sie ein paar statistische Grundlagen, die im untenstehenden Video erläutert werden. Für den zweiten Teil sollten Sie ein neues Skript anlegen.</p>
+<section id="skalenniveaus-und-zentrale-lagemaße" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="skalenniveaus-und-zentrale-lagemaße"><span class="header-section-number">4.1</span> Skalenniveaus und zentrale Lagemaße</h2>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="Videos/video1.mp4"></video></div>
+</section>
+<section id="deskiptive-datenanalyse" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="deskiptive-datenanalyse"><span class="header-section-number">4.2</span> Deskiptive Datenanalyse</h2>
+<p>In diesem Abschnitt werden wir uns anschauen, wie wir die verschiedenen Lagemaße aus dem Video in R berechnen können. Außerdem lernen Sie, wie Sie Daten in Abhängigkeit ihres Skalenniveaus visualisieren können.</p>
+<section id="modus" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="modus"><span class="header-section-number">4.2.1</span> Modus</h3>
+<p>R hat nach der Installation keine Funktion, die den Modus (oder die Modi) einer Verteilung ermittelt. Wir können aber das Paket <code>DescTools</code> installieren, die eine solche Funktion enthält.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installiert das Paket "DescTools", falls es noch nicht installiert ist. Andernfalls wird es geladen.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(DescTools)){</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"DescTools"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: DescTools</code></pre>
+</div>
+</div>
+<p>Anschließend laden wir wieder den Datensatz und wandeln die Geschlechtsabfrage um. Den Code kennen Sie schon aus dem letzten Kapitel. Da für dieses Kapitel ein neues Skript sinnvoll ist, führen wir auch den Code noch mal aus.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt das tidyverse</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Einlesen der Daten </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/lokalkommunikation.csv"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt eine Spalte aus der Geschlechtsabfrage. Erst wird der Wert "keine Angabe" als fehlend deklariertm dann wird ein Faktor mit den übrigen drei Kategorien erstellt</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geschlechtMitNAs =</span> <span class="fu">na_if</span>(A602, <span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geschlechtMitNAs =</span> <span class="fu">factor</span>(geschlechtMitNAs, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"männlich"</span>, <span class="st">"weiblich"</span>, <span class="st">"divers"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Anschließend können wir die <code>Mode()</code>-Funktion aus dem <code>DescTools</code>-Paket verwenden. Um damit den Modus zu berechnen, müssen wir die Funktion innerhalb der <code>dplyr</code>-Funktion <code>summarise()</code> aufrufen. Diese verdichtet Datensätze. Schauen wir uns einmal an, was passiert, wenn wir <code>Mode()</code> einfach entsprechended ausführen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Versucht den Modus der Spalte geschlechtMitNAs zu berechnen</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>modus_geschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Modus =</span> <span class="fu">Mode</span>(geschlechtMitNAs))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>modus_geschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Modus
+1    NA</code></pre>
+</div>
+</div>
+<p>Wie Sie sehen, gibt die Funktion ein <code>NA</code> zurück. Das ist Rs Art uns zu sagen, dass eine Berechnung nicht durchgeführt werden kann, weil die Daten fehlende Werte enthalten. Wir können das Problem beheben, indem wir der <code>Mode()</code>-Funktion das Argument <code>na.rm = TRUE</code> übergeben. <code>na.rm</code> steht für <code>NA remove</code>. Mit dem Wert <code>TRUE</code> sagen wir also, dass fehlende Werte vor der Berechnung entfernt werden sollen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Berechnet den Modus der Spalte geschlechtMitNAs </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>modus_geschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">Mode</span>(geschlechtMitNAs, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>modus_geschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Mode(geschlechtMitNAs, na.rm = TRUE)
+1                             weiblich</code></pre>
+</div>
+</div>
+<p>Nun sehen wir, dass mit 996 Fällen der Wert <code>weiblich</code> am häufigsten vorkommt.</p>
+<p>Schauen wir uns als nächstes an, wie Sie nominale Daten bzw. den Modus visualisieren können. Im letzten Kapitel wurde in Kürze das <code>tidyverse</code> vorgestellt und auf das Paket <code>ggplot2</code> verwiesen, mit dem wir Plots erstellen können.</p>
+<p>Im Folgenden werden Schritt für Schritt ein einfaches Balkendiagramm erstellen und es nach und nach verbessern. Wir fangen damit an, dass wir das <code>tidyverse</code> laden. Wir erstellen dann ein neues Objekt für unseren Plot. Dazu geben wir unseren Datensatz mit der Pipe an die Funktion <code>ggplot()</code> weiter. Das ist die Hauptfunktion des Pakets. Üblicherweise wird innerhalb dieser Funktion die Funktion <code>aes()</code> (für aesthetics) aufgerugen, in der wir je nach Diagramm angeben, welche Spalten auf der x- und y-Achse dargestellt werden soll. Für ein Balkendiagramm benötigen wir nur die x-Achse, geben also <code>x = geschlechtMitNAs</code> an. Damit sagen wir erstmal nur, welche Spalte wir darstellen wollen, aber noch nichts darüber, was für eine Darstellung es werden soll. Um die Art des Diagramms festzulegen, gibt es in <code>ggplot2</code> unzählige Funktionen, die alle mit <code>geom_</code> beginnen (für geometry). Hinter dem Unterstrich folgt dann der (englische) Name des Diagrammtyps. In unserem Fall eines Balkendiagramms, heißt die entsprechende Funktion <code>geom_bar()</code>. Anders als sonst, verbinden wir die Funktionen in <code>ggplot2</code> nicht über die Pipe, sondern ein Pluszeichen. In der Summe sieht der Code dann so aus:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein einfaches Balkendiagramm der Geschlechtsabfrage</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plotGeschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> geschlechtMitNAs))<span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plotGeschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Das ist - nun ja - sagen wir mal, es ist nicht sonderlich hübsch. Folgende Dinge fallen auf:</p>
+<ul>
+<li>Es gibt einen Balken für <code>NAs</code>, dabei enthalten diese ja per definitionem keine Informationen.</li>
+<li>Die Angabe absoluter Häufigkeiten ist etwas problematisch; besser wären relative Häufigkeiten.</li>
+<li>Die Werte der einzelnen Kategorien können wir aktuell nur schätzen.</li>
+<li>Der Hintergrund und die Farbe der Balken sind nicht sonderlich ansehnlich.</li>
+<li>Die Beschriftungen der Achsen (<code>geschlechtMitNAs</code> und <code>count</code>) sind nicht gerade selbsterklärend.</li>
+</ul>
+<p>Diese Liste können wir nun einfach abarbeiten. Manchmal ist es sinnvoll, die Daten noch ein bisschen aufzubereiten, bevor wir sie an <code>ggplot()</code> übergeben. Dafür deklarieren wir ein neues Objekt, das die Daten enthalten soll. Als erstes können wir dann mit der <code>filter()</code>-Funktion, die Sie im letzten Kapitel kennengelernt haben, die <code>NAs</code> entfernen. Anschließend nutzen wir die <code>group_by()</code>-Funktion aus <code>dplyr</code>. Diese Funktion sorgt dafür, dass die nachfolgenden Funktionen nicht auf den gesamten Datensatz angewendet werden, sondern auf die jeweiligen Gruppen (<code>männlich</code>, <code>weiblich</code>, <code>divers</code>). Anschließend nutzen wir wieder die <code>summarise()</code>-Funktion. Dort können wir die Prozentwerte der einzelnen Gruppen mit der folgenden Formel berechnen: <code>n()/nrow(df_lokal)*100</code>. n() gibt die Anzahl der Fälle zurück. Durch das Aufrufen von <code>group_by()</code> sind es hier die Fälle pro Ausprägung von <code>geschlechtMitNAs</code>. Diesen Wert teilen wir durch <code>nrow(df_lokal)</code>. Diese Funktion gibt die Anzahl der Zeilen im kompletten Datensatz zurück. Das Ergebnis multiplizieren wir mit 100, um einen Prozentwert zu erhalten. Als letztes nutzen wir <code>mutate()</code>, um die Prozentwerte auf zwei Nachkommastellen zu runden. Das Ergebnis sehen Sie unten:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt einen reduzierten Datensatz, der die relativen Häufigkeiten der Ausprägungen von geschlechtMitNAs enthält</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>df_plot_geschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(geschlechtMitNAs)) <span class="sc">|&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geschlechtMitNAs) <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prozent =</span> <span class="fu">n</span>()<span class="sc">/</span><span class="fu">nrow</span>(df_lokal)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prozent =</span> <span class="fu">round</span>(prozent, <span class="dv">2</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>df_plot_geschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  geschlechtMitNAs prozent
+  &lt;fct&gt;              &lt;dbl&gt;
+1 männlich           44.0 
+2 weiblich           54.0 
+3 divers              0.38</code></pre>
+</div>
+</div>
+<p>Wenn wir diesen Datensatz an <code>ggplot()</code> übergeben und versuchen, ein Balkendiagramm zu erstellen, haben wir zwar keinen Balken für <code>NA</code> mehr, dafür ein neues Problem: Alle Balken sind gleich hoch.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Versucht, ein Balkendiagramm der Geschlechtsabfrage ohne NAs zu erstellen</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plotGeschlecht <span class="ot">&lt;-</span> df_plot_geschlecht <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> geschlechtMitNAs))<span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>plotGeschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Um dieses Problem zu beheben, können wir angeben, dass die y-Achse den Wert aus der Spalte <code>prozent</code> darstellen soll. Zusätzlich müssen wir beim Aufrufen von <code>geom_bar()</code> das Argument <code>stat = "identity"</code> angeben. Damit sagen wir der Funktion, dass sie nichts berechnen muss, sondern wir schon die finalen Werte als y-Wert angegeben haben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein Balkendiagramm der relativen Häufigkeiten der Geschlechtsabfrage ohne NAs</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plotGeschlecht <span class="ot">&lt;-</span> df_plot_geschlecht <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> geschlechtMitNAs, <span class="at">y =</span> prozent))<span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plotGeschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Als nächstes wollen wir die Werte beschriften. Dazu fügen wir unserem Plot eine neue geom-Funktion hinzu, nämlich <code>geom_text()</code>. Dieser Funktion übergeben wir auch wieder <code>aes()</code>, um zu bestimmen, was angezeigt werden soll. Das Argument für Beschriftungen lautet <code>label</code>. Als Wert können wir die Spalte <code>prozent</code> angeben. Die Standardeinstellung ist, dass der Wert an seine Position auf der y-Achse geschrieben wird. Das ist etwas unpraktisch, da dort ja auch die Balken aufhören. Indem wir <code>geom_text()</code> das Argument <code>vjust</code> (für vertical justification) und den Wert <code>-0,5</code> (in R reicht <code>-.5</code>) übergeben, können wir die Beschriftung leicht nach oben verschieben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein beschriftetes Balkendiagramm der relativen Häufigkeiten der Geschlechtsabfrage ohne NAs</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plotGeschlecht <span class="ot">&lt;-</span> df_plot_geschlecht <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> geschlechtMitNAs, <span class="at">y =</span> prozent))<span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>)<span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>((<span class="fu">aes</span>(<span class="at">label =</span> prozent)), <span class="at">vjust =</span> <span class="sc">-</span>.<span class="dv">5</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plotGeschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Als nächstes passen wir die Farben etwas an. Gleich vorab: <code>ggplot2</code> bietet nahezu unendlich viele Möglichkeiten, das Aussehen von Diagrammen anzupassen. Hier machen wir es uns relativ einfach und nutzen vorhandene Funktionen. So wie es viele <code>geom_</code>Funktionen gibt, gibt es auch einige <code>theme_</code> Funktionen. Hier ergänzen wir <code>theme_minimal()</code> zu unserem Diagramm. Damit wird zwar der Hintergrund, nicht aber die Farbe der Balken angepasst. Das können wir tun, indem wir der <code>geom_bar()</code>-Funktion das Argument <code>fill</code> und eine Farbe übergeben. Diese müssen auf Englisch angegeben werden. Hier verwenden wir ein helles grau.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein beschriftetes Balkendiagramm der relativen Häufigkeiten der Geschlechtsabfrage ohne NAs</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plotGeschlecht <span class="ot">&lt;-</span> df_plot_geschlecht <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> geschlechtMitNAs, <span class="at">y =</span> prozent))<span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"lightgrey"</span>)<span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>((<span class="fu">aes</span>(<span class="at">label =</span> prozent)), <span class="at">vjust =</span> <span class="sc">-</span>.<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plotGeschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Als letztes ändern wir die Achsenbeschriftungen. Dazu fügen wir die <code>labs()</code>-Funktion hinzu. Mit den Argumenten <code>x</code> und <code>y</code> können wir die Beschriftung anpassen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein beschriftetes Balkendiagramm der relativen Häufigkeiten der Geschlechtsabfrage ohne NAs</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plotGeschlecht <span class="ot">&lt;-</span> df_plot_geschlecht <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> geschlechtMitNAs, <span class="at">y =</span> prozent))<span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"lightgrey"</span>)<span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>((<span class="fu">aes</span>(<span class="at">label =</span> prozent)), <span class="at">vjust =</span> <span class="sc">-</span>.<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Geschlecht"</span>, <span class="at">y =</span> <span class="st">"relative Häufigkeit in Prozent"</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>plotGeschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="median" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="median"><span class="header-section-number">4.2.2</span> Median</h3>
+<p>Anders als beim Modus gibt es für den Median eine R-Funktion, die wir ohne Weiteres nutzen können: die <code>median()</code>-Funktion. Auch hier müssen wir darauf achten, <code>na.rm = TRUE</code> anzugeben, damit der Median berechnet werden kann. Im folgenden Beispiel berechnen wr den Median der Spalte <code>A203_06</code>. In der Spalte ist codiert, wie häufig die Befragten Lokalzeitungen lesen (von 1 = “nie” bis 6 = “mehrmals täglich”).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benenntdie Spalte A203_06 in lokalzeitung um</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">rename</span>(<span class="at">lokalzeitung =</span> A203_06) </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet den Median der Lokalzeiungsnutzung</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>median_lokalzeitung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median =</span> <span class="fu">median</span>(lokalzeitung, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>median_lokalzeitung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  median
+1      4</code></pre>
+</div>
+</div>
+<p>Der Median ist 4, was einer Nutzung mehrmals pro Woche entspricht. Es gibt viele verschiedene Möglichkeiten, den Median bzw. die Verteilung von ordinalen Daten zu visualisieren. Bei wenigen Ausprägungen, so wie im Fall der Nutzung von Lokalzeitungen, können wir ähnlich vorgehen wie beim Modus oben. Dazu müssen wir die Spalte in einen Faktor umwandeln, bevor wir sie an <code>ggplot()</code> übergeben. Anschließend gehen wir ähnlich vor wie oben, allerdings bleiben wir der einfachheithalber bei absoluten Häufigkeiten. Eine relevante Ergänzung nehmen wir aber vor: Mit der <code>geom_vline()</code>-Funktion (für vertical line) und dem Argument <code>xintercept = 4,</code> können wir eine Linie hinzufügen, die den Median anzeigt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wandelt die Nutzung von Lokalzeitungen in einen Faktor um und plottet die Daten als Balkendiagramm</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>balkenPlot_lokalzeitung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lokalzeitungFaktor =</span> <span class="fu">factor</span>(lokalzeitung, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"nie"</span>, <span class="st">"weniger als ein Mal im Monat"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                                                              <span class="st">"mehrmals im Monat"</span>, <span class="st">"mehrmals in der Woche"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                                                              <span class="st">"täglich"</span>, <span class="st">"mehrmals täglich"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokalzeitungFaktor)) <span class="sc">|&gt;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lokalzeitungFaktor))<span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"lightgrey"</span>)<span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Nutzung von Lokalzeitungen"</span>, <span class="at">y =</span> <span class="st">"Häufigkeit"</span>)<span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">4</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>balkenPlot_lokalzeitung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Das ist schon sehr nah an einer akzeptablen Darstellung, aber die Wertbeschriftungen sehen furchtbar aus! Hier müssen wir etwas Hand anlegen und Zeilenumbrüche einfügen. Die Beschriftungen können wir mit der Funktion <code>scale_x_discrete()</code> und darin mit dem labels-Argument anpassen. Um einen Zeilenumbruch hinzuzufügen, können wir an einer beliebigen Stelle in einem string <code>\n</code> ergänzen. Diese Funktion können wir mit einem <code>+</code> unserem bisherigen Objekt <code>balkenPlot_lokalzeitung</code> hinzufügen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verändert die Beschriftungen der Balken</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>balkenPlot_lokalzeitung <span class="ot">&lt;-</span> balkenPlot_lokalzeitung<span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"nie"</span> <span class="ot">=</span> <span class="st">"nie"</span>, <span class="st">"weniger als ein Mal im Monat"</span> <span class="ot">=</span> <span class="st">"weniger als</span><span class="sc">\n</span><span class="st"> ein Mal im Monat"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"mehrmals im Monat"</span> <span class="ot">=</span> <span class="st">"mehrmals</span><span class="sc">\n</span><span class="st"> im Monat"</span>, <span class="st">"mehrmals in der Woche"</span> <span class="ot">=</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"mehrmals</span><span class="sc">\n</span><span class="st"> in der Woche"</span>, <span class="st">"täglich"</span> <span class="ot">=</span> <span class="st">"täglich"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"mehrmals täglich"</span> <span class="ot">=</span> <span class="st">"merhmals</span><span class="sc">\n</span><span class="st"> täglich"</span>))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>balkenPlot_lokalzeitung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Eine andere häufige Visualisierung von ordinalen Daten ist der sogenannte Boxplot, der mit der Funktion g<code>eom_boxplot()</code> erstellt wird. Beachten Sie im Beispiel unten, dass wir die Spalte lokalzeitung im Aufruf von <code>ggplot()</code> bzw. darin <code>aes()</code> als y-Wert definieren. Wir könnten auch den x-Wert wählen, dann würde der Boxplot auf der Seite liegen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokalzeitung)) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> lokalzeitung))<span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Häufigkeit der Lokalzeitungsnutzung"</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Was Sie hier sehen ist erstmal nicht sonderlich hübsch, sollte aber dennoch kurz erklärt werden: Die dicke schwarze Linie beim Wert 4 zeigt den Median. Die eingekasteten Bereiche darüber und darunter zeigen das 75. bzw. das. 25. Quartil. Oder einfach gesagt: 25 % der Befragten haben den Wert <code>2</code> oder weniger angegeben und weitere 25 % den Wert <code>5</code> oder mehr. Die Linien nach unten und oben gehen bis zum Minimum bzw. Maximum.</p>
+<p>Folgende Probleme hat die Darstellung:</p>
+<ul>
+<li>Der Boxplot ist sehr breit. Das sieht furchtbar aus!</li>
+<li>Die y-Achse ist nur spärlich beschriftet.</li>
+<li>Die x-Achse hat eine Beschriftung, die überhaupt nicht nachvollziehbar ist.</li>
+<li>Das Koordinatensystem hat senkrechte Linien, die keinen Sinn ergeben, da wir ja eigentlich gar nichts auf der x-Achse abbilden.</li>
+</ul>
+<p>Fangen wir mit den ersten beiden Problemen an. Wir sehen auf der Grafik oben, dass der auf der x-Achse der Bereich von <code>x = -0,4</code> bis <code>x = 0,4</code> (was auch immer diese Werte bedeuten mögen!) dargestellt ist und der Boxplot genau diesen Bereich einnimmt. Wir können die Funktion <code>xlim()</code> nutzen, um den dargestellten Bereich zu erweitern. Dazu müssen wir einfach nur zwei Werte angeben, z.B. <code>-1</code> und <code>1</code>.</p>
+<p>Um die y-Achse etwas schöner zu machen, können wir eine ähnliche Funktion nutzen, wie im Balkendiagramm oben: <code>scale_y_continuous()</code>. Mit dem Argument <code>breaks</code> können wir angeben, welche Werte beschriftet sein sollen. Hier können wir <code>1:6</code> angeben, um alle ganzen Zahlen zwischen 1 und 6 anzeigen zu lassen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung <span class="ot">&lt;-</span> boxplot_lokalzeitung<span class="sc">+</span>  </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Das sieht schon etwas besser aus. Wir haben nun aber ein neues Problem: Auf der y-Achse werden nun waagerechte Linien zwischen den ganzen Zahlen angezeigt, dabei konnte die Variable diese Werte gar nicht annhemen.</p>
+<p>Dieses Problem können wir gemeinsam mit den übrigen Punkte von oben in einem Rutsch erledigen, indem wir die <code>theme()</code>-Funktion nutzen. Diese Funktion kann zugegebenermaßen etwas abschreckend sein. Sie können damit die Darstellung aller einzelnen Elemente eines Plots anpassen oder - und das ist für uns hier aber auch generell häufig entscheidend - sie entfernen! Das Schema ist immer gleich: Sie geben ein Element an und schreiben hinter ein Gleichheitszeichen, wie es dargestellt werden soll. Geben Sie dort <code>element_blank()</code> an, wird das Element entfernt. Das nutzen wir hier um die folgenden Elemente zu entfernen:</p>
+<ul>
+<li>Die Beschriftung der x-Achse –&gt; das Element heißt <code>axis.text.x</code></li>
+<li>Die vertikalen Linien im Koordinatensystem –&gt; die Elemente heißen <code>panel.grid.major.x</code> und <code>panel.grid.minor.x</code></li>
+<li>Die horizontalen Linien zwischen den ganzen Zahlen –&gt; das Element heißt <code>panel.grid.minor.y</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung <span class="ot">&lt;-</span> boxplot_lokalzeitung<span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Deutlich häufiger werden Sie Boxplots begegnen (oder selbst erstellen), wenn es um die Darstellung mehrerer Gruppen geht. Im folgenden Beispiel sehen Sie einen Boxplot für die Nutzung von Lokalzeitungen nach Geschlecht der Befragten. Im wesentlichen ist er sehr ähnlich wie der Plot oben, allerdings müssen wir diesmal keine Elemente entfernen. Vor allem aber müssen wir im Aufruf von <code>ggplot()</code> bzw. darin <code>aes()</code> angeben, dass das Geschlecht der Befragten auf der x-Achse dargestellt werden soll.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokalzeitung)) <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(geschlechtMitNAs)) <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> lokalzeitung, <span class="at">x =</span> geschlechtMitNAs))<span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Häufigkeit der Lokalzeitungsnutzung"</span>, <span class="at">x =</span> <span class="st">"Geschlecht"</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Das Ergebnis sieht schon sehr ordentlich aus. Der einsame Punkt in der Spalte <code>divers</code> steht für einen Ausreißer: Eine Person liest deutlich höufiger Lokalzeitungen als andere Menschen, die sich nicht-binär identifizieren. In erster Linie liegt das an der sehr geringen Fallzahl in der Gruppe (vgl. das Balkendiagramm von oben). Um das sichtbar zu machen, können wir die Rohdaten anzeigen lassen. Das geht grundsätzlich mit geom_point(), hat aber den Nachteil, dass dann alle Datenpunkte an derselben Stelle dargestellt werden:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht<span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Das hilft uns nicht wirklich weiter. Eine bessere Möglichkeit ist geom_jitter(). Damit werden die Rohdaten etwas gestreut geplottet. Durch das Argument alpha = .25 können wir die Punkte zusätzlich etwas transparent machen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht <span class="ot">&lt;-</span> boxplot_lokalzeitung_geschlecht<span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">25</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="mittelwert-und-standardabweichung" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="mittelwert-und-standardabweichung"><span class="header-section-number">4.2.3</span> Mittelwert und Standardabweichung</h3>
+<p>Für Mitelwert und Standardabweichung gibt es ebenfalls zwei R-Funktionen, die wir direkt nutzen können: <code>mean()</code> und <code>sd()</code>. Auch hier müssen wir darauf achten, dass wir <code>na.rm = TRUE</code> angeben.</p>
+<p>Im folgenden Beispiel berechnen wir zunächst das Alter der Befragten mit dem Code aus dem letzten Kapitel. Anschließend nutzen wir <code>summarse()</code>, um den Datensatz auf Mittelwert und Standardabweichung des Alters zu reduzieren. Innerhalb von <code>summarise()</code> berechnen wir entsprechen mit <code>mean()</code> den Mittelwert und mit <code>sd()</code> die Standardabweichung. Beides runden wir mit round() auf zwei Nachkommastellen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet das Alter der Befragten</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">str_trim</span>(A601_01)) <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">str_sub</span>(geburtsjahr, <span class="sc">-</span><span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">as.integer</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">ifelse</span>(geburtsjahr <span class="sc">&lt;</span> <span class="dv">1000</span>, geburtsjahr<span class="sc">+</span><span class="dv">1000</span>, geburtsjahr)) <span class="sc">|&gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">alter =</span> <span class="dv">2022</span> <span class="sc">-</span> geburtsjahr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `geburtsjahr = as.integer(geburtsjahr)`.
+Caused by warning:
+! NAs durch Umwandlung erzeugt</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet Mittelwert und Standardabweichung des Alters</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>df_alter <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MWAlter =</span> <span class="fu">round</span>(<span class="fu">mean</span>(alter, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">SDAlter =</span> <span class="fu">round</span>(<span class="fu">sd</span>(alter, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>df_alter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  MWAlter SDAlter
+1   49.66   15.31</code></pre>
+</div>
+</div>
+<p>Wir sehen, dass die Befragten im Mittel 49,66 also fast 50 Jahre als waren, bei einer Standardabweichung von 15,31 Jahren. Im Video oben haben Sie erfahren, dass bei einer Normalverteilung ca. 68 % aller Werte innerhalb der Region Mittelwert - 1 Standardabweichung bis Mittelwert + 1 Standardabweichung liegen. Hier wäre das entsprechend der Bereich von 34,35 bis 64.97 Jahren, zumindest sofern die Variable normalverteilt ist. Um das zu prüfen und genereall um metrische Daten zu visualisieren, können wir ein sogenanntes Histogramm zeichnen. Dazu nutzen wir <code>geom_histogramm()</code>. Im Prinzip handelt es sich dabei um eine Art Balkendiagramm für metrische Daten, bei der einzelne Ausprägungen zusammengefasst werden,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>histogramm_alter <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(alter)) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> alter))<span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"lightgrey"</span>, <span class="at">bins =</span> <span class="dv">40</span>)<span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Alter der Befragten"</span>, <span class="at">y =</span> <span class="st">"Häufigkeit"</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>histogramm_alter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Dem Histogramm können wir entnehmen, dass die Daten annähnernd normalverteilt sind. Das linke Ende der Verteilung ist etwas steiler. Das ist zu erwarten, denn üblicherweise gibt es ein Mindestalter zur Teilnahme an Befragungen. Wir sehen auch, dass Menschen um die 60 Jahre und älter relativ stark vertreten sind. Gemessen an der Bevölkerung ist auch das nicht sonderlich. Für die meisten statistischen Zweck könnten Sie bei so einer Verteilung aber davon ausgehen, dass Sie zumindest nah genug an einer Normalverteilung dran sind.</p>
+<p>Während uns das Histogramm einen guten Überblick über die Verteilung als Ganze gibt, ist es manchmal sinnvoll, Mittelwert und Standardabweichung direkt darzustellen. Das gilt insbesondere dann, wenn Sie mehrere Gruppen vergleichen wollen. Im folgenden Beispiel stelle wir das Durchschnittsalter (also den Mittelwert) der Befragten nach Geschlecht dar. Dazu wollen wir die Streuung um den Mittelwert der jeweiligen Gruppen darstellen. Hier machen wir das, indem wir die Standardabweichung ebenfalls darstellen. In wissenschaftlichen Arbeiten werden Sie auch immer mal Darstellungen begegnen, in denen andere Maße genutzt werden: entweder der Standardfehler oder sogenannte Konfidenzintervalle. Die Begriffe werden wir noch kennenlernen, ignorieren sie aber in diesem Kapitel noch.</p>
+<p>Für unser Beispiel berechnen wir als erstes Mittelwert und Standardabweichung der jeweiligen Gruppen. Alles, was wir dafür brauchen, haben wir schon kennengelernt: Wir nutzen <code>filter()</code> um fehlende Werte auszuschließen, nutzen <code>group_by()</code>, um die Daten zu Gruppieren und rufen dann <code>mean()</code> und <code>sd()</code> innerhalb von <code>summarise()</code> auf.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet Mittelwert und Standardabweichung nach Geschecht</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df_lokal_alterUndGeschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(geschlechtMitNAs)) <span class="sc">|&gt;</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(alter)) <span class="sc">|&gt;</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geschlechtMitNAs) <span class="sc">|&gt;</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MWAlter =</span> <span class="fu">mean</span>(alter),</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">SDAlter =</span> <span class="fu">sd</span>(alter))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Um die Gruppenmittelwerte mit jeweiliger Standardabweichug abzubilden, nutzen wir zwei neue geom_ Funktionen: <code>geom_point()</code> für die Mittelwerte und <code>geom_errorbar()</code> für die Standardabweichungen. Aber fangen wir obne an: zunächst legen wir in <code>ggplot()</code> und <code>aes()</code> fest, dass wir das Alter auf der y-Achse und das Geschlecht auf der x-Achse darstellen wollen. geom_point() sorgt dafür, dass die Gruppenmittelwerte jeweils durch einen Punkt dargestellt werden. <code>geom_errorbar()</code> zeichnet Balken um diese Punkte. Dazu müssen wir wieder in aes() angeben, wo diese Balken anfangen und aufhören sollen. Den Startpunkt legen wir mit y<code>min=MWAlter-SDAlter</code> und den Endpunkt mit <code>ymax=MWAlter+SDAlter</code> fest.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plottet die Gruppenmittelwerte und Standardabweichungen</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>alter_nach_geschlecht <span class="ot">&lt;-</span> df_lokal_alterUndGeschlecht <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> geschlechtMitNAs, <span class="at">y =</span> MWAlter))<span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>MWAlter<span class="sc">-</span>SDAlter, <span class="at">ymax=</span>MWAlter<span class="sc">+</span>SDAlter))<span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Geschlecht"</span>, <span class="at">y =</span> <span class="st">"Alter"</span>)<span class="sc">+</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>alter_nach_geschlecht</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Skalenniveaus-und-deskriptive-Datenanaylse_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Grafiken speichern
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wenn Sie einen Plot speichern wollen, können Sie die <code>ggsave()</code>-Funktion verwenden. Folgende Argumente sollten Sie der Funktion übergeben:</p>
+<ul>
+<li><code>filename =</code> Den Namen, den die Datei tragen soll (in Anführungszeichen).</li>
+<li><code>plot =</code> Den Namen des Objekts, das Sie speichern wollen.</li>
+<li><code>width =</code> Die gewünschte Breite der Grafik.</li>
+<li><code>height =</code> Die gewünschte Höhe der Grafik.</li>
+<li><code>units =</code> Die Maßeinheit in der Breite und Höhe angegeben werden: “mm”, “cm”, “px” oder “in” für millimeter centimeter, pixel oder inch.</li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Pakete und Datentransformationen.html" class="pagination-link" aria-label="Pakete und Datentransformationen">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Pakete und Datentransformationen</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<script>videojs(video_shortcode_videojs_video1);</script>
+
+
+
+
+</body></html>
