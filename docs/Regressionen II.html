@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Auswertung quantitativer Daten - 9&nbsp; Regressionen II</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./t-Test.html" rel="next">
+<link href="./Regressionen I.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Regressionen II.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Regressionen II</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Auswertung quantitativer Daten</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Herzlich willkommen!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Einleitung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Willkommen zum Kurs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Objekte, Daten, Funktionen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Objekte, Daten, Funktionen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pakete und Datentransformationen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Pakete und Datentransformationen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Skalenniveaus und deskriptive Datenanalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Skalenniveaus und deskriptive Datenanalyse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Hypothesen und Testtheorie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Hypothesen und Testtheorie</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Zusammenhänge zwischen nominalen und ordinalen Variablen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Zusammenhänge zwischen nominalen und ordinalen Variablen: Kreuztabellen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Zusammenhänge zwischen ordinalen und metrischen Variablen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Zusammenhänge zwischen nominalen und ordinalen Variablen: Korrelationen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Regressionen I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regressionen I</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Regressionen II.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Regressionen II</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./t-Test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">t-Test</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link active" data-scroll-target="#vorbereitung"><span class="header-section-number">9.1</span> Vorbereitung</a></li>
+  <li><a href="#multiple-regressionen-mit-nominalem-prädiktor" id="toc-multiple-regressionen-mit-nominalem-prädiktor" class="nav-link" data-scroll-target="#multiple-regressionen-mit-nominalem-prädiktor"><span class="header-section-number">9.2</span> Multiple Regressionen mit nominalem Prädiktor</a></li>
+  <li><a href="#interaktionseffekte" id="toc-interaktionseffekte" class="nav-link" data-scroll-target="#interaktionseffekte"><span class="header-section-number">9.3</span> Interaktionseffekte</a>
+  <ul class="collapse">
+  <li><a href="#was-sind-interaktionseffekte" id="toc-was-sind-interaktionseffekte" class="nav-link" data-scroll-target="#was-sind-interaktionseffekte"><span class="header-section-number">9.3.1</span> Was sind Interaktionseffekte?</a></li>
+  <li><a href="#interaktionseffekte-berechnen" id="toc-interaktionseffekte-berechnen" class="nav-link" data-scroll-target="#interaktionseffekte-berechnen"><span class="header-section-number">9.3.2</span> Interaktionseffekte berechnen</a></li>
+  <li><a href="#interaktionseffekte-visualisieren" id="toc-interaktionseffekte-visualisieren" class="nav-link" data-scroll-target="#interaktionseffekte-visualisieren"><span class="header-section-number">9.3.3</span> Interaktionseffekte visualisieren</a></li>
+  </ul></li>
+  <li><a href="#voraussetzungen" id="toc-voraussetzungen" class="nav-link" data-scroll-target="#voraussetzungen"><span class="header-section-number">9.4</span> Voraussetzungen</a>
+  <ul class="collapse">
+  <li><a href="#welche-voruassetzungen-haben-regressionen" id="toc-welche-voruassetzungen-haben-regressionen" class="nav-link" data-scroll-target="#welche-voruassetzungen-haben-regressionen"><span class="header-section-number">9.4.1</span> Welche Voruassetzungen haben Regressionen?</a></li>
+  <li><a href="#überprüfen-der-voraussetzungen" id="toc-überprüfen-der-voraussetzungen" class="nav-link" data-scroll-target="#überprüfen-der-voraussetzungen"><span class="header-section-number">9.4.2</span> Überprüfen der Voraussetzungen</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Regressionen II</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In diesem Kapitel werden wir auf den Inhalten des letzten Kapitels aufbauen.</p>
+<p>Zum einen haben wir bisher nur metrische Prädiktoren kennengelernt, allerdings auch festgealten, dass es kein vorgeschriebenes Datenniveau für die unabhängigen Variablen gibt. Entsprechend werden wir uns hier ansehen, wie wir den Einfluss von kategorialen und insb. nominalen Variablen untersuchen können.</p>
+<p>Des Weiteren haben wir uns bisher nur mit einfachen Effekten von unabhängigen Variablen beschäftigt. Was aber, wenn der Einfluss einer Variable von einer anderen Variable abhängig ist? In diesem Fall können wir sogenannte <strong>Interaktionseffekte</strong> berechnen, die wir uns in diesem Kapitel ansehen werden.</p>
+<p>Abschließend werden wir noch einen Blick auf die Voraussetzungen von Regressionen werfen und wann bzw. wie Sie diese überprüfen können.</p>
+<section id="vorbereitung" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">9.1</span> Vorbereitung</h2>
+<p>Wir starten wider damit, unsere R-Umgebung vorzubereiten, indem wir das <code>tidyverse</code> und das Paket <code>effectsize</code> laden, den Datensatz einlesen und die Optionen so ändern, dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt das tidyverse</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt effectsize</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Liest die Daten ein</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/lokalkommunikation.csv"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Stellt ein, dass sehr kleine Zahlen normal dargestellt werden</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wir verwenden wieder einige Spalten, die Sie mittlerweile kennen. Auf die entsprechenden Transformationen gehen wir daher nicht erneut ein. Die einzige Änderung zu vorherigen Versionen dieser Transformationen ist, dass wir beim Geschlecht auch den Wert “divers” als fehlend deklarieren. Das liegt ganz einfach daran, dass wir nur sehr wenige Fälle in dieser Gruppe haben und die Interpretation dadurch für dieses Beispiel unnötig kompliziert wird.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benennt die Spalten A202_01 und A202_02 um</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span>  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">interesseLokal =</span> A202_01,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">interesseDE =</span> A202_02,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">geburtsjahr =</span> A601_01)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformiert die Spalten so, dass sie Werte von 0 bis 1 statt 1 bis 101 enthalten.</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">interesseLokalRec =</span> (interesseLokal<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">100</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">interesseDERec =</span> (interesseDE<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">100</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Transfomiert das Geburtsjahr zum Alter. Siehe Kapitel 3 für Details</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">alter =</span> <span class="fu">str_trim</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">str_sub</span>(geburtsjahr, <span class="sc">-</span><span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">as.integer</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">ifelse</span>(geburtsjahr <span class="sc">&lt;</span> <span class="dv">1000</span>, geburtsjahr<span class="sc">+</span><span class="dv">1000</span>, geburtsjahr)) <span class="sc">|&gt;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">alter =</span> <span class="dv">2022</span> <span class="sc">-</span> geburtsjahr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `geburtsjahr = as.integer(geburtsjahr)`.
+Caused by warning:
+! NAs durch Umwandlung erzeugt</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt eine neue Spalte aus der Geschlechtsabfrage. Erst werden die Werte "keine Angabe" und "divers" als fehlend deklariertm dann wird ein Faktor mit den übrigen  Kategorien erstellt</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geschlecht =</span> <span class="fu">ifelse</span>(A602 <span class="sc">==</span> <span class="dv">3</span> <span class="sc">|</span> A602 <span class="sc">==</span> <span class="dv">4</span>, <span class="cn">NA</span>, A602)) <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geschlecht =</span> <span class="fu">factor</span>(geschlecht, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"männlich"</span>, <span class="st">"weiblich"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="multiple-regressionen-mit-nominalem-prädiktor" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="multiple-regressionen-mit-nominalem-prädiktor"><span class="header-section-number">9.2</span> Multiple Regressionen mit nominalem Prädiktor</h2>
+<p>Grundsätzlich können wir nominale Prädiktoren ganz normal dem Regressionsmodell hinzufügen, wie wir es auch bei den metrischen Prädiktoren gemacht haben. Schauen wir uns das einmal an, indem wir die Regression aus dem letzten Kapitel um das Geschlecht als UV erweitern:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet eine Regression mit dem Interesse an lokalen Geschehnissen als AV und dem Alter, dem Interesse an Geschehnissen in Deutschland und dem Geschlecht als UVs</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>lmInteresseLokal <span class="ot">&lt;-</span> <span class="fu">lm</span>(interesseLokalRec <span class="sc">~</span> alter <span class="sc">+</span> interesseDERec <span class="sc">+</span> geschlecht, <span class="at">data =</span> df_lokal)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt die Ergebnisse der Regression an</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmInteresseLokal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = interesseLokalRec ~ alter + interesseDERec + geschlecht, 
+    data = df_lokal)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.89442 -0.07994  0.03707  0.10846  0.50426 
+
+Coefficients:
+                    Estimate Std. Error t value             Pr(&gt;|t|)    
+(Intercept)        0.4019646  0.0209543  19.183 &lt; 0.0000000000000002 ***
+alter              0.0016333  0.0002896   5.639         0.0000000198 ***
+interesseDERec     0.3880690  0.0210399  18.444 &lt; 0.0000000000000002 ***
+geschlechtweiblich 0.0300721  0.0086718   3.468             0.000537 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1811 on 1791 degrees of freedom
+  (51 Beobachtungen als fehlend gelöscht)
+Multiple R-squared:  0.199, Adjusted R-squared:  0.1977 
+F-statistic: 148.4 on 3 and 1791 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+</div>
+</div>
+<p>Wie Sie sehen, haben wir nun eine neue Zeile in der Tabelle über die Effekte, die mit <code>geschlechtweiblich</code> betitelt ist. Die Zeile gibt an, inwiefern sich die abhängige Variable (also das Interesse an loklaen Geschehnissen) ändert, wenn eine befragte Person nicht männlich, sondern weiblich ist. D.h., der positive Effekt in der Zeile <code>geschlechtweiblich</code> bedeutet, dass Frauen ein höheres Interesse an lokalen Geschehnissen haben als Männer.</p>
+<p>Außerdem ändert sich beim Einschluss von kategorialen Prädiktoren die Interpretation der Regressionskontante (<code>Intercept</code>). Im letzten Kapitel haben wir gelernt, dass dieser Wert dem durchschnittlichen Wert der abhängigen Variable entspricht, wenn alle unabhängigen Variablen den Wert 0 annehmen. Das ist grundsätzlich auch weiterhin der Fall, allerdings müssen wir nun beachten, dass dieser Wert nur noch dem Durchschnitt der Männer in der Stichprobe entspricht. Man sagt auch, dass es sich bei der Ausprägung <code>männlich</code> um die <strong>Referenzkategorie</strong> der Variable <code>geschlecht</code> handelt. Am einfachsten erkennen Sie das daran, dass oben in der Tabelle für die Effektstärke die andere Ausprägung (also “weiblich”) aufgeführt sind.</p>
+<p>Werfen wir als nächstes einen Blick auf die standardisierten Effektstärken:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt den standardisierten Koeffizienten beta für die  Prädiktoren an</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">standardize_parameters</span>(lmInteresseLokal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Standardization method: refit
+
+Parameter             | Std. Coef. |         95% CI
+---------------------------------------------------
+(Intercept)           |      -0.08 | [-0.14, -0.02]
+alter                 |       0.12 | [ 0.08,  0.17]
+interesseDERec        |       0.40 | [ 0.36,  0.44]
+geschlecht [weiblich] |       0.15 | [ 0.06,  0.23]</code></pre>
+</div>
+</div>
+<p>Wir sehen einerseits, dass sich die Effektstärken des Alters und des Interesses an Geschehnissen in Deutschland im Vergleich zum Modell aus dem letzten Kapitel leicht geändert haben. Andererseits sehen wir nun auch eine Zeile für den Effekt der Variable <code>geschlecht</code>. Im Video im letzten Kapitel hatten wir festgehalten, dass standardisierte Effekte nur für metrische Prädiktoren sinnvoll angegeben werden können, da sie angeben, um wie viele Standardabweichungen sich die abhängige Variable ändert, wenn sich die entsprechende unabhängige Variable um eine Standardabweichung erhöht. Was bedeutet dieser Effekt also nun? Für nominale Variablen gibt die Funktion weiterhin aus, wie sich die abhängige Variable verändert, wenn sich die nominale Variable um eine Einheit erhöht bzw. verändert (also z.B. weiblich statt männlich). Der Unterschied zur Tabelle der Koeffiziente aus der <code>summary()</code>-Funktion besteht darin, dass die Veränderung hier jetzt nicht mehr einer Veränderung in den Rohdaten entspricht, sondern in Standardabweichungen ausgedrückt wird. Oder anders gesagt: verglichen mit Männern haben Frauen ein um 0,15 Standardabweichungen höheres Interesse an lokalen Geschehnissen.</p>
+<p>Beachten Sie, dass Sie beim Berichten von diesem Effekten ein bisschen Vorsicht walten lassen müssen. Wenn Sie ansonsten nur nicht-standardisierte Effekte berichten, haben Sie zwar kein Problem mit nominalen Prädiktoren, aber möglicherweise sind Ihre Ergebnisse dann etwas schwerer verständlich. Wenn Sie aber alle Effekte von metrischen Variablen in standardisierter Form ausdrücken, sollten Sie Ihren Leserinnen und Lesern unmissverständlich klar machen, dass sich die standardisierung bei den Effekten von nominalen Prädiktoren nur auf die abhängige Variable bezieht.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ordinale Prädiktoren
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Grundsätzlich können Sie ordinale Prädiktoren genauso behandeln wie nominale Prädiktoren. Sollte die ordinale Variable aber viele Ausprägungen haben (z.B. über 10 verschiedene Einkommensgruppen), wird die Interpretation der Ergebnisse schnell sehr komplex. In solchen Fällen kann es sinnvoll sein, entweder die Anzahl der Ausprägungen zu reduzieren (z.B. zu geringen, mittleren und hohen Einkommen) oder die Variable als quasi-metrisch zu behandeln. Sein Sie hierbei aber sehr vorsichtig bei der Interpretation!</p>
+</div>
+</div>
+</section>
+<section id="interaktionseffekte" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="interaktionseffekte"><span class="header-section-number">9.3</span> Interaktionseffekte</h2>
+<section id="was-sind-interaktionseffekte" class="level3" data-number="9.3.1">
+<h3 data-number="9.3.1" class="anchored" data-anchor-id="was-sind-interaktionseffekte"><span class="header-section-number">9.3.1</span> Was sind Interaktionseffekte?</h3>
+<p>Oben im Kapitel haben wir bereits erfahren, dass Interaktionseffekt im Prinzip nichts anderes bedeutet, als dass der Effekt einer Variable von einer anderen abhängig ist. Stellen Sie sich z.B. vor, dass Sie herausfinden möchten, ob das Schauen eines Films mit Alterfreigabe FSK 16 einen Effekt auf die Stimmung von unter 16-Jährigen am nächsten Tag hat. Um den elterlichen Einfluss zu kontrollieren, erheben Sie auch, ob die Eltern im Anschluss an den Film mit ihren Kindern über das Gesehene gesprochen haben. Ein klassischer Interaktionseffekt würde dann vorliegen, wenn Sie zwar einen negativen Effekt des Films auf die Stimmung finden, aber nur in den Fällen, in denen kein Anschlussgespräch stattgefunden hat, wohingegen Kinder, die mit ihren Eltern über den Film gesprochen haben, entweder eine unveränderte oder sogar bessere Stimmung am nächsten Tag aufweisen.</p>
+<p>Mathematisch funktionieren Interaktionseffekte so, dass das Produkt der beiden Variablen in das Modell aufgenommen wird.</p>
+</section>
+<section id="interaktionseffekte-berechnen" class="level3" data-number="9.3.2">
+<h3 data-number="9.3.2" class="anchored" data-anchor-id="interaktionseffekte-berechnen"><span class="header-section-number">9.3.2</span> Interaktionseffekte berechnen</h3>
+<p>Um einen Interaktionseffekt von zwei Variablen zu berechnen, müssen wir nur die Gleichung in unserem Aufruf der <code>lm()</code>-Funktion etwas anpassen. Statt zwei Prädiktoren mit einem <code>+</code> zu verbinden, können wir sie mit einem <code>*</code> verbinden. Das Resultat sehen Sie hier:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet eine Regression mit dem Interesse an lokalen Geschehnissen als AV und dem Alter, dem Interesse an Geschehnissen in Deutschland und dem Geschlecht als UVs. Dabei wird ein Interaktionseffekt zwischen Alter und Geschlecht angenommen.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lmInteraktion <span class="ot">&lt;-</span> <span class="fu">lm</span>(interesseLokalRec <span class="sc">~</span> alter<span class="sc">*</span>geschlecht <span class="sc">+</span> interesseDERec, <span class="at">data =</span> df_lokal)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt die Ergebnisse der Regression an</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmInteraktion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = interesseLokalRec ~ alter * geschlecht + interesseDERec, 
+    data = df_lokal)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.89015 -0.08269  0.03840  0.10593  0.49950 
+
+Coefficients:
+                           Estimate Std. Error t value             Pr(&gt;|t|)    
+(Intercept)               0.3654555  0.0263466  13.871 &lt; 0.0000000000000002 ***
+alter                     0.0023459  0.0004257   5.510         0.0000000411 ***
+geschlechtweiblich        0.0948118  0.0296693   3.196              0.00142 ** 
+interesseDERec            0.3874885  0.0210168  18.437 &lt; 0.0000000000000002 ***
+alter:geschlechtweiblich -0.0012933  0.0005669  -2.281              0.02264 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1809 on 1790 degrees of freedom
+  (51 Beobachtungen als fehlend gelöscht)
+Multiple R-squared:  0.2014,    Adjusted R-squared:  0.1996 
+F-statistic: 112.8 on 4 and 1790 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+</div>
+</div>
+<p>In der Tabelle aus der <code>summary()</code>-Funktion sehen wir jetzt, dass die Effekte des Alters und des Geschlechts (weiblich vs.&nbsp;männlich) weiterhin positiv sind. Diese beiden Effekte werden auch als <strong>Haupteffekte</strong> der beiden Variablen bezeichnet. Wichtig ist, dass diese Effekte in Anwesenheit einer signifikanten Interpretation mit äußester Vorsicht interpretiert werden sollten! Schließlich wissen Sie dann schon, dass die Effekte von der jeweils anderen Variable abhängig sind.</p>
+<p>Die neue Zeile ganz unten (<code>alter:geschlechtweiblich</code>) zeigt den Interaktionseffekt an, der negativ und signifikant ist. Das bedeutet, Frauen haben zwar insgesamt ein höheres Interesse an lokalen Geschehnissen als Männer und ältere Menschen haben ein höheres Interesse als jüngere Menschen, aber je älter die Frauen werden, desto geringer ist ihr Interesse im Vergleich zu älteren Männern.</p>
+<p>Zugegebenermaßen ist diese Interpretation nicht ganz offensichtlich. Bei der Einordnung hilft, sich ins Gedächtnis zu rufen, dass die Effekte immer aussagen, wie sich die abhängige Variable verändert, wenn wir die Werte der unabhängigen Variablen einzeln ändern. Also konkret: der positive Effekt des Alters sagt aus, dass ältere Menschen ein überdurchscnittliches Interesse an lokalen Geschehnissen haben, wenn alle anderen Variablen konstant gehalten werden. Gleiches gilt für Frauen vs.&nbsp;Männer. Der Interaktionseffekt sagt nun aus, wie sich das Interesse verändert, wenn eine Person weiblich statt männlich ist und älter statt jünger. Wir ändern also beide Variablen gleichzeitig und halten nur noch das Interesse an Geschehnissen in Deutschland konstant.</p>
+<p>Der Vollständigkeit halber lassen wir uns auch noch die standardisierten Effektstärken anzeigen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt den standardisierten Koeffizienten beta für die Prädiktoren an</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">standardize_parameters</span>(lmInteraktion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Standardization method: refit
+
+Parameter                     | Std. Coef. |         95% CI
+-----------------------------------------------------------
+(Intercept)                   |      -0.09 | [-0.15, -0.03]
+alter                         |       0.18 | [ 0.11,  0.24]
+geschlecht [weiblich]         |       0.15 | [ 0.07,  0.24]
+interesseDERec                |       0.40 | [ 0.36,  0.44]
+alter × geschlecht [weiblich] |      -0.10 | [-0.18, -0.01]</code></pre>
+</div>
+</div>
+</section>
+<section id="interaktionseffekte-visualisieren" class="level3" data-number="9.3.3">
+<h3 data-number="9.3.3" class="anchored" data-anchor-id="interaktionseffekte-visualisieren"><span class="header-section-number">9.3.3</span> Interaktionseffekte visualisieren</h3>
+<p>Eine einfache Möglichkeit, Interaktionseffekte zu verstehen ist, sie zu visualisieren. Dazu nutzen wir die Funktion <code>interact_plot()</code> aus dem Paket <code>interactions</code>, das wir zunächst noch installieren müssen.</p>
+<p>Die Funktion erstellt basierend auf ggplot() eine Grafik, nimmt uns dabei aber viel manuelle Arbeit ab. Der Nachteil ist, dass wir etwas weniger Möglichkeiten haben, die Grafik individuell anzupassen.</p>
+<p>Grundsätzlich reicht es, der Funktion einige wenige Argumente zu übergeben:</p>
+<ol type="1">
+<li>Das Modell, das wir zuvor mit <code>lm()</code> geschätzt haben.</li>
+<li>Den Prädiktor, den wir auf der x-Achse darstellen wollen. Das Argument heißt <code>pred</code>. Hier nehmen wir das Alter.</li>
+<li>Den Moderator, den wir im Argument <code>modx</code> angeben. Hier also das Geschlecht.</li>
+</ol>
+<p>Außerdem geben wir einige weitere Argumente an, durch die das Resultat noch etwas besser wird:</p>
+<ol start="4" type="1">
+<li>Durch <code>interval = TRUE</code> können wir Konfidenzintervalle einzeichnen, wodurch die mit der Schätzung verbundene Unsicherheit visualisiert wird.</li>
+<li>Mit <code>x.label</code> und <code>y.label</code> können wir die Achsen manuell beschriften.</li>
+<li>Mit l<code>egend.main</code> können wir den Titel der Legende anpassen.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Versucht das Paket "interactions" zu laden. Falls es nicht installiert ist, wird es erst installiert und dann geladen</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(interactions)){</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"interactions"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(interactions)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: interactions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Paket 'interactions' wurde unter R Version 4.4.2 erstellt</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt das Objekt "plotInteraktion", in dem die Interaktion visualisiert wird</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plotInteraktion <span class="ot">&lt;-</span> <span class="fu">interact_plot</span>(lmInteraktion, <span class="at">pred =</span> alter, <span class="at">modx =</span> geschlecht, <span class="at">interval =</span> <span class="cn">TRUE</span>, <span class="at">x.label =</span> <span class="st">"Alter"</span>, <span class="at">y.label =</span> <span class="st">"Interesse an lokalen Geschehnissen"</span>, <span class="at">legend.main =</span> <span class="st">"Geschlecht"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt die Grafik an</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plotInteraktion</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regressionen-II_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Die Grafik zeigt nun relativ eindeutig, dass jüngere Frauen ein deutlich höheres Interesse haben als jüngere Männer. Dafür ist der Effekt für Männer dann stäker, sprich, die Gerade ist deutlich steiler. Daraus resltiert dann, dass ältere Männer ein etwas höheres Interesse an lokalen Geschehnissen haben, wobei sich die beiden Gruppen im hohen Alter nur noch geringfügig unterscheiden.</p>
+</section>
+</section>
+<section id="voraussetzungen" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="voraussetzungen"><span class="header-section-number">9.4</span> Voraussetzungen</h2>
+<p>In diesem Teil wird es zwsichendurch ziemlich komplex, daher vorab das für Sie Wichtigste: Die meisten Voraussetzungen von Regressionen können wir in den meisten Fällen ignorieren! Lesen Sie die ersten beiden Aufmerksam durch, auch Nummer 3 ist noch gut zu wissen. Alles danach sollten Sie auch lesen, aber machen Sie sich keine Sorgen, wenn Sie dabei nicht mehr ganz mitkommen. Fragen dürfen Sie natürlich trotzdem immer!</p>
+<section id="welche-voruassetzungen-haben-regressionen" class="level3" data-number="9.4.1">
+<h3 data-number="9.4.1" class="anchored" data-anchor-id="welche-voruassetzungen-haben-regressionen"><span class="header-section-number">9.4.1</span> Welche Voruassetzungen haben Regressionen?</h3>
+<p>Schauen wir uns abschließend an, welche Voraussetzungen die Regressionsanalyse hat. Vorweg: Dieser Teil kann etwas abschreckend sein, aber die gute Nachricht ist, dass es in vielen Fällen reicht, die Voraussetzungen im Hinterkopf zu haben. Und noch ein Disclaimer: Dieser Teil basiert in weiten Teilen auf Kapitel 11.1 auf einem Lehrbuch von Gelman, Hill und Vethari, das <a href="https://avehtari.github.io/ROS-Examples/">online verfügbar</a> ist.</p>
+<p>Die zwei wichtigsten Voraussetzungen haben relativ wenig mit der eigentlichen Statistik zu tun:</p>
+<ol type="1">
+<li>Die Daten müssen <strong>valide</strong> sein. Der Begriff ist Ihnen wahrscheinlich schon aus dem Studium bekannt. Wir verstehen darunter die Frage, ob die Daten (bzw. die Datenerhebung) wirklich das Messen, was sie messen sollen. Im Kontext von Regressionen (und den anderen Verfahren, die wir noch kennenlernen werden!) bedeutet es aber auch, dass unser Modell als Ganzes eine gute Repräsentation des zu untersuchenden Sachverhalts sein sollte. Ganz konkret sollten z.B. alle relevanten Prädiktoren berücksichtigt werden. Das ist in der Praxis gar nicht immer so einfach, allein schon deshalb, weil oftmals vor der Datenerhebung gar nicht klar ist, welche Konstrukte relevat sein könnten. Aber es ist immer gut, diese Frage im Hinterkopf zu haben und ggf. bei der Interpretation der Ergebnisse zu berücksichtigen.</li>
+<li>Immer, wenn wir eine Regression berechnen, versuchen wir basierend auf Daten einer Stichprobe Schlüsse über eine Grundgesamtheit zu ziehen. Damit diese Schlüsse zulässig sind, müssen unsere Daten <strong>repräsentativ</strong> sein. Wichtig ist, dass für die Regression nicht die Stichprobe selbst ein repräsentatives Abbild der Grundgesamtheit sein muss, sondern vielmehr die gemessene Verteilung der abhängigen Variable, die in Abhängigkeit der aller unabhänggen Variablen der Grundgesamtheit entsprechen muss. Wenn wir beispielsweise die Größe von Befragten durch ihr Geschlecht und ihre Ernährungsgewohnheiten während der Kindheit erklären wollen, wäre es völlig in Ordnung, wenn Frauen oder vegan ernährte Kinder überrepräsentiert wären. Allerdings hätten wir ein Problem, wenn überdurchschnittlich viele große Menschen in unserer Stichprobe enthalten wären. Ein Problem, dass wir in diesem Kontext immer mal wieder haben ist, dass es schwer bis unmöglich sein kann, die Grundgesamtheit überhaupt zu bestimmen. Das ist z.B. immer dann der Fall, wenn Sie Ihre Stichprobe über persönliche Kontakte und/oder soziale Medien rekrutieren. Allen Ergebnissen, die Sie berechnen, liegt dann die Annahme zu Grunde, dass die gemessenen Daten auf die Grundgesamtheit, an der Sie interessiert sind, übertragbar sind.</li>
+</ol>
+<p>Daneben gibt es einige Voraussetzungen, die auch im strengeren Sinne statistischer Natur sind.</p>
+<ol start="3" type="1">
+<li>Regressionsmodell müssen <strong>linear</strong> sein. Darüber haben wir bereits im Kontext von Korrelationen gesprochen. Sollten Sie z.B. einmal einen solchen Zusammenhang sehen, können Sie relativ leicht erkennen, dass es sich nicht um einen linearen Zusammenhang handelt. In diesem Fall würden wir eher von einem quadratischen Zusammenhang sprechen. In solchen Fällen haben Sie zwei Möglichkeiten: Entweder Sie transformieren eine der Variablen (üblicherweise die unabhängige Variable) oder sie wählene ein anderes Verfahren (das Sie in dieser Veranstaltung allerdings nicht lernen).</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regressionen-II_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Die Effekte in Regressionsmodellen müssen <strong>additiv</strong> sein. Das heißt, wir gehen davon aus, dass die abhängige Variable am besten dadurch erklärt werden kann, dass wir die unabhängigen Variablen addieren, also nach dem Schema: y = x + z. Das ist eine durchaus starke Annahme. Genauso gut wäre es schließlich denkbar, dass die abhängige Variable das Ergebnis des Produkts von zwei Variablen ist, also: y = x*z. In der Realität kann das schwer zu erkennen sein, aber zum Glück können wir es relativ leicht berücksichtigen. Schließlich haben wir oben festgestellt, dass eine Interaktion nichts anderes ist, als das Produkt von zwei Prädiktoren.</li>
+<li>Die <strong>Schätzfehler</strong> (oder Residuen) müssen <strong>unabhängig</strong> voneinander sein. Das bedeutet, dass die Abweichung eines gemessenen Wertes vom in der Regression geschätzen Wert in einem Fall (also z.B. einem ausgefüllten Befragungsbogen) keinen Einfluss auf die Abweichung in einem anderen Fall (also einem anderen ausgefüllten Fragebogen) haben darf. In den aller meisten Fällen können Sie davon ausgehen, dass diese Voraussetzung erfüllt ist. In anderen Fällen ist es dagegen sehr offensichtlich, dass dies nicht der Fall ist, z.B. wenn Sie dieselben Personen immer wieder befragen und davon ausgehen müssen, dass die Antworten aus der ersten Befragungswelle und die Antworten aus der zweiten Welle nicht unabhängig voneinander sind. In anderen Fällen entsteht eine Abhängigkeit durch das Erhebungssetting. Wenn Sie beispielsweise mehrere Schulklassen untersuchen, ist es gut möglich, dass die Daten aus den jeweiligen Klassen nicht unabhängig voneinander sind, etwa weil die zuständige Lehrkraft einen Einfluss ausübt. In solchen Fällen sollten Sie keine Regression anwenden.</li>
+<li>Die <strong>Schätzfehler</strong> sollten eine <strong>gleichmäßige Streuung</strong> aufweisen. Das bedeutet, dass die durchschnittliche Abweichung der gemessenen Werte von den im Modell geschätzten Werten unabhängig davon sein sollte, welchen Wert ein Prädiktor hat. Im Bild unten sehen Sie, wie das aussehen könnte: Je kleiner die Werte von x, ddesto näher liegen sie, im Durchschnitt, an der Linie. Die höheren Werte sind dagegen deutlich weiter um die Linie herum gestreut. Man spricht in so einem Fall auch von <strong>Heteroskedastizität</strong>. Die gute Nachricht ist, dass Sie sich nicht wirklich um Heteroskedastizität sorgen müssen, sofern Sie nur daran interessiert sind, gemessene Daten zu erklären und nicht das Ziel haben, Werte zu prognostizieren bzw. vorherzusagen.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regressionen-II_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="7" type="1">
+<li>Die <strong>Schätzfehler</strong> sollten <strong>normalverteilt</strong> sein. In der Ausgabe der <code>summary()</code>-Funktion haben wir im letzten Kapitel kurz über die Zusammenfassung der Residuen gesprochen. Wie Sie dort sehen, werden Minimal- und Maximalwerte sowie Quartile und der Median dort abgebildet. Was dort leider nicht steht, sind Mittewert und Standardabweichung der Schätzfehler, die wir aber händisch berechnen könnten (aber zum Glück nur sehr selten müssen!). Was wir aber grundsätzlich aus der Angabe lernen ist, dass diese Schätzfehler irgendwie verteilt sind. Und diese Verteilung sollte normal sein, also durch eine Glockenkurve beschrieben werden können. Diese Voraussetzung wird in manchen Lehrbüchern und Online-Ressourcen fälschlicherweise angegeben als Normalverteilung der abhängigen Variable. Das ist nicht der Fall! Die Regression stellt keinerlei Anforderungen daran, wie diese Variable verteilt sein muss. Und es wird noch besser: Wie im Fall der <strong>Heteroskedastizität</strong> ist diese Voraussetzung nicht wirklich relevant, wenn Sie nur erhobene Daten erklären wollen und keine Vorhresagen basierend auf Ihrem Modell treffen wollen!</li>
+<li>Die unabhängigen Varialen sollten nicht (zu stark) korrelieren. Man spricht hier auch von einer möglichst geringen <strong>Kollinearität</strong> oder auch <strong>Multikollinearität</strong>. Liegt diese vor, also korrelieren die Prädiktoren stark miteinander, ist die Schätzung der Effektstärken mit mehr Unsicherheit verbunden, d.h., die Standardfehler und darauf basierend die Konfidenzintervalle werden größer. Das ergibt auch irgendwie Sinn, wenn man mal darüber nachdenkt: Eine Korrelation bedeutet am Ende nichts anderes, als dass zwei Variablen dieselben Informationen enthalten. Je mehr Sie über die eine wissen, desto mehr wissen Sie bei einer starken Korrelation auch über die andere. Wenn Sie nun hergehen wollen und basierend auf zwei stark korrelierenden Variablen eine abhängige Variable erklären wollen, gibt es schlicht keine Möglichkeit, mit Sicherheit zu sagen, welche der beiden Variablen für einen etwaigen Effekt verantwortlich ist. Die Schätzung enthält also viel Unsicherheit. Das muss aber nicht unbedingt ein Problem sein, sondern ist ein völlig legitimes Forschungsergebnis! Im Spezialfall von Interaktionseffekten würden wir sogar mit einer hohen Kollinearität rechnen und brauchen uns darum keine Sorgen zu machen. Nur in sehr seltenen Fällen kann es vorkommen, dass eine Regression aufgrund sehr starker Multikollinearität nicht geschätzt werden kann. In solchen Fällen müssten Sie dann eine der Variablen aus dem Modell ausschließen.</li>
+</ol>
+</section>
+<section id="überprüfen-der-voraussetzungen" class="level3" data-number="9.4.2">
+<h3 data-number="9.4.2" class="anchored" data-anchor-id="überprüfen-der-voraussetzungen"><span class="header-section-number">9.4.2</span> Überprüfen der Voraussetzungen</h3>
+<p>Wie oben angedeutet, reicht es in den allermeisten Fällen, die Voraussetzungen im Hinterkopf zu haben. Falls Sie doch einmal in die Situation geraten, einzelne Voraussetzungen überprüfen zu wollen, können Sie dafür das <code>performance</code>-Paket nutzen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Versucht das Paket "performance" zu laden. Falls es nicht installiert ist, wird es erst installiert und dann geladen</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(performance)){</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"performance"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(performance)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: performance</code></pre>
+</div>
+</div>
+<p>Dieses Paket enthält eine Vielzahl von Funktionen, mit denen Sie Regressionsmodelle überprüfen können. Das Schema ist dabei immer gleich: Sie müssen der entsprechenden Funktion lediglich berechnete Modell übergeben. Oftmals bietet es sich an, dabei visuell vorzugehen und die Funktionen innerhalb von <code>plot()</code> aufzurufen. Hier einige Beispiele. Fangen mit der Heteroskedastizität an:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Überprüft, ob Heteroskedastizität vorliegt und stellt das Ergebnis visuell dar</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">check_heteroscedasticity</span>(lmInteraktion))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regressionen-II_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hier sehen wir die Streuung der Schätzfehler. Freundlicherweise sagt uns die Funktion, wie das Ergebnis aussehen sollte. So erkennen wir gleich, dass wir die Voraussetzung nicht erfüllen. Aber da wir keine Vorhersagen treffen wollen, ist das nicht so schlimm.</p>
+<p>Weiter geht es mit der Normalverteilung der Residuen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Überprüft, ob die Residuen normalverteilt sind und stellt das Ergebnis dar</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">check_normality</span>(lmInteraktion))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>For confidence bands, please install `qqplotr`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regressionen-II_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Zum selben Resultat gelangen wir hier. Die Funktion sagt uns, dass die Punkte der Linie folgen sollten, was allerdings nicht der Fall ist. Aber da wir keine Vorhersagen treffen wollen, ist auch das kein Problem.</p>
+<p>Werfen wir abschließend einen Blick auf die (Multi-)Kollinearität:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Überprüft, ob Kollinearität vorliegt und stellt das Ergebnis visuell dar</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">check_collinearity</span>(lmInteraktion))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Model has interaction terms. VIFs might be inflated.
+  You may check multicollinearity among predictors of a model without
+  interaction terms.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Variable `Component` is not in your data frame :/</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Regressionen-II_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hier wird der sogannte <strong>Variance Inflation Faktor</strong>, kurz <strong>VIF</strong>, abgebildet. Er gibt an, wie stark die Korrelation zwischen den Prädiktoren ist. Werte über 10 gelten als problematisch (aber siehe oben!). Das ist hier für das Alter und die Interaktion aus Alter und Geschlecht der Fall. Nur: Es ist ja vollkommen logisch, dass die beiden Variablen stark korrelieren, denn die Interaktion ist nichs anderes als Alter*Geschlecht (wobei männlich = 0 und weiblich = 1)! Alles alles in bester Ordnung.</p>
+<p>Sie können auch die <code>check_model()</code>-Funktion verwenden, in der die drei Tests oben plus einige weitere durchgeführt und dargestellt werden. Das Ergebnis wird aber schnell unübersichtlich, daher machen wir es hier nicht.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Regressionen I.html" class="pagination-link" aria-label="Regressionen I">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regressionen I</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./t-Test.html" class="pagination-link" aria-label="t-Test">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">t-Test</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
