@@ -64,6 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./Reliabilität.html" rel="next">
 <link href="./t-Test.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -209,6 +210,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./ANOVA.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Varianzanalyse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reliabilität.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Reliabilität</span></span></a>
   </div>
 </li>
     </ul>
@@ -407,24 +414,27 @@ Mittelwertzentrierung
 <div class="callout-body-container callout-body">
 <p>Eine Variabl zu zentrieren bedeutet, ihren Mittelwert auf 0 zu setzen. Das geht, indem der Mittelwert von jeder einzelnen Beobachtung abgezogen wird. Wenn wir z.B. einen Vektor haben, der die Zahlen von 0 bis 100 enthält, hat dieser Vektor den Mittelwert 50:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>zahlen <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlen)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt einen Vektor aus den Zahlen von 1 bis 100 und zeigt den Mittelwert an</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>zahlen <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlen)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 50</code></pre>
 </div>
 </div>
 <p>Wir können diesen Vektor zentrieren, indem wir von jedem Element den Mittelwert abziehen. Der neue Mittelwert ist dann 0:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>zahlenZentriert <span class="ot">&lt;-</span> zahlen<span class="dv">-50</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlenZentriert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># händische Zentrierung des Vektors</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>zahlenZentriert <span class="ot">&lt;-</span> zahlen<span class="dv">-50</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlenZentriert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
 </div>
 <p>Glücklicherweise hat R eine Funktion, die diesen Prozess für uns übernimmt. Sie heißt <code>scale()</code> . Die Funktion nimmt immer einen Vektor (entweder so wie hier oder z.B. eine Spalte aus einem Datensatz) als erstes Argument. Zwei weitere Argumente sind <code>center</code> und <code>scale</code>, die beide automatisch als <code>TRUE</code> angenommen werden, sofern wir nichts anderes angeben. <code>center</code> bedeutet, dass der Mittelwert subtrahiert wird. <code>scale</code> bedeutet, dass die Beobachtungen zusätzlich durch die Standardabweichung aller Beobachtungen geteilt werden. Das Ergebnis ist dann nicht mehr eine zentrierte Variable, sondern eine <em>normalisierte</em>, die den Mittelwert 0 und die Standardabweichung 1 hat. Wenn Sie eine ANCOVA berechnen, sollten Sie für metrische Variablen vorher unbedingt diese Funktion anwenden!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>zahlenScale <span class="ot">&lt;-</span> <span class="fu">scale</span>(zahlen)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlenScale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nutzt die Funktion scale(), um den Vektor zu normalisieren</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>zahlenScale <span class="ot">&lt;-</span> <span class="fu">scale</span>(zahlen)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlenScale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
@@ -484,7 +494,8 @@ Confidence level used: 0.95 </code></pre>
 <p>Im Kontext von ANOVAS wird oft eine Visualisierung verwendet, die wir ganz am Ende von Kapitel 4 schon mal kennengelernt haben: Dort haben wir die Mittelwerte und Standardabweichungen von Gruppenmittelwerten geplottet. Hier machen wir im Prinzip das gleiche, nur dass wir nicht die Standardabweichungen, sondern die 95%-Konfidenzintervalle der Mittelwerte visualisieren. Außerdem müssen wir anders als in Kapitel 4 berücksichtigen, dass wir nun zwei Gruppierungsvariablen haben.</p>
 <p>Zuerst erstellen wir ein Objekt, in dem wir die Informationen aus der <code>emmeans()</code>-Funktion speichern. Da diese Funktion ein etwas komplexeres Format zurückgibt, nutzen wir dazu die Funktion <code>as.data.frame()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>MWsCIs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(model, <span class="at">specs =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wandelt die Ausgabe von emmeans() in einen Datensatz um und speichtert diesen in einem Objekt namens MWsCIs</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>MWsCIs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(model, <span class="at">specs =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Damit können wir nun einen Plot erstellen. Verglichen mit dem Plot aus Kapitel 4 ergänzen wir hier nur das Argument <code>color</code> innerhalb der <code>aes()</code>-Funktion, um das Lokalzeitungsabo darzustellen.</p>
 <div class="cell">
@@ -960,6 +971,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./Reliabilität.html" class="pagination-link" aria-label="Reliabilität">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Reliabilität</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
