@@ -237,7 +237,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#fälle-mit-zu-vielen-fehlenden-werten-aussortieren" id="toc-fälle-mit-zu-vielen-fehlenden-werten-aussortieren" class="nav-link" data-scroll-target="#fälle-mit-zu-vielen-fehlenden-werten-aussortieren"><span class="header-section-number">13.2</span> Fälle mit zu vielen fehlenden Werten aussortieren</a></li>
   <li><a href="#bearbeitungszeiten-überprüfen" id="toc-bearbeitungszeiten-überprüfen" class="nav-link" data-scroll-target="#bearbeitungszeiten-überprüfen"><span class="header-section-number">13.3</span> Bearbeitungszeiten überprüfen</a></li>
   <li><a href="#offene-antworten-überprüfen" id="toc-offene-antworten-überprüfen" class="nav-link" data-scroll-target="#offene-antworten-überprüfen"><span class="header-section-number">13.4</span> Offene Antworten überprüfen</a></li>
-  <li><a href="#umbenennen-beschriften-und-umcodieren" id="toc-umbenennen-beschriften-und-umcodieren" class="nav-link" data-scroll-target="#umbenennen-beschriften-und-umcodieren"><span class="header-section-number">13.5</span> Umbenennen, Beschriften und Umcodieren</a></li>
+  <li><a href="#umbenennen-beschriften-umcodieren-und-berechnen" id="toc-umbenennen-beschriften-umcodieren-und-berechnen" class="nav-link" data-scroll-target="#umbenennen-beschriften-umcodieren-und-berechnen"><span class="header-section-number">13.5</span> Umbenennen, Beschriften, Umcodieren und Berechnen</a>
+  <ul class="collapse">
+  <li><a href="#umbenennen" id="toc-umbenennen" class="nav-link" data-scroll-target="#umbenennen"><span class="header-section-number">13.5.1</span> Umbenennen</a></li>
+  <li><a href="#beschriften" id="toc-beschriften" class="nav-link" data-scroll-target="#beschriften"><span class="header-section-number">13.5.2</span> Beschriften</a></li>
+  <li><a href="#umcodieren" id="toc-umcodieren" class="nav-link" data-scroll-target="#umcodieren"><span class="header-section-number">13.5.3</span> Umcodieren</a></li>
+  <li><a href="#variablen-neu-berechnen" id="toc-variablen-neu-berechnen" class="nav-link" data-scroll-target="#variablen-neu-berechnen"><span class="header-section-number">13.5.4</span> Variablen neu berechnen</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -283,7 +289,7 @@ Warning
 <li>Das Aussortieren von Fällen mit zu vielen fehlenden Werten</li>
 <li>Die Überprüfung von Bearbeitungszeiten</li>
 <li>Die Überprüfung von offenen Antworten</li>
-<li>Das Umbenennen, Beschriften und Umcodieren von Variablen</li>
+<li>Das Umbenennen, Beschriften, Umcodieren und Berechnen von Variablen</li>
 </ol>
 <p>Die meisten Funktionen kennen Sie schon aus anderen Kapiteln, aber ein paar werden wir auch neu kennenlernen.</p>
 <section id="daten-exportieren" class="level2" data-number="13.1">
@@ -330,13 +336,11 @@ Warning
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filtert alle Fälle aus, die einen fehlenden Wert bei der AV haben</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In anderen Situationen kann es sinnvoll sein, Fälle auszuschließen, die insgesamt zu viele fehlende Werte aufweisen, z.B. 50 Prozent aller Antworten. Hierzu müssen Sie erst die Gesamtanzahl an fehlenden Werten berechnen. Dazu nutzen wir zunächst rowwise(), um im darauffolgenden <code>mutate()</code> einen Wert pro Person zu berechnen. In diesem <code>mutate()</code>-Aufruf berechnen wir die neue Spalte <code>summeNAs</code>. Dazu nutzen wir die <code>rowSums()</code>-Funktion. Jetzt wird es etwas komplexer: innerhalb von <code>rowSums()</code> rufen wir <code>is.na()</code> auf, denn wir wollen ja wissen, wie viele fehlende Werte es gibt. Damit R weiß, auf welche Spalten wir uns dabei beziehen, rufen wir innerhalb von <code>is.na()</code> die Funktion across() auf, der wir dann einen Vector übergeben, der die Spalten enthält. Diesen Vektor können wir entweder mit <code>c()</code> erstellen, oder in dem wir die erste und letzte Spalte mit einen Doppelpunkt verbinden (siehe Kapitel 2). Nach diesem <code>mutate()</code>-Aufruf nutzen wir <code>ungroup()</code>, sodass wir uns wieder auf den gesamten Datensatz beziehn und nicht die einzelnen Zeilen und können dann mit <code>filter()</code> alle Fälle ausschließen, die die von uns gewünschte Mindestzahl an gültigen Antworten nicht erreichen.</p>
+<p>In anderen Situationen kann es sinnvoll sein, Fälle auszuschließen, die insgesamt zu viele fehlende Werte aufweisen, z.B. 50 Prozent aller Antworten. Hierzu müssen Sie erst die Gesamtanzahl an fehlenden Werten berechnen. Dazu nutzen wir <code>mutate()</code>. In diesem <code>mutate()</code>-Aufruf berechnen wir die neue Spalte <code>summeNAs</code>. Dazu nutzen wir die <code>rowSums()</code>-Funktion. Jetzt wird es etwas komplexer: innerhalb von <code>rowSums()</code> rufen wir <code>is.na()</code> auf, denn wir wollen ja wissen, wie viele fehlende Werte es gibt. Damit R weiß, auf welche Spalten wir uns dabei beziehen, rufen wir innerhalb von <code>is.na()</code> die Funktion across() auf, der wir dann einen Vector übergeben, der die Spalten enthält. Diesen Vektor können wir entweder mit <code>c()</code> erstellen, oder in dem wir die erste und letzte Spalte mit einen Doppelpunkt verbinden (siehe Kapitel 2). Mit <code>filter()</code> können wir dann alle Fälle ausschließen, die die von uns gewünschte Mindestzahl an gültigen Antworten nicht erreichen.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet die Anzahl der fehlenden Werte pro Person und schließt alle Fälle aus, die weniger als eine zuvor spezifizierte Anzhal gültiger Antworten haben</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">summeNAs =</span> <span class="fu">rowSums</span>(<span class="fu">is.na</span>(<span class="fu">across</span>(ersteSpalte<span class="sc">:</span>letzteSpalte)))) <span class="sc">|&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(summeNAs <span class="sc">&lt;=</span> zielwert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">summeNAs =</span> <span class="fu">rowSums</span>(<span class="fu">is.na</span>(<span class="fu">across</span>(ersteSpalte<span class="sc">:</span>letzteSpalte)))) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(summeNAs <span class="sc">&lt;=</span> zielwert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -366,7 +370,7 @@ Warning
 <code>unique()</code>, um alle Antworten zu sehen, die mindestens einmal angegeben wurden.</p>
 <p>Beide Funktionen sind insbesondere dann sinnvoll, wenn Sie erstmal einen Überblick darüber bekommen wollen, was Ihre Befragten eigentlich in das offene Feld geschrieben haben.</p>
 <p>Eine hilfreiche Funktion zum umcodieren von offenen Antworten ist <code>case_when()</code>. Damit können wir Werte immer dann verändern, wenn eine bestimmte Bedingung zutrifft. Diese Funktion wird innerhalb von <code>mutate()</code> aufgerufen. Konkret geben wir die Bedingung an (z.B. in Form eines Vergleichs) und schreiben dann hinter eine Tile (<code>~</code>), welchen Wert die neue Spalte (die wir mit <code>mutate()</code> anlegen) annehmen soll, falls die Bedingung zutrifft. Durch ein Komma können wir mehrere Bedingungen nacheinander prüfen und mit dem Argument <code>.default</code> können wir angeben, welcher Wert standardmäßig vergeben werden soll. Hierbei kann es sich um einen festen Wert handeln, aber auch eine Variable, die in einer anderen Spalte gespeichert ist.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nutzt case_when(), um eine fiktive Sonntagsfrage umzucodieren}</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nutzt case_when(), um eine fiktive Sonntagsfrage umzucodieren</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sonntagNeu =</span> <span class="fu">case_when</span>(</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    sonntagAusgang <span class="sc">==</span> <span class="st">"Tierschuttpartei"</span> <span class="sc">~</span> <span class="st">"Tierschutzpartei"</span>,</span>
@@ -374,20 +378,65 @@ Warning
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> sonntagAusgang</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="umbenennen-beschriften-und-umcodieren" class="level2" data-number="13.5">
-<h2 data-number="13.5" class="anchored" data-anchor-id="umbenennen-beschriften-und-umcodieren"><span class="header-section-number">13.5</span> Umbenennen, Beschriften und Umcodieren</h2>
+<section id="umbenennen-beschriften-umcodieren-und-berechnen" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="umbenennen-beschriften-umcodieren-und-berechnen"><span class="header-section-number">13.5</span> Umbenennen, Beschriften, Umcodieren und Berechnen</h2>
 <p>Die letzten Aspekte, die zu jeder Datenaufbereitung gehöhren, kennen Sie mittlerweise zur Genüge.</p>
+<section id="umbenennen" class="level3" data-number="13.5.1">
+<h3 data-number="13.5.1" class="anchored" data-anchor-id="umbenennen"><span class="header-section-number">13.5.1</span> Umbenennen</h3>
 <p>Mit <code>rename()</code> können Sie Spalten umbennen. Denken Sie daran, dass Sie mehrere Spalten auf einen Schlag umbenennen können, indem Sie die Kombinationen aus neuen und alten Namen mit einem Komma trennen. Beachten Sie auch, dass ein <code>rename()</code>-Befehl nur einmal ausgeführt werden kann, nachdem der Datensatz geladen wurde. Im Anschluss erkennt R die alten Namen nicht mehr und wird einen Fehler ausgeben. Im Zweifel lesen Sie den Datensatz einfach noch mal ein!</p>
+</section>
+<section id="beschriften" class="level3" data-number="13.5.2">
+<h3 data-number="13.5.2" class="anchored" data-anchor-id="beschriften"><span class="header-section-number">13.5.2</span> Beschriften</h3>
 <p>Mit <code>factor()</code> können Sie nominale und ordinale Daten beschriften. Achten Sie darauf, dass Sie wirklich nur solche Daten beschriften! Eine Frage die mit <code>"stimme überhaupt nicht zu", "stimme eher nicht zu", "teils-teils", "stimme eher zu" oder "stimme voll und ganz zu"</code> beantwortet wurde und die Sie als metrische AV verwenden wollen, sollte nicht beschriftet werden!</p>
+</section>
+<section id="umcodieren" class="level3" data-number="13.5.3">
+<h3 data-number="13.5.3" class="anchored" data-anchor-id="umcodieren"><span class="header-section-number">13.5.3</span> Umcodieren</h3>
 <p>Das Umcodieren von Variablen ist in zwei Fällen sinnvoll:</p>
 <ol type="1">
 <li>Wenn Sie eine Skala verwendet haben, bei die Items unterschiedlich gepolt sind. Also z.B. wenn hohe Werte in einigen Items ausdrücken, dass jemand eine bestimmte Einstellung sehr stark vertritt, während für andere Items niedrige Werte genau das angeben.</li>
 <li>Wenn Sie möchten, dass hohe oder niedrige Werte eine bestimmte Bedeutung haben (z.B. starke Zustimmung = hoch).</li>
 </ol>
 <p>In beiden Fällen können Sie <code>mutate()</code> nutzen, um eine recodierte Version des Items zu berechnen. Die Formel dazu haben Sie in Kapitel 12 schon mal kennengelernt. Ganz grundsätzlich können Sie bei metrischen Items nach folgendem Schema vorgehen: <code>mutate(itemRecodiert = item*-1+x)</code>, wobei x der Anzahl der Antwortoptionen +1 entspricht (also z.B. 5+1 bei einer 5er-Skala oder 7+1 bei einer 7er-Skala).</p>
-<p>Natürlich gibt es auch viele Fälle, in denen es nötig sein kann, nicht metrische Variablen umzucodieren. Was ganz konkret zu tun ist, hängt jeweils von Ihren Daten und wie Sie diese auswerten wollen ab. Falls Sie mal vor einem Problem stehen, dessen Lösung Sie in diesem Kurs nicht kennengelernt haben, versuchen Sie sich ruhig mal an Google oder ChatGPT (bzw. dem Chatbot Ihrer Wahl). Für Google gilt: versuchen Sie Ihr Problem möglichst kurz und bündig zusammenzufassen, also z.B.: “Werte zu NAs umcodieren R”. Falls Sie einen Chatbot nutzen, versuchen Sie dagegen möglichst konkret zu werden. Beschreiben Sie Ihren Datensatz bzw. die Variable, die Sie umcodieren möchten und geben Sie vor allem sehr genau an, was am Ende herauskommen soll!</p>
+<p>Natürlich gibt es auch viele Fälle, in denen es nötig sein kann, nicht metrische Variablen umzucodieren. Ein relativ häufiger Fall ist das Zusammenfassen von Ausprägungen. Das ist immer dann sinnvoll, wenn Sie sehr vielfältige Antwortoptionen vorgegeben haben, von denen dann viele nur sehr selten angekreuzt wurden. Auch hier können Sie die <code>case_when()</code>-Funktion verwenden, die Sie oben bereits kennengelernt haben. Das nachfolgende Beispiel zeigt, wie der Code aussehen würde, wenn Sie von insgesamt 10 Ausprägungen 4 zusammenfassen würden:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nutzt case_when(), um Antwortoptinen einer fiktive Abfrage zusammenzufassen</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variableZusammengefasst =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    ausgangsVariable <span class="sc">==</span> <span class="st">"Ausprägung 1"</span> <span class="sc">~</span> <span class="st">"Ausprägung 2"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    ausgangsVariable <span class="sc">==</span> <span class="st">"Ausprägung 3"</span> <span class="sc">~</span> <span class="st">"Ausprägung 4"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    ausgangsVariable <span class="sc">==</span> <span class="st">"Ausprägung 5"</span> <span class="sc">~</span> <span class="st">"Ausprägung 6"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    ausgangsVariable <span class="sc">==</span> <span class="st">"Ausprägung 7"</span> <span class="sc">~</span> <span class="st">"Ausprägung 8"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> ausgangsVariable</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Natürlich geht das auch mit Variablen, die in Zahlenform vorliegen. Und wie konkret Sie die Werte zusammenfassen hängt immer davon ab, was Sie eigentlich erhoben haben und was Sie damit auswereten wollen.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nutzt case_when(), um Antwortoptinen einer fiktive Abfrage zusammenzufassen</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variableZusammengefasst =</span> <span class="fu">case_when</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    ausgangsVariable <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    ausgangsVariable <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    ausgangsVariable <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    ausgangsVariable <span class="sc">==</span> <span class="dv">7</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> ausgangsVariable</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Weiterhin gibt es unzählige weitere Möglichkeiten, Variablen umzucodieren, z.B. das Deklarieren von fehlenden Werten, wie wir es im Fall der Geschlechtsabfrage im Kurs kennengelernt haben. Was für eine bestimmte Umcodierung ganz konkret zu tun ist, hängt jeweils von Ihren Daten und wie Sie diese auswerten wollen ab. Falls Sie mal vor einem Problem stehen, dessen Lösung Sie in diesem Kurs nicht kennengelernt haben, versuchen Sie sich ruhig mal an Google oder ChatGPT (bzw. dem Chatbot Ihrer Wahl). Für Google gilt: versuchen Sie Ihr Problem möglichst kurz und bündig zusammenzufassen, also z.B.: “Werte zu NAs umcodieren R”. Falls Sie einen Chatbot nutzen, versuchen Sie dagegen möglichst konkret zu werden. Beschreiben Sie Ihren Datensatz bzw. die Variable, die Sie umcodieren möchten und geben Sie vor allem sehr genau an, was am Ende herauskommen soll!</p>
+</section>
+<section id="variablen-neu-berechnen" class="level3" data-number="13.5.4">
+<h3 data-number="13.5.4" class="anchored" data-anchor-id="variablen-neu-berechnen"><span class="header-section-number">13.5.4</span> Variablen neu berechnen</h3>
+<p>Im Lauf des Kurses haben wir viele Variablen neu berechnet. Ganz grundsätzlich sind wir dabei immer gleich vorgegangen: <code>mutate(neueVariable = Formel/Funktion/Berechnung)</code></p>
+<p>Einen Sonderfall, den Sie kennengelernt haben ist die Bildung von sogenannten Indizes, insbesondere von Mittelwertindizes. Wir haben Sie wie folgt berechnet:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen Mittelwertindex für die 5 Items</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index =</span> <span class="fu">mean</span>(<span class="fu">c</span>(item1, item2, item3, item4, item5))) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Beachten Sie, dass Sie vor der Berechnung eines solches Indizes immer Cronbachs Alpha berechnen sollten (siehe Kapitel 12).</p>
+<p>Eine weitere Berechnung, die Sie gelgentlich brauchen werden, ist das Summieren von angekreuzten Antwortoptionen bei Fragen mit Mehrfachauswahl. Bevor Sie mit der Berechnung loslegen können, sollten Sie darauf achten, dass die Daten so codiert sind, dass der Wert 1 jeweils einer Auswahl einer Option entspricht. Wurde eine Option nicht ausgewählt, sollte der Wert 0 eingetragen sein. Da jede Option im Datensatz eine eigene Spalte erhält, können Sie die Anzahl der ausgewählten Optionen dann ganz einfach berechnen, indem Sie die Werte in den Spalten addieren. Wie oben, als wir die Anzahl fehlender Werte berechnet haben, nutzen wir dafür <code>rowSums()</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen Summenindex für Mehrfachantworten</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">summe =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">c</span>(option1, option2, option3, option4))))<span class="er">)</span> <span class="sc">|&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ansonsten gilt hier dasselbe wie beim Umcodieren: Es gibt unzählige Möglichkeiten, neue Variablen zu berechnen. Was jeweils sinnvoll ist, hängt davon ab, was Sie genau vorhaben!</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
