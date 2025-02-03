@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jakob Henke">
 
-<title>Auswertung quantitativer Daten</title>
+<title>13&nbsp; Datenaufbereitung – Auswertung quantitativer Daten</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Einleitung.html" rel="next">
+<link href="./Reliabilität.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Herzlich willkommen!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Datenaufbereitung.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Datenaufbereitung</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -108,7 +141,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Herzlich willkommen!</span></a>
   </div>
 </li>
@@ -186,7 +219,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Datenaufbereitung.html" class="sidebar-item-text sidebar-link">
+  <a href="./Datenaufbereitung.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Datenaufbereitung</span></span></a>
   </div>
 </li>
@@ -200,7 +233,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#herzlich-willkommen" id="toc-herzlich-willkommen" class="nav-link active" data-scroll-target="#herzlich-willkommen">Herzlich willkommen!</a></li>
+  <li><a href="#daten-exportieren" id="toc-daten-exportieren" class="nav-link active" data-scroll-target="#daten-exportieren"><span class="header-section-number">13.1</span> Daten exportieren</a></li>
+  <li><a href="#fälle-mit-zu-vielen-fehlenden-werten-aussortieren" id="toc-fälle-mit-zu-vielen-fehlenden-werten-aussortieren" class="nav-link" data-scroll-target="#fälle-mit-zu-vielen-fehlenden-werten-aussortieren"><span class="header-section-number">13.2</span> Fälle mit zu vielen fehlenden Werten aussortieren</a></li>
+  <li><a href="#bearbeitungszeiten-überprüfen" id="toc-bearbeitungszeiten-überprüfen" class="nav-link" data-scroll-target="#bearbeitungszeiten-überprüfen"><span class="header-section-number">13.3</span> Bearbeitungszeiten überprüfen</a></li>
+  <li><a href="#offene-antworten-überprüfen" id="toc-offene-antworten-überprüfen" class="nav-link" data-scroll-target="#offene-antworten-überprüfen"><span class="header-section-number">13.4</span> Offene Antworten überprüfen</a></li>
+  <li><a href="#umbenennen-beschriften-und-umcodieren" id="toc-umbenennen-beschriften-und-umcodieren" class="nav-link" data-scroll-target="#umbenennen-beschriften-und-umcodieren"><span class="header-section-number">13.5</span> Umbenennen, Beschriften und Umcodieren</a></li>
   </ul>
 </nav>
     </div>
@@ -209,19 +246,13 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Auswertung quantitativer Daten</h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Datenaufbereitung</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jakob Henke </p>
-          </div>
-  </div>
     
   
     
@@ -232,9 +263,129 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="herzlich-willkommen" class="level1 unnumbered">
-<h1 class="unnumbered">Herzlich willkommen!</h1>
-<p>Dieses Dokument wird Sie durch die Veranstaltung “Auswertung quantitativer Daten” begleiten. Es ist zum und im Wintersemeter 2024/25 an der Universität Erfurt entstanden.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die Informationen in diesem Kapitel beziehen sich in erster Linie auf Daten, die im Rahmen von (Online-)Befragungen entstanden sind. Je nach Erhebungsmethode und Studiendesign können weitere Schritte notwendig sein. Sprechen Sie daher Ihr Vorgehen stets mit Ihren Dozentinnen und Dozenten ab!</p>
+</div>
+</div>
+<p>In diesem Kapitel schauen wir uns anhand Ihrer Daten an, welche Schritte Sie durchführen sollten, bevor Sie Ihre erhobenen Daten auswerten können.</p>
+<p>Wir werden uns die folgenden Dinge anschauen:</p>
+<ol type="1">
+<li>Den Datenexport bei soscisurvey</li>
+<li>Das Aussortieren von Fällen mit zu vielen fehlenden Werten</li>
+<li>Die Überprüfung von Bearbeitungszeiten</li>
+<li>Die Überprüfung von offenen Antworten</li>
+<li>Das Umbenennen, Beschriften und Umcodieren von Variablen</li>
+</ol>
+<p>Die meisten Funktionen kennen Sie schon aus anderen Kapiteln, aber ein paar werden wir auch neu kennenlernen.</p>
+<section id="daten-exportieren" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="daten-exportieren"><span class="header-section-number">13.1</span> Daten exportieren</h2>
+<p>Bevor Sie die Daten aufbereiten können, müssen Sie die Daten herunterladen. Nachdem Sie sich bei soscisurvey eingelogggt haben, müssen Sie zunächst über die Menüleiste links zu <strong>Erhobene Daten</strong> navigieren.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Screenshots/Datenaufbereitung/export1.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>In der Navigation öffnen sich nun neue Unterpunkte. Sie können z.B. doe Rücklaufstatistik einssehen oder Fälle für den Export selektieren. Beim Export am Ende des Projektes sollten Sie darauf achten, dass Sie nur die Daten der eigentlichen Stichprobe exportieren und nicht die des Pretests.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Screenshots/Datenaufbereitung/export4.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Anschließend können Sie über die Navigationsleiste zu <strong>Daten herunterladen</strong> wechseln. Damit Sie die Daten in R wie gewohnt einlesen und verarbeiten können, müssen Sie einige Dinge beachten:</p>
+<ol type="1">
+<li>Wählen Sie ganz oben das Dateiformat <strong>CSV</strong> aus.</li>
+<li>Entfernen Sie den Haken bei <strong>Unicode-Unterstützung für nicht-westeuropäische Sprachen</strong>. Falls Sie im Rahmen Ihrer Studie Textdaten erheben, die nicht-westeuropäische Zeichen enthalten, sollten Sie diesen Haken bestehen lassen. Sie müssen dann beim Einlesen der Daten innerhalb von <code>read.csv()</code> das Argument <code>fileEncoding = "UTF-16LE"</code> ergänzen.</li>
+<li>Unter <strong>Antworten der Antworten</strong> sollte <strong>Numerische Codes</strong> angegeben werden. Das bedeutet, dass alle Antworten in Form von Zahlen gespeichert werden. Ausgenommen daovn sind nur offene Texteingaben. Nominale und ggf. ordinale Daten können Sie später in R mit <code>factor()</code> beschriften.</li>
+<li>Direkt darunter bei <strong>Fehlende Werte</strong> können Sie <strong>Fehlende Werte entfernen</strong> auswählen. An den entsprechenden Stellen im Datensatz steht dann ein <code>NA</code>.</li>
+<li>Als <strong>Dezimalzeichen</strong> sollte der <strong>Punkt</strong> ausgewöhlt werden (siehe Kapitel 2).</li>
+<li>Unter <strong>Variablen-Trennzeichen</strong> können Sie das <strong>Komma</strong> auswählen.</li>
+</ol>
+<p>Mit diesen Einstellungen sollte das Einlesen der Daten in R wie gewohnt funktionieren.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Screenshots/Datenaufbereitung/export3.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="fälle-mit-zu-vielen-fehlenden-werten-aussortieren" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="fälle-mit-zu-vielen-fehlenden-werten-aussortieren"><span class="header-section-number">13.2</span> Fälle mit zu vielen fehlenden Werten aussortieren</h2>
+<p>Zur Veranschaulichung der Datenaufbereitung werden wir in diesem Kapitel keine echten Daten verwenden. Der Code, den Sie im Lauf des Kapitels hier sehen, wird also nicht funktionieren. Sie können ihn aber mit Ihren eigenen Daten ergänzen und dann ausführen.</p>
+<p>Wir beginnen wie immer damit, dass wir das <code>tidyverse</code> laden und Daten einlesen.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lädt das tidyverse}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># liest einen Datensatz ein </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/einDatensatz.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Oft ist es sinnvoll oder sogar notwendig, Fälle aus dem Datensatz auszuschließen, die entweder zu viele fehlende Werte ausweisen, oder die zumindest felende Werte in zentralen Konstrukten (z.B. der AV) haben. In diesen Situationen können Sie die <code>filter()</code>- und <code>is.na()</code>-Funktionen verwenden, die Sie bereits kennengelernt haben.</p>
+<p>Im einfachsten Fall haben Sie eine AV (ggf. in Form eines Index) und wollen alle Fälle ausschließen, die hier keinen Wert haben:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filtert alle Fälle aus, die einen fehlenden Wert bei der AV haben</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In anderen Situationen kann es sinnvoll sein, Fälle auszuschließen, die insgesamt zu viele fehlende Werte aufweisen, z.B. 50 Prozent aller Antworten. Hierzu müssen Sie erst die Gesamtanzahl an fehlenden Werten berechnen. Dazu nutzen wir zunächst rowwise(), um im darauffolgenden <code>mutate()</code> einen Wert pro Person zu berechnen. In diesem <code>mutate()</code>-Aufruf berechnen wir die neue Spalte <code>summeNAs</code>. Dazu nutzen wir die <code>rowSums()</code>-Funktion. Jetzt wird es etwas komplexer: innerhalb von <code>rowSums()</code> rufen wir <code>is.na()</code> auf, denn wir wollen ja wissen, wie viele fehlende Werte es gibt. Damit R weiß, auf welche Spalten wir uns dabei beziehen, rufen wir innerhalb von <code>is.na()</code> die Funktion across() auf, der wir dann einen Vector übergeben, der die Spalten enthält. Diesen Vektor können wir entweder mit <code>c()</code> erstellen, oder in dem wir die erste und letzte Spalte mit einen Doppelpunkt verbinden (siehe Kapitel 2). Nach diesem <code>mutate()</code>-Aufruf nutzen wir <code>ungroup()</code>, sodass wir uns wieder auf den gesamten Datensatz beziehn und nicht die einzelnen Zeilen und können dann mit <code>filter()</code> alle Fälle ausschließen, die die von uns gewünschte Mindestzahl an gültigen Antworten nicht erreichen.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet die Anzahl der fehlenden Werte pro Person und schließt alle Fälle aus, die weniger als eine zuvor spezifizierte Anzhal gültiger Antworten haben</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">summeNAs =</span> <span class="fu">rowSums</span>(<span class="fu">is.na</span>(<span class="fu">across</span>(ersteSpalte<span class="sc">:</span>letzteSpalte)))) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(summeNAs <span class="sc">&lt;=</span> zielwert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Beim Ausschluss von Fällen basierend auf der Anzahl der fehlenden Werte handelt es sich um ein Vorgehen, dass die Datenqualität erhöhen soll. Dabei ist die Entscheidung, ab wann Fälle zu viele fehlende Werte haben meistens relativ wahrlos. Ganz grundsätzlich sollten Sie sich schon vor der Datenerhebung Gedanken darüber machen, ab wann ein Fall ausgeschlossen werden soll! Tun Sie das nicht, entsteht leicht der Eindurck, dass Sie solange Daten aussortiert haben, bis Ihnen die Ergebnisse gefallen!</p>
+</div>
+</div>
+</section>
+<section id="bearbeitungszeiten-überprüfen" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="bearbeitungszeiten-überprüfen"><span class="header-section-number">13.3</span> Bearbeitungszeiten überprüfen</h2>
+<p>Bei den Bearbeitungszeten verhält es sich ähnlich wie bei fehlenden Werten. Ganz grundsätzlich kann es sinnvoll sein, Teilnehmerinnen und Teilnehmer auszuschließen, weil diese zu schnell (oder zu langsam) geantwortet haben. Allerdings sollte diese Entscheidung bereits vor der Datenerhebung getroffen werden!</p>
+<p>In der Regel sollte diese Entscheidung davon abhngig sein, wie lang Ihre Befragung ist. Wenn Sie z.B. eine etwas längere Befragung durchführen, die im Pre-Test regelmäßig 10 Minuten gedauert hat, können sehr kurze Bearbeitungszeiten (z.B. weniger als 2 Minuten) darauf hinweisen, dass ein Fragebogen automatisiert ausgefüllt wurde. Wenn Sie ein Experiment oder eine Befragung durchführen, die einen Stimulus enthalten, können Sie sich auch daran gut orientieren. Z.B. sollten Sie helhörig werden, wenn eine Person nur 30 Sekunden für eine Seite im Fragebogen benötigt, die ein Video enthält, das 90 Sekunden lang ist.</p>
+<p>Die Daten, die Sie bei soscisurvey herunterladen, enthalten pro Seite im Fragebogen eine Spalte, in der die Bearbeitungsdauer angegeben wird (z.B. <code>TIME001</code> für die erste oder <code>TIME004</code> für die vierte Seite). Der darin gespeicherte Wert entspricht der Bearbeitungszeit der Seite in Sekunden. Außerdem gibt es eine Spalte namens <code>TIME_SUM</code>, in der die Gesamtbearbeitungszeit angegeben wird. Allerdings ist hier Vorsicht geboten: Die Werte sind bereits korrigiert und angepasst. Konkret ersetzt soscisurvey sehr lange Bearbeitungszeiten durch den Median aller anderen Bearbeitungszeiten für diese Seite, da davon ausgegangen wird, dass lange Zeiten eine Pause oder Unterbrechung der Befragung darstellen.</p>
+<p>Sofern Se wissen, ab wann eine Bearbeitungszeit für Ihre Studie zu schnell oder zu langsam ist, können Sie die entsprechenden Fälle mit <code>filter()</code> aussortieren.</p>
+</section>
+<section id="offene-antworten-überprüfen" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="offene-antworten-überprüfen"><span class="header-section-number">13.4</span> Offene Antworten überprüfen</h2>
+<p>Ganz grundsätzlich sind offene Antworten schwer auszuwerten und sollten im Rahmen von standardisierten Befragungen nur in ausgewählten Situationen verwedent werden. Denn strenggenommen müssten Sie für jede Frage mit offener Antwort eine Inhaltsanalyse durchführen, um die Daten auszuwerten. Allerdings gibt es immer mal wieder Fälle, in denen offene Fragen oder Antwortenoptionen sinnvoll sein können, z.B. die Sonntagsfrage mit der Antwortoptionen “sonstige und zwar ____”.</p>
+<p>Die Aufbereitung solcher Abfragen ist sehr individuell. Ein Beispiel haben Sie in Kapitel 3 kennengelernt, als wir das Geburtsjahr in eine Angabe des Alters umgewandelt haben. Es gibt allerdings einige Funktionen, die für offene Fragen sinnvoll sein können:</p>
+<p><code>table()</code>, um einen Überblick über die Häufigkeit der einzelnen Antworten zu erhalten.<br>
+<code>unique()</code>, um alle Antworten zu sehen, die mindestens einmal angegeben wurden.</p>
+<p>Beide Funktionen sind insbesondere dann sinnvoll, wenn Sie erstmal einen Überblick darüber bekommen wollen, was Ihre Befragten eigentlich in das offene Feld geschrieben haben.</p>
+<p>Eine hilfreiche Funktion zum umcodieren von offenen Antworten ist <code>case_when()</code>. Damit können wir Werte immer dann verändern, wenn eine bestimmte Bedingung zutrifft. Diese Funktion wird innerhalb von <code>mutate()</code> aufgerufen. Konkret geben wir die Bedingung an (z.B. in Form eines Vergleichs) und schreiben dann hinter eine Tile (<code>~</code>), welchen Wert die neue Spalte (die wir mit <code>mutate()</code> anlegen) annehmen soll, falls die Bedingung zutrifft. Durch ein Komma können wir mehrere Bedingungen nacheinander prüfen und mit dem Argument <code>.default</code> können wir angeben, welcher Wert standardmäßig vergeben werden soll. Hierbei kann es sich um einen festen Wert handeln, aber auch eine Variable, die in einer anderen Spalte gespeichert ist.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nutzt case_when(), um eine fiktive Sonntagsfrage umzucodieren}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sonntagNeu =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    sonntagAusgang <span class="sc">==</span> <span class="st">"Tierschuttpartei"</span> <span class="sc">~</span> <span class="st">"Tierschutzpartei"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    sonntagAusgang <span class="sc">==</span> <span class="st">"SDP"</span> <span class="sc">~</span> <span class="st">"SPD"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> sonntagAusgang</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="umbenennen-beschriften-und-umcodieren" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="umbenennen-beschriften-und-umcodieren"><span class="header-section-number">13.5</span> Umbenennen, Beschriften und Umcodieren</h2>
+<p>Die letzten Aspekte, die zu jeder Datenaufbereitung gehöhren, kennen Sie mittlerweise zur Genüge.</p>
+<p>Mit <code>rename()</code> können Sie Spalten umbennen. Denken Sie daran, dass Sie mehrere Spalten auf einen Schlag umbenennen können, indem Sie die Kombinationen aus neuen und alten Namen mit einem Komma trennen. Beachten Sie auch, dass ein <code>rename()</code>-Befehl nur einmal ausgeführt werden kann, nachdem der Datensatz geladen wurde. Im Anschluss erkennt R die alten Namen nicht mehr und wird einen Fehler ausgeben. Im Zweifel lesen Sie den Datensatz einfach noch mal ein!</p>
+<p>Mit <code>factor()</code> können Sie nominale und ordinale Daten beschriften. Achten Sie darauf, dass Sie wirklich nur solche Daten beschriften! Eine Frage die mit <code>"stimme überhaupt nicht zu", "stimme eher nicht zu", "teils-teils", "stimme eher zu" oder "stimme voll und ganz zu"</code> beantwortet wurde und die Sie als metrische AV verwenden wollen, sollte nicht beschriftet werden!</p>
+<p>Das Umcodieren von Variablen ist in zwei Fällen sinnvoll:</p>
+<ol type="1">
+<li>Wenn Sie eine Skala verwendet haben, bei die Items unterschiedlich gepolt sind. Also z.B. wenn hohe Werte in einigen Items ausdrücken, dass jemand eine bestimmte Einstellung sehr stark vertritt, während für andere Items niedrige Werte genau das angeben.</li>
+<li>Wenn Sie möchten, dass hohe oder niedrige Werte eine bestimmte Bedeutung haben (z.B. starke Zustimmung = hoch).</li>
+</ol>
+<p>In beiden Fällen können Sie <code>mutate()</code> nutzen, um eine recodierte Version des Items zu berechnen. Die Formel dazu haben Sie in Kapitel 12 schon mal kennengelernt. Ganz grundsätzlich können Sie bei metrischen Items nach folgendem Schema vorgehen: <code>mutate(itemRecodiert = item*-1+x)</code>, wobei x der Anzahl der Antwortoptionen +1 entspricht (also z.B. 5+1 bei einer 5er-Skala oder 7+1 bei einer 7er-Skala).</p>
+<p>Natürlich gibt es auch viele Fälle, in denen es nötig sein kann, nicht metrische Variablen umzucodieren. Was ganz konkret zu tun ist, hängt jeweils von Ihren Daten und wie Sie diese auswerten wollen ab. Falls Sie mal vor einem Problem stehen, dessen Lösung Sie in diesem Kurs nicht kennengelernt haben, versuchen Sie sich ruhig mal an Google oder ChatGPT (bzw. dem Chatbot Ihrer Wahl). Für Google gilt: versuchen Sie Ihr Problem möglichst kurz und bündig zusammenzufassen, also z.B.: “Werte zu NAs umcodieren R”. Falls Sie einen Chatbot nutzen, versuchen Sie dagegen möglichst konkret zu werden. Beschreiben Sie Ihren Datensatz bzw. die Variable, die Sie umcodieren möchten und geben Sie vor allem sehr genau an, was am Ende herauskommen soll!</p>
 
 
 </section>
@@ -662,11 +813,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./Reliabilität.html" class="pagination-link" aria-label="Reliabilität">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Reliabilität</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Einleitung.html" class="pagination-link" aria-label="Willkommen zum Kurs">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Willkommen zum Kurs</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
