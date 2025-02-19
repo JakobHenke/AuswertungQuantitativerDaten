@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>12&nbsp; Reliabilität – Auswertung quantitativer Daten</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Datenaufbereitung.html" rel="next">
+<link href="./ANOVA.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Reliabilität.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Reliabilität</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Auswertung quantitativer Daten</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Herzlich willkommen!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Einleitung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Willkommen zum Kurs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Objekte, Daten, Funktionen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Objekte, Daten, Funktionen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Pakete und Datentransformationen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Pakete und Datentransformationen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Skalenniveaus und deskriptive Datenanalyse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Skalenniveaus und deskriptive Datenanalyse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Hypothesen und Testtheorie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Hypothesen und Testtheorie</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Zusammenhänge zwischen nominalen und ordinalen Variablen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Zusammenhänge zwischen nominalen und ordinalen Variablen: Kreuztabellen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Zusammenhänge zwischen ordinalen und metrischen Variablen.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Zusammenhänge zwischen nominalen und ordinalen Variablen: Korrelationen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Regressionen I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regressionen I</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Regressionen II.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Regressionen II</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./t-Test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">t-Test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ANOVA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Varianzanalyse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reliabilität.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Reliabilität</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Datenaufbereitung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Datenaufbereitung</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#reliabilität-von-skalen" id="toc-reliabilität-von-skalen" class="nav-link active" data-scroll-target="#reliabilität-von-skalen"><span class="header-section-number">12.1</span> Reliabilität von Skalen</a>
+  <ul class="collapse">
+  <li><a href="#cronbachs-alpha" id="toc-cronbachs-alpha" class="nav-link" data-scroll-target="#cronbachs-alpha"><span class="header-section-number">12.1.1</span> Cronbachs Alpha</a></li>
+  <li><a href="#cronbachs-alpha-berechnen" id="toc-cronbachs-alpha-berechnen" class="nav-link" data-scroll-target="#cronbachs-alpha-berechnen"><span class="header-section-number">12.1.2</span> Cronbachs Alpha berechnen</a></li>
+  </ul></li>
+  <li><a href="#reliabilität-in-der-inhaltsanalyse" id="toc-reliabilität-in-der-inhaltsanalyse" class="nav-link" data-scroll-target="#reliabilität-in-der-inhaltsanalyse"><span class="header-section-number">12.2</span> Reliabilität in der Inhaltsanalyse</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Reliabilität</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In diesem Kapitel werden wir uns damit beschäftgen, wie wir die Reliabilität von erhobenen Daten quantifizieren können. Wie Sie vielleicht noch aus der Methodenvorlesung oder anderen Veranstaltungen in Ihrem Studium wissen, handelt es sich bei der Reliabilität um ein zentrales Gütekriterium empirischer Forschung. Ganz konkret handelt es sich dabei um die <strong>Zuverlässigkeit der Messung</strong>.</p>
+<p>Wir werden uns zwei Arten von Reliabilität ansehen: Zum einen die Reliabilität von Skalenabfragen und zum anderen die Reliabilität von Codierungen im Kontext der Inhaltsanalyse.</p>
+<section id="reliabilität-von-skalen" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="reliabilität-von-skalen"><span class="header-section-number">12.1</span> Reliabilität von Skalen</h2>
+<p>In den vergangenen Kapiteln und Übungssitzungen haben wir mehrfach sogegannte Mittelwertindizes berechnet. Dabei haben wir pro Person einen Mittelwert aus den Antworten auf mehrere Fragen gebildet. Das machen wir immer dann, wenn wir Dinge wie Einstellungen oder Persönlichkeitsmerkmale und -eigenschaften nicht mit einem Item (also einer Frage) messen, sondern mit einer Fragebatterie - einer sogenannten <strong>Skala.</strong> Mittelwertindizes sind zwar die geläufigste Art, solche Daten zu verdichten, aber manchmal werden Sie in der Literatur auch andere Formen der Indexbildung sehen, z.B. Summenindizes, bei denen die einzelnen Antworten einfach aufsummiert werden. Beides ist aber nur dann zulässig, wenn die Skala das Konstrukt, das sie messen soll, auch zuverlässig misst. Oder anders gesagt: Indizes dürfen wir nur dann bilden, wenn die Skala reliabel ist.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<section id="cronbachs-alpha" class="level3" data-number="12.1.1">
+<h3 data-number="12.1.1" class="anchored" data-anchor-id="cronbachs-alpha"><span class="header-section-number">12.1.1</span> Cronbachs Alpha</h3>
+<p>Die Reliabilität einer Skala berechnen wir mit <strong>Cronbachs Alpha</strong>. Im Prinzip handelt es sich dabei um ein Maß, das angibt, wie stark die einzelnen Items einer Skala korrelieren. Entsprechend wird Cronbachs Alpha auch manchmal als Maß der internen Konsistenz einer Skala bezeichnet. Wie auch der Korrelationskoeffizient kann Cronbachs Alpha maximal den Wert 1 annehmen. Negative Werte sind theoretisch auch möglich, deuten aber in erster Linie darauf hin, dass eine wichtige Voraussetzung nicht erfüllt wurde (siehe unten). Werte ab 0,7 gelten als akzeptabel bzw. gut (ab 0,8) oder sehr gut (ab 0,9). Werte unter 0,7 sind eher schlecht, sodass kein Index aus allen Items gebildet werden sollte. Glücklicherweise berechnet R (siehe nächster Abschnitt) nicht nur, wie hoch Cronbachs Alpha tatsächlich ist, sondern auch, wie hoch es wäre, falls einzelne Items ausgelassen werden würden. Dadurch können schlechte Reliabilitätswerte in der Praxis häufig verbessert werden, indem nur ein Teil einer ursprünglich abgefragten Skala für die Analyse verwendet wird. Dabei ist es wichtig, alles genau zu dokumentieren!</p>
+<p>Um Cronbachs Alpha sinnvoll berechnen zu können, sollten zwei Bedingungen erfüllt sein: Erstens sollte das Konstrukt <strong>eindimensional</strong> sein. Das bedeutet, dass alle Items versuchen, denselben Aspekt eines Konstrukts zu messen. Bei mehrdimensionalen Konstrukten muss Cronbachs Alpha für jede Dimension berechnet werden. Zweitens sollten alle Items <strong>identisch gepolt</strong> sein. Damit ist gemeint, dass hohe und niedrige Werte für jedes Item dieselbe Bedeutung haben (z.B. 5 = hohe Zustimmung = positive Einstellung). Schauen Sie sich z.B. mal die beiden untenstehenden Items aus einer Skala zur Messung des Kognitionsbedürfnisses an, also der Tendenz, ausführlich über Dinge nachzudenken:</p>
+<blockquote class="blockquote">
+<p>In erster Linie denke ich, weil ich muss.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Die Aufgabe, neue Lösungen für Probleme zu finden, nacht mir wirklich Spaß.</p>
+</blockquote>
+<p>Die beiden Items sind unterschiedlich gepolt: Eine hohe Zustimmung beim ersten Item spricht für ein geringes Kognitionsbedürfnis, wohingegen eine hohe Zustimmung beim zweiten Item auf ein hohes Kognitionsbedürfnis schließen lässt.</p>
+<p>Bevor wir also Cronbachs Alpha berechnen bzw. bevor wir einen Index bilden, müssen wir prüfen, ob alle Items identisch gepolt sind.</p>
+</section>
+<section id="cronbachs-alpha-berechnen" class="level3" data-number="12.1.2">
+<h3 data-number="12.1.2" class="anchored" data-anchor-id="cronbachs-alpha-berechnen"><span class="header-section-number">12.1.2</span> Cronbachs Alpha berechnen</h3>
+<p>Cronbachs Alpha wird mit der <code>alpha()</code>-Fuktion aus dem <code>psych</code>-Paket berechnet, das wir im untenstehenden Code laden bzw. erst installieren. Zusätzlich laden wir das <code>tidyverse</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># versucht das Paket psych zu laden und installiert und lädt es, falls es nicht installiert ist</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(psych)){</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"psych"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(psych)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: psych</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lädt das tidyverse</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ ggplot2::%+%()   masks psych::%+%()
+✖ ggplot2::alpha() masks psych::alpha()
+✖ dplyr::filter()  masks stats::filter()
+✖ dplyr::lag()     masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<p>Wie Sie vielleicht bemerkt haben, ist die Ausgabe, die erscheint, wenn das tidyverse geladen wird, etwas länger als sonst. Das liegt daran, dass das tidyverse und das psych-Paket einige Funktionsnamen teilen. Tatsächlich ist für uns ein relevanter Hinweis dabei: <code>ggplot2::alpha() masks psych::alpha()</code>. Ganz konkret bedeutet das, dass R unter dem Funktionsnamen <code>alpha()</code> aktuell eine Funktion aus dem <code>ggplot2</code>-Paket erwartet. Wie wir trotzdem die Funktion aus dem <code>psych</code>-Paket ausführen können, sehen wir gleich weiter unten.</p>
+<p>Vorher laden wir noch den Datensatz mit Ihren Antworten aus der ersten Sitzung. Zur Erinnerung, dort haben Sie Ihre Zustimmung zu fünf Aussagen angegeben (1 = “stimme überhaupt nicht zu”, 7 = “stimme voll und ganz zu”). Die Items lauteten wie folgt:</p>
+<ol type="1">
+<li>Ich fühle mich sicher im Umgang mit Zahlen.</li>
+<li>In Mathe war ich immer schlecht.</li>
+<li>Wenn ich etwas berechnen soll, versuche ich mich davor zu drücken.</li>
+<li>Mir macht es Spaß, knifflige Aufgaben zu lösen.</li>
+<li>Ich hoffe einfach nur, dass dieser Kurs schnell vorbei ist.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lädt den Datensatz mit Antworten aus Sitzung 1</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df_sitzung1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/datenSitzung1.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Für die ersten 5 Items können wir nun Cronbachs Alpha berechnen. Vorher prüfen wir die Voraussetzungen: Über die Eindimensionalität kann man bei dieser Abfrage sicher streiten. Es handelt sich um eine ad hoc Skala, die messen soll, wie groß Ihre Berührungsängste vor Statistik waren. Ad hoc bedeutet in diesem Kontext nur, dass ich mir einige Items ausgedacht habe, ohne in einem aufwändigen, iterativen Prozess die Items zu formulieren. Für unsere Übungszwecke reicht das aus; für eine wissenschaftliche Publikation eher nicht. Ein Blick auf die einzelnen Items verrät darüber hinaus, dass sie nicht alle gleich gepolt sind. Konkret unterscheiden sich die Items mit den Nummern 1 und 4 von den anderen drei. Eine hohe Zustimmung hier bedeutet eher, dass Sie keine großen Sorgen vor Statistik (und R) haben. Bei den anderen Items stehen hohe Werte dagegen für größere Berührungsängste. Das können wir bei der Berechnung von Cronbachs Alpha direkt berücksichtigen.</p>
+<p>Wie oben beschrieben nutzen wir dafür die <code>alpha()</code>-Funktion aus dem <code>psych</code>-Paket. Durch das Argument <code>check.keys = TRUE</code> legen wir fest, dass R prüfen soll, ob alle items gleich gepolt sind. Bei Bedarf werden die Items dann automatisch angepasst. Wichtig ist außerdem, dass wir die Funktion nicht wie sonst aufrufen, indem wir nur <code>alpha()</code> schreiben, sondern den Namen des Pakets gefolgt von <code>::</code> davor schreiben. Dadurch sagen wir R, welche <code>alpha()</code>-Funktion wir aufrufen wollen. Hier schrieben wir also <code>psych::alpha()</code>. Da unser Datensatz noch weitere Spalten enthält müssen wir außerdem erst die fünf Items auswählen. Dazu nutzen wir die <code>select()</code>-Funktion aus dem <code>tidyverse</code> bzw. darin <code>dplyr</code>. Innerhalb von <code>select()</code> nutzen wir <code>contains()</code>. Diese Funktion erlaub es uns, Spalten basierend auf ihrem Namen bzw. einem Teil des Namens auszuwählen. Indem wir <code>select(contains("item"))</code> aufrufen, wählen wir alle Spalten aus, deren Name die Zeichenfolge “item” enthält.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet Cronbachs Alpha für die 5 Items </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cronbachsAlpha <span class="ot">&lt;-</span> df_sitzung1 <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"item"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">alpha</span>(<span class="at">check.keys =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in psych::alpha(select(df_sitzung1, contains("item")), check.keys = TRUE): Some items were negatively correlated with the first principal component and were automatically reversed.
+ This is indicated by a negative sign for the variable name.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Ergebnis an</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cronbachsAlpha</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Reliability analysis   
+Call: psych::alpha(x = select(df_sitzung1, contains("item")), check.keys = TRUE)
+
+  raw_alpha std.alpha G6(smc) average_r S/N   ase mean  sd median_r
+      0.73      0.74     0.8      0.37 2.9 0.087    4 1.1     0.34
+
+    95% confidence boundaries 
+         lower alpha upper
+Feldt     0.52  0.73  0.87
+Duhachek  0.56  0.73  0.90
+
+ Reliability if an item is dropped:
+       raw_alpha std.alpha G6(smc) average_r S/N alpha se var.r med.r
+item1-      0.63      0.64    0.71      0.30 1.7    0.126 0.058  0.29
+item2       0.74      0.74    0.76      0.42 2.9    0.086 0.047  0.34
+item3       0.55      0.57    0.59      0.25 1.3    0.151 0.039  0.23
+item4-      0.72      0.73    0.73      0.40 2.7    0.095 0.055  0.40
+item5       0.76      0.77    0.83      0.46 3.4    0.084 0.070  0.52
+
+ Item statistics 
+        n raw.r std.r r.cor r.drop mean  sd
+item1- 25  0.80  0.81  0.77   0.67  4.4 1.4
+item2  25  0.62  0.61  0.51   0.36  3.9 1.8
+item3  25  0.90  0.91  0.94   0.83  4.4 1.6
+item4- 25  0.64  0.65  0.58   0.41  4.4 1.7
+item5  25  0.54  0.54  0.32   0.29  3.2 1.6
+
+Non missing response frequency for each item
+         1    2    3    4    5    6    7 miss
+item1 0.12 0.08 0.20 0.28 0.28 0.04 0.00    0
+item2 0.12 0.08 0.28 0.12 0.16 0.20 0.04    0
+item3 0.00 0.12 0.20 0.20 0.24 0.12 0.12    0
+item4 0.16 0.12 0.16 0.20 0.24 0.12 0.00    0
+item5 0.16 0.20 0.28 0.20 0.04 0.08 0.04    0</code></pre>
+</div>
+</div>
+<p>Schauen wir uns nun die Ausgabe an. Ganz oben zeigt R uns an, wie wir die Funktion aufgerufen haben. Hier sieht alles so aus, wie wir es gewollt haben.</p>
+<p>In der ersten kleinen Tabelle darunter interessiert uns vor allem der Wert unter <code>raw_alpha</code> , also hier 0,73. Wir liegen also knapp über dem akzeptablen Niveau von 0,7. Darunter zeigt uns R zwei verschiedene Varianten von Konfidenzintervallen an. Diese werden überlicherweise nicht angegeben, aber falls Sie mal dazu aufgefordert werden, können Sie es hier einsehen. Danach sehen wir eine Tabelle mit der Überschrift <code>Reliability if an item is dropped:</code>. Hier wird uns angezeigt, wie sich Cronbachs Alpha verändern würde, wenn wir einzelne Items aus der Analyse ausschließen. In der ersten Spalte stehen die Namen der Items. Am <code>-</code> neben <code>item1</code> und <code>item4</code> erkennen Sie, dass diese beiden Items umcodiert wurden. In der Spalte <code>raw_alpha</code> sehen wir, dass wir die Reliabilität durch einen Ausschluss von Item 2 bzw Item 5 minimal verbessern könnten (die Werte sind größer als 0,73). Allerdings wären diese Verbesserungen so marginal, dass es hier nicht unbedingt ratsam wäre. Tatsächlich gibt es keine festen Richtlinien oder best practices, an denen wir uns beim Ausschluss von Variablen orientieren könnten. Wäre eine deutliche Verbesserung möglich, könnten Sie aber darüber nachdenken. Die unteren beiden Tabellen können Sie weitestgehend ignorieren. Die vorletzte Tabelle enthält Informationen zu den Items, wie Mittelwert und Standardabweichung. Die letzte Tabelle zeigt dagegen an, wie sich die gültigen Antworten auf die möglichen Antworten verteilen.</p>
+<p>Jetzt wissen wir also, dass wir einen Mittelwertindex bilden dürfen. Das können Sie so machen, wie in den letzten Kapiteln und Übungssitzungen. Dabei müssten Sie nur darauf achten, die Items 1 und 4 vorher umzucodieren. Eine ganz einfache Möglichkeit mit <code>mutate()</code> sieht so aus:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># codiert Items 1 und 4 um</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df_sitzung1 <span class="ot">&lt;-</span> df_sitzung1 <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">item1rec =</span> item1<span class="sc">*-</span><span class="dv">1</span><span class="sc">+</span><span class="dv">8</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">item4rec =</span> item4<span class="sc">*-</span><span class="dv">1</span><span class="sc">+</span><span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Konkret wurden hier die Ursprungswerte erst in eine negative Zahl umgewandelt. Das <code>+8</code> sorgt dann dafür, dass alle Werte wieder positiv sind und von 1 bis 7 reichen. Wenn eine Person z.B. vorher den Werrt 7 hatte, wurde dieser erst zu -7 und durch das <code>+8</code> dann zu 1.</p>
+<p>Der Vollständigkeit halber können wir nun den Index wie gewohnt berechnen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen Mittelwertindex für die 5 Items</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df_sitzung1 <span class="ot">&lt;-</span> df_sitzung1 <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index =</span> <span class="fu">mean</span>(<span class="fu">c</span>(item1rec, item2, item3, item4rec, item5))) <span class="sc">|&gt;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Alternativ können wir das Ergebnis der <code>alpha()</code>-Funktion verwenden. Wenn Sie einmal rechts in Ihr <code>Environment</code> schauen, sehen Sie, dass das Objekt <code>cronbachsAlpha</code> eine Liste ist. Diese enthält das Objekt <code>scores</code>, in dem ein Mittelwertindex gespeichert ist. Den Index können wir damit auch wie folgt in unseren Datensatz übertragen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># übertragt die von alpha() berechneten Scores in den Datensatz</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df_sitzung1<span class="sc">$</span>indexAlternativ <span class="ot">&lt;-</span> cronbachsAlpha<span class="sc">$</span>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="reliabilität-in-der-inhaltsanalyse" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="reliabilität-in-der-inhaltsanalyse"><span class="header-section-number">12.2</span> Reliabilität in der Inhaltsanalyse</h2>
+<p>Im bisherigen Kursverlauf haben wir uns mit Daten aus Befragungen befasst. Alles was Sie dabei gelernt haben, lässt sich grundsätzlich auch auf andere Daten anwenden, z.B. solche aus Experimentaldesigns oder auch aus Inhaltsanalysen.</p>
+<p>Wie Sie vielleicht noch aus der Methodenvorlesung wissen, entstehen die Daten in der Inhaltsanalyse dadurch, dass Sie als Forschende selber Hand anlegen und Medieninhalte codieren. Zuvor entwerfen Sie Kategorien, die mit Fragen in der Befragung vergleichbar sind, und dazugehörige Ausprägungen. Die Medieninhalte aus Ihrer Stichprobe ordnen Sie dann jeweils in eine Ausprägung pro Kategorie ein. Idealerweise ist es bei Inhaltsanalysen egal, wer die Codierung durchführt. Das Ergebnis sollte immer dasselbe sein. Die Reliabilität bezieht sich hier also strenggenommen auf das Codebuch. Gleichzeitig ist das Codieren eben eine händische Arbeit, bei der Fehler passieren können. Und bei schlechten Codebüchern kann es passieren, dass unterschiedli che Codierinnen und Codierer das Codebuich anders interpretieren und entsprechend zu unterschiedlichen Ergebnissen kommen. Und wenn nur eine Person codiert, ist es möglich, dass die Codierungen von Tagesform und Gemüt der Person abhängig sind.</p>
+<p>Entsprechend sollte für jede Kategorie einer Inhaltsanalyse die Reliabilität berechnet werden. Dazu muss ein Teil der Stichprobe entweder von mehrere Codiererinnen und Codierern bearbeitet werden (Intercoder-Reliabilität) oder von einer Person mehrfach (Intracoder-Reliabilität).</p>
+<p>Um Ihnen das Verfahren zu zeigen nutzen wir das <code>tidycomm</code>-Paket und den darin enthaltenen Datensatz <code>fbposts</code>. Dieser enthält die Daten von 45 politischen Facebook Posts (Spalte <code>post_id</code>), die von sechs Codiererinnen und Codierern codiert wurden (Spalte <code>coder_id</code>). Für jeden Post wurde codiert, um was für eine Art es sich handelt (<code>type</code>, z.B. ein Foto oder Video), die Anzhal der enthaltenen Bilder (<code>n_pictures</code>), sowie einige Eigenschaften, die populistischen Inhalten zugeschrieben werden. Konkret, ob Eliten attackiert wurden (<code>pop_elite</code>), ob die Menschen/das Volk erwähnt wurden (<code>pop_people</code>) und ‘othering’ betrieben wird, also bestimmte Gruppen als ‘die anderen’ ausgegrenzt wurden (<code>pop_othering</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># versucht das Paket tidycomm zu laden und installiert und lädt es, falls es nicht installiert ist</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(tidycomm)){</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"tidycomm"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidycomm)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: tidycomm</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attache Paket: 'tidycomm'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Das folgende Objekt ist maskiert 'package:psych':
+
+    describe</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lädt den im Paket enthaltenen Datensatz fbposts</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df_fb  <span class="ot">&lt;-</span> fbposts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Um die Reliabilität zu berechnen können wir nun die <code>test_icr()</code>-Funktion verwenden. Dieser Funktion müssen wir immer mindestens drei Argumente übergeben:</p>
+<ol type="1">
+<li>Die Daten. Das können wir gewohnt mit der Pipe (<code>|&gt;</code>)machen.</li>
+<li>Eine Spalte, die den Fall identifiziert (hier <code>post_id</code>).</li>
+<li>Eine Spalte, die angibt, wer codiert hat (hier <code>coder_id</code>).</li>
+</ol>
+<p>Zusätzlich können Sie angeben, für welche Spalten wir die Reliabilität berechnen wollen. Tun wir das nicht, werden die Werte für jede Spalte berechnet. Der R-Code sieht dann so aus:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet die Intercoder-Reliabilität für den Datensatz df_fb</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>df_fb <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">test_icr</span>(post_id, coder_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+  Variable     n_Units n_Coders n_Categories Level   Agreement Holstis_CR
+* &lt;chr&gt;          &lt;int&gt;    &lt;int&gt;        &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+1 type              45        6            4 nominal     1          1    
+2 n_pictures        45        6            7 nominal     0.822      0.930
+3 pop_elite         45        6            6 nominal     0.733      0.861
+4 pop_people        45        6            2 nominal     0.778      0.916
+5 pop_othering      45        6            4 nominal     0.867      0.945
+# ℹ 1 more variable: Krippendorffs_Alpha &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Die Tabelle enthält neben einigen Informationen über die Variablen (ihren Namen, die Fallzahl, Anzahl der Codiererinnen und Codierern, Anzahl der Ausprägungen und das Datenniveau) drei Reliabilitätswerte:</p>
+<ol type="1">
+<li><p>Die Spalte <code>Agreement</code> gibt an, wie hoch die (prozentuale) Übereinstimmung aller Codiererinnen und Codierer ist. Wenn sich alle immer einige sind, hat das Agreement den Wert 1 und entsprechend den Wert 0, wenn in keinem Fall Einigkeit herrscht. Wichtig ist, dass die Übereinstimmung pro Fall nur dann als solche gewertet wird, wenn sich wirklich alle Codiererinnen und Codierer einig sind. Weicht auch nur eine Person ab, gilt der Fall nicht als übereinstimmend codiert.</p></li>
+<li><p>Die Spalte <code>Holstis_CR</code> gibt an, wie hoch die Übereinstimmung nach Holsti ist. Hierbei handelt es sich um die durchschnittliche prozentuale Übereinstimmung aller Paare von Codiererinnen und Codierern. Wenn bspw. drei Personen einen Fall codiert haben und sich zwei davon einig sind, die dritte Person aber abweicht, ist das <code>Agreement</code> wie oben beschrieben 0, wohingegen der Koeffizient nach Holsti 0,33 ist, weil sich eins von drei möglichen Paaren aller Codiererinnen und Codierer einig ist. In der Regel ist dieser Wert also etwas höher als die einfache Übereinstimmung.</p></li>
+<li><p>In der Spalte <code>Krippendorffs_Alpha</code> steht der Wert für, Sie ahnen es, <strong>Krippendorffs Alpha</strong>. Hierbei handelt es sich um einen Reliabilitätskoeffizienten, der berücksichtigt, dass eine gewisse Übereinstimmung allein durch Zufall zu erwarten wäre. Außerdem berücksichtigt der Wert das Datenniveau der Kategorien. Krippendorffs Alpha ist so etwas wie der Goldstandard unter den Reliabilitätskoeffizienten in der Kommunikationswissenschaft und sollte in der Regel bevorzugt angegeben werden. Werte ab <strong>0,8</strong> gelten dabei als akzeptabel. Wird dieser Wert (im Rahmen eines Pretests) nicht erreicht, sollte das Codebuch angepasst werden. In der Tabelle oben sehen wir, dass die drei Kategorien mit Populismusbezug einen sehr niedrigen Alpha-Wert aufweisen. Entsprechend können die Daten nur schwer interpretiert werden. Außerdem lohnt sich ein genauer Blick auf die Spalte zur Variable <code>n_pictures</code>. Dort steht als Datenniveau <code>nominal</code>, obwohl es sich ja um eine metrische, verhältnisskalierte Variable handelt (die Anzahl der Bilder in einem Post hat einen natürlichen Nullpunkt und die Abstände zwischen den den möglichen Ausprägungen sind identisch). Indem wir der test_icr()-Funktion das Agrument levels übergeben, können wir das Datenniveau manuell vorgeben, sodass R nicht raten muss. Das sieht dann so aus:</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet die Intercoder-Reliabilität für den Datensatz df_fb</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>df_fb <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">test_icr</span>(post_id, coder_id, <span class="at">levels =</span> <span class="fu">c</span>(<span class="at">n_pictures =</span> <span class="st">"ratio"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+  Variable     n_Units n_Coders n_Categories Level   Agreement Holstis_CR
+* &lt;chr&gt;          &lt;int&gt;    &lt;int&gt;        &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+1 type              45        6            4 nominal     1          1    
+2 n_pictures        45        6            7 ratio       0.822      0.930
+3 pop_elite         45        6            6 nominal     0.733      0.861
+4 pop_people        45        6            2 nominal     0.778      0.916
+5 pop_othering      45        6            4 nominal     0.867      0.945
+# ℹ 1 more variable: Krippendorffs_Alpha &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Tatsächlich hat sich der Wert für die Variable n_pictures nun geändert bzw. er ist etwas besser geworden. Wie Sie sehen, sollte das korrekte Datenniveau also unbedingt spezifiziert werden!</p>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Und valide, aber da sich Validität nicht bzw. nur sehr schwer quantifizieren lässt, gehen wir darauf nicht ein.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./ANOVA.html" class="pagination-link" aria-label="Varianzanalyse">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Varianzanalyse</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Datenaufbereitung.html" class="pagination-link" aria-label="Datenaufbereitung">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Datenaufbereitung</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
