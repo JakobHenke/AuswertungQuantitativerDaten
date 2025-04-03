@@ -235,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#skalenniveaus-und-zentrale-lagemaße" id="toc-skalenniveaus-und-zentrale-lagemaße" class="nav-link active" data-scroll-target="#skalenniveaus-und-zentrale-lagemaße"><span class="header-section-number">4.1</span> Skalenniveaus und zentrale Lagemaße</a></li>
-  <li><a href="#deskiptive-datenanalyse" id="toc-deskiptive-datenanalyse" class="nav-link" data-scroll-target="#deskiptive-datenanalyse"><span class="header-section-number">4.2</span> Deskiptive Datenanalyse</a>
+  <li><a href="#deskriptive-datenanalyse" id="toc-deskriptive-datenanalyse" class="nav-link" data-scroll-target="#deskriptive-datenanalyse"><span class="header-section-number">4.2</span> Deskriptive Datenanalyse</a>
   <ul class="collapse">
   <li><a href="#modus" id="toc-modus" class="nav-link" data-scroll-target="#modus"><span class="header-section-number">4.2.1</span> Modus</a></li>
   <li><a href="#median" id="toc-median" class="nav-link" data-scroll-target="#median"><span class="header-section-number">4.2.2</span> Median</a></li>
@@ -271,12 +271,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="4.1" class="anchored" data-anchor-id="skalenniveaus-und-zentrale-lagemaße"><span class="header-section-number">4.1</span> Skalenniveaus und zentrale Lagemaße</h2>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Q7BamBVI8jE" title="Skalenniveaus und zentrale Lagemaße" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
-<section id="deskiptive-datenanalyse" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="deskiptive-datenanalyse"><span class="header-section-number">4.2</span> Deskiptive Datenanalyse</h2>
+<section id="deskriptive-datenanalyse" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="deskriptive-datenanalyse"><span class="header-section-number">4.2</span> Deskriptive Datenanalyse</h2>
 <p>In diesem Abschnitt werden wir uns anschauen, wie wir die verschiedenen Lagemaße aus dem Video in R berechnen können. Außerdem lernen Sie, wie Sie Daten in Abhängigkeit ihres Skalenniveaus visualisieren können.</p>
 <section id="modus" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="modus"><span class="header-section-number">4.2.1</span> Modus</h3>
-<p>R hat nach der Installation keine Funktion, die den Modus (oder die Modi) einer Verteilung ermittelt. Wir können aber das Paket <code>DescTools</code> installieren, die eine solche Funktion enthält.</p>
+<p>R hat nach der Installation keine Funktion, die den Modus (oder die Modi) einer Verteilung ermittelt. Wir können aber das Paket <code>DescTools</code> installieren, das eine solche Funktion enthält.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installiert das Paket "DescTools", falls es noch nicht installiert ist und lädt es anschließend. Andernfalls wird es nur geladen.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -309,13 +309,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/lokalkommunikation.csv"</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt eine Spalte aus der Geschlechtsabfrage. Erst wird der Wert "keine Angabe" als fehlend deklariertm dann wird ein Faktor mit den übrigen drei Kategorien erstellt</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt eine Spalte aus der Geschlechtsabfrage. Erst wird der Wert "keine Angabe" als fehlend deklariert, dann wird ein Faktor mit den übrigen drei Kategorien erstellt</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geschlechtMitNAs =</span> <span class="fu">na_if</span>(A602, <span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geschlechtMitNAs =</span> <span class="fu">factor</span>(geschlechtMitNAs, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"männlich"</span>, <span class="st">"weiblich"</span>, <span class="st">"divers"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Anschließend können wir die <code>Mode()</code>-Funktion aus dem <code>DescTools</code>-Paket verwenden. Um damit den Modus zu berechnen, müssen wir die Funktion innerhalb der <code>dplyr</code>-Funktion <code>summarise()</code> aufrufen. Diese verdichtet Datensätze. Schauen wir uns einmal an, was passiert, wenn wir <code>Mode()</code> einfach entsprechended ausführen:</p>
+<p>Anschließend können wir die <code>Mode()</code>-Funktion aus dem <code>DescTools</code>-Paket verwenden. Um damit den Modus zu berechnen, müssen wir die Funktion innerhalb der <code>dplyr</code>-Funktion <code>summarise()</code> aufrufen. Diese verdichtet Datensätze. Schauen wir uns einmal an, was passiert, wenn wir <code>Mode()</code> einfach entsprechend ausführen:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Versucht den Modus der Spalte geschlechtMitNAs zu berechnen</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -343,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Nun sehen wir, dass mit 996 Fällen der Wert <code>weiblich</code> am häufigsten vorkommt.</p>
 <p>Schauen wir uns als nächstes an, wie Sie nominale Daten bzw. den Modus visualisieren können. Im letzten Kapitel wurde in Kürze das <code>tidyverse</code> vorgestellt und auf das Paket <code>ggplot2</code> verwiesen, mit dem wir Plots erstellen können.</p>
-<p>Im Folgenden werden Schritt für Schritt ein einfaches Balkendiagramm erstellen und es nach und nach verbessern. Wir fangen damit an, dass wir das <code>tidyverse</code> laden. Wir erstellen dann ein neues Objekt für unseren Plot. Dazu geben wir unseren Datensatz mit der Pipe an die Funktion <code>ggplot()</code> weiter. Das ist die Hauptfunktion des Pakets. Üblicherweise wird innerhalb dieser Funktion die Funktion <code>aes()</code> (für aesthetics) aufgerugen, in der wir je nach Diagramm angeben, welche Spalten auf der x- und y-Achse dargestellt werden soll. Für ein Balkendiagramm benötigen wir nur die x-Achse, geben also <code>x = geschlechtMitNAs</code> an. Damit sagen wir erstmal nur, welche Spalte wir darstellen wollen, aber noch nichts darüber, was für eine Darstellung es werden soll. Um die Art des Diagramms festzulegen, gibt es in <code>ggplot2</code> unzählige Funktionen, die alle mit <code>geom_</code> beginnen (für geometry). Hinter dem Unterstrich folgt dann der (englische) Name des Diagrammtyps. In unserem Fall eines Balkendiagramms, heißt die entsprechende Funktion <code>geom_bar()</code>. Anders als sonst, verbinden wir die Funktionen in <code>ggplot2</code> nicht über die Pipe, sondern ein Pluszeichen. In der Summe sieht der Code dann so aus:</p>
+<p>Im Folgenden werden Schritt für Schritt ein einfaches Balkendiagramm erstellen und es nach und nach verbessern. Wir fangen damit an, dass wir das <code>tidyverse</code> laden. Wir erstellen dann ein neues Objekt für unseren Plot. Dazu geben wir unseren Datensatz mit der Pipe an die Funktion <code>ggplot()</code> weiter. Das ist die Hauptfunktion des Pakets. Üblicherweise wird innerhalb dieser Funktion die Funktion <code>aes()</code> (für aesthetics) aufgerufen, in der wir je nach Diagramm angeben, welche Spalten auf der x- und y-Achse dargestellt werden sollen. Für ein Balkendiagramm benötigen wir nur die x-Achse, geben also <code>x = geschlechtMitNAs</code> an. Damit sagen wir erstmal nur, welche Spalte wir darstellen wollen, aber noch nichts darüber, was für eine Darstellung es werden soll. Um die Art des Diagramms festzulegen, gibt es in <code>ggplot2</code> unzählige Funktionen, die alle mit <code>geom_</code> beginnen (für geometry). Hinter dem Unterstrich folgt dann der (englische) Name des Diagrammtyps. In unserem Fall eines Balkendiagramms, heißt die entsprechende Funktion <code>geom_bar()</code>. Anders als sonst, verbinden wir die Funktionen in <code>ggplot2</code> nicht über die Pipe, sondern ein Pluszeichen. In der Summe sieht der Code dann so aus:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein einfaches Balkendiagramm der Geschlechtsabfrage</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -368,7 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Der Hintergrund und die Farbe der Balken sind nicht sonderlich ansehnlich.</li>
 <li>Die Beschriftungen der Achsen (<code>geschlechtMitNAs</code> und <code>count</code>) sind nicht gerade selbsterklärend.</li>
 </ul>
-<p>Diese Liste können wir nun einfach abarbeiten. Manchmal ist es sinnvoll, die Daten noch ein bisschen aufzubereiten, bevor wir sie an <code>ggplot()</code> übergeben. Dafür deklarieren wir ein neues Objekt, das die Daten enthalten soll. Als erstes können wir dann mit der <code>filter()</code>-Funktion, die Sie im letzten Kapitel kennengelernt haben, die <code>NAs</code> entfernen. Anschließend nutzen wir die <code>group_by()</code>-Funktion aus <code>dplyr</code>. Diese Funktion sorgt dafür, dass die nachfolgenden Funktionen nicht auf den gesamten Datensatz angewendet werden, sondern auf die jeweiligen Gruppen (<code>männlich</code>, <code>weiblich</code>, <code>divers</code>). Anschließend nutzen wir wieder die <code>summarise()</code>-Funktion. Dort können wir die Prozentwerte der einzelnen Gruppen mit der folgenden Formel berechnen: <code>n()/nrow(df_lokal)*100</code>. n() gibt die Anzahl der Fälle zurück. Durch das Aufrufen von <code>group_by()</code> sind es hier die Fälle pro Ausprägung von <code>geschlechtMitNAs</code>. Diesen Wert teilen wir durch <code>nrow(df_lokal)</code>. Diese Funktion gibt die Anzahl der Zeilen im kompletten Datensatz zurück. Das Ergebnis multiplizieren wir mit 100, um einen Prozentwert zu erhalten. Als letztes nutzen wir <code>mutate()</code>, um die Prozentwerte auf zwei Nachkommastellen zu runden. Das Ergebnis sehen Sie unten:</p>
+<p>Diese Liste können wir nun einfach abarbeiten. Manchmal ist es sinnvoll, die Daten noch ein bisschen aufzubereiten, bevor wir sie an <code>ggplot()</code> übergeben. Dafür deklarieren wir ein neues Objekt, das die Daten enthalten soll. Als Erstes können wir dann mit der <code>filter()</code>-Funktion, die Sie im letzten Kapitel kennengelernt haben, die <code>NAs</code> entfernen. Anschließend nutzen wir die <code>group_by()</code>-Funktion aus <code>dplyr</code>. Diese Funktion sorgt dafür, dass die nachfolgenden Funktionen nicht auf den gesamten Datensatz angewendet werden, sondern auf die jeweiligen Gruppen (<code>männlich</code>, <code>weiblich</code>, <code>divers</code>). Anschließend nutzen wir wieder die <code>summarise()</code>-Funktion. Dort können wir die Prozentwerte der einzelnen Gruppen mit der folgenden Formel berechnen: <code>n()/nrow(df_lokal)*100</code>. n() gibt die Anzahl der Fälle zurück. Durch das Aufrufen von <code>group_by()</code> sind es hier die Fälle pro Ausprägung von <code>geschlechtMitNAs</code>. Diesen Wert teilen wir durch <code>nrow(df_lokal)</code>. Diese Funktion gibt die Anzahl der Zeilen im kompletten Datensatz zurück. Das Ergebnis multiplizieren wir mit 100, um einen Prozentwert zu erhalten. Als letztes nutzen wir <code>mutate()</code>, um die Prozentwerte auf zwei Nachkommastellen zu runden. Das Ergebnis sehen Sie unten:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt einen reduzierten Datensatz, der die relativen Häufigkeiten der Ausprägungen von geschlechtMitNAs enthält</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -388,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3 divers              0.38</code></pre>
 </div>
 </div>
-<p>Wenn wir diesen Datensatz an <code>ggplot()</code> übergeben und versuchen, ein Balkendiagramm zu erstellen, haben wir zwar keinen Balken für <code>NA</code> mehr, dafür ein neues Problem: Alle Balken sind gleich hoch.</p>
+<p>Wenn wir diesen Datensatz an <code>ggplot()</code> übergeben und versuchen, ein Balkendiagramm zu erstellen, haben wir zwar keinen Balken für <code>NA</code> mehr, aber dafür ein neues Problem: Alle Balken sind gleich hoch.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Versucht, ein Balkendiagramm der Geschlechtsabfrage ohne NAs zu erstellen</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -440,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Als nächstes passen wir die Farben etwas an. Gleich vorab: <code>ggplot2</code> bietet nahezu unendlich viele Möglichkeiten, das Aussehen von Diagrammen anzupassen. Hier machen wir es uns relativ einfach und nutzen vorhandene Funktionen. So wie es viele <code>geom_</code>Funktionen gibt, gibt es auch einige <code>theme_</code> Funktionen. Hier ergänzen wir <code>theme_minimal()</code> zu unserem Diagramm. Damit wird zwar der Hintergrund, nicht aber die Farbe der Balken angepasst. Das können wir tun, indem wir der <code>geom_bar()</code>-Funktion das Argument <code>fill</code> und eine Farbe übergeben. Diese müssen auf Englisch angegeben werden. Hier verwenden wir ein helles grau.</p>
+<p>Als nächstes passen wir die Farben etwas an. Gleich vorab: <code>ggplot2</code> bietet nahezu unendlich viele Möglichkeiten, das Aussehen von Diagrammen anzupassen. Hier machen wir es uns relativ einfach und nutzen vorhandene Funktionen. So wie es viele <code>geom_</code>Funktionen gibt, gibt es auch einige <code>theme_</code> Funktionen. Hier ergänzen wir <code>theme_minimal()</code> zu unserem Diagramm. Damit wird zwar der Hintergrund, nicht aber die Farbe der Balken angepasst. Das können wir tun, indem wir der <code>geom_bar()</code>-Funktion das Argument <code>fill</code> mit einer Farbe übergeben. Diese müssen auf Englisch angegeben werden. Hier verwenden wir ein helles Grau.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein beschriftetes Balkendiagramm der relativen Häufigkeiten der Geschlechtsabfrage ohne NAs</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -459,7 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Als letztes ändern wir die Achsenbeschriftungen. Dazu fügen wir die <code>labs()</code>-Funktion hinzu. Mit den Argumenten <code>x</code> und <code>y</code> können wir die Beschriftung anpassen.</p>
+<p>Als Letztes ändern wir die Achsenbeschriftungen. Dazu fügen wir die <code>labs()</code>-Funktion hinzu. Mit den Argumenten <code>x</code> und <code>y</code> können wir die Beschriftung anpassen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein beschriftetes Balkendiagramm der relativen Häufigkeiten der Geschlechtsabfrage ohne NAs</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -482,13 +482,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="median" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="median"><span class="header-section-number">4.2.2</span> Median</h3>
-<p>Anders als beim Modus gibt es für den Median eine R-Funktion, die wir ohne Weiteres nutzen können: die <code>median()</code>-Funktion. Auch hier müssen wir darauf achten, <code>na.rm = TRUE</code> anzugeben, damit der Median berechnet werden kann. Im folgenden Beispiel berechnen wr den Median der Spalte <code>A203_06</code>. In der Spalte ist codiert, wie häufig die Befragten Lokalzeitungen lesen (von 1 = “nie” bis 6 = “mehrmals täglich”).</p>
+<p>Anders als beim Modus gibt es für den Median eine R-Funktion, die wir ohne Weiteres nutzen können: die <code>median()</code>-Funktion. Auch hier müssen wir darauf achten, <code>na.rm = TRUE</code> anzugeben, damit der Median berechnet werden kann. Im folgenden Beispiel berechnen wir den Median der Spalte <code>A203_06</code>. In der Spalte ist codiert, wie häufig die Befragten Lokalzeitungen lesen (von 1 = “nie” bis 6 = “mehrmals täglich”).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benenntdie Spalte A203_06 in lokalzeitung um</span></span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benennt die Spalte A203_06 in lokalzeitung um</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">rename</span>(<span class="at">lokalzeitung =</span> A203_06) </span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet den Median der Lokalzeiungsnutzung</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet den Median der Lokalzeitungsnutzung</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>median_lokalzeitung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median =</span> <span class="fu">median</span>(lokalzeitung, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
@@ -498,7 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1      4</code></pre>
 </div>
 </div>
-<p>Der Median ist 4, was einer Nutzung mehrmals pro Woche entspricht. Es gibt viele verschiedene Möglichkeiten, den Median bzw. die Verteilung von ordinalen Daten zu visualisieren. Bei wenigen Ausprägungen, so wie im Fall der Nutzung von Lokalzeitungen, können wir ähnlich vorgehen wie beim Modus oben. Dazu müssen wir die Spalte in einen Faktor umwandeln, bevor wir sie an <code>ggplot()</code> übergeben. Anschließend gehen wir ähnlich vor wie oben, allerdings bleiben wir der einfachheithalber bei absoluten Häufigkeiten. Eine relevante Ergänzung nehmen wir aber vor: Mit der <code>geom_vline()</code>-Funktion (für vertical line) und dem Argument <code>xintercept = 4,</code> können wir eine Linie hinzufügen, die den Median anzeigt.</p>
+<p>Der Median ist 4, was einer Nutzung mehrmals pro Woche entspricht. Es gibt viele verschiedene Möglichkeiten, den Median bzw. die Verteilung von ordinalen Daten zu visualisieren. Bei wenigen Ausprägungen, so wie im Fall der Nutzung von Lokalzeitungen, können wir ähnlich vorgehen wie beim Modus oben. Dazu müssen wir die Spalte in einen Faktor umwandeln, bevor wir sie an <code>ggplot()</code> übergeben. Anschließend gehen wir ähnlich vor wie oben, allerdings bleiben wir der Einfachheit halber bei absoluten Häufigkeiten. Eine relevante Ergänzung nehmen wir aber vor: Mit der <code>geom_vline()</code>-Funktion (für vertical line) und dem Argument <code>xintercept = 4,</code> können wir eine Linie hinzufügen, die den Median anzeigt.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wandelt die Nutzung von Lokalzeitungen in einen Faktor um und plottet die Daten als Balkendiagramm</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>balkenPlot_lokalzeitung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
@@ -526,12 +526,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verändert die Beschriftungen der Balken</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>balkenPlot_lokalzeitung <span class="ot">&lt;-</span> balkenPlot_lokalzeitung<span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"nie"</span> <span class="ot">=</span> <span class="st">"nie"</span>, <span class="st">"weniger als ein Mal im Monat"</span> <span class="ot">=</span> <span class="st">"weniger als</span><span class="sc">\n</span><span class="st"> ein Mal im Monat"</span>,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"mehrmals im Monat"</span> <span class="ot">=</span> <span class="st">"mehrmals</span><span class="sc">\n</span><span class="st"> im Monat"</span>, <span class="st">"mehrmals in der Woche"</span> <span class="ot">=</span> </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"mehrmals</span><span class="sc">\n</span><span class="st"> in der Woche"</span>, <span class="st">"täglich"</span> <span class="ot">=</span> <span class="st">"täglich"</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"mehrmals täglich"</span> <span class="ot">=</span> <span class="st">"merhmals</span><span class="sc">\n</span><span class="st"> täglich"</span>))</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>balkenPlot_lokalzeitung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"nie"</span> <span class="ot">=</span> <span class="st">"nie"</span>, </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"weniger als ein Mal im Monat"</span> <span class="ot">=</span> <span class="st">"weniger als</span><span class="sc">\n</span><span class="st"> ein Mal im Monat"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"mehrmals im Monat"</span> <span class="ot">=</span> <span class="st">"mehrmals</span><span class="sc">\n</span><span class="st"> im Monat"</span>, </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"mehrmals in der Woche"</span> <span class="ot">=</span> <span class="st">"mehrmals</span><span class="sc">\n</span><span class="st"> in der Woche"</span>, </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"täglich"</span> <span class="ot">=</span> <span class="st">"täglich"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"mehrmals täglich"</span> <span class="ot">=</span> <span class="st">"merhmals</span><span class="sc">\n</span><span class="st"> täglich"</span>))</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>balkenPlot_lokalzeitung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -540,7 +542,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Eine andere häufige Visualisierung von ordinalen Daten ist der sogenannte Boxplot, der mit der Funktion g<code>eom_boxplot()</code> erstellt wird. Beachten Sie im Beispiel unten, dass wir die Spalte lokalzeitung im Aufruf von <code>ggplot()</code> bzw. darin <code>aes()</code> als y-Wert definieren. Wir könnten auch den x-Wert wählen, dann würde der Boxplot auf der Seite liegen.</p>
+<p>Eine andere häufige Visualisierung von ordinalen Daten ist der sogenannte Boxplot, der mit der Funktion <code>geom_boxplot()</code> erstellt wird. Beachten Sie im Beispiel unten, dass wir die Spalte lokalzeitung im Aufruf von <code>ggplot()</code> bzw. darin <code>aes()</code> als y-Wert definieren. Wir könnten auch den x-Wert wählen, dann würde der Boxplot auf der Seite liegen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokalzeitung)) <span class="sc">|&gt;</span></span>
@@ -558,7 +560,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Was Sie hier sehen ist erstmal nicht sonderlich hübsch, sollte aber dennoch kurz erklärt werden: Die dicke schwarze Linie beim Wert 4 zeigt den Median. Die eingekasteten Bereiche darüber und darunter zeigen das 75. bzw. das. 25. Quartil. Oder einfach gesagt: 25 % der Befragten haben den Wert <code>2</code> oder weniger angegeben und weitere 25 % den Wert <code>5</code> oder mehr. Die Linien nach unten und oben gehen bis zum Minimum bzw. Maximum.</p>
+<p>Was Sie hier sehen, ist erstmal nicht sonderlich hübsch, sollte aber dennoch kurz erklärt werden: Die dicke schwarze Linie beim Wert 4 zeigt den Median. Die eingekasteten Bereiche darüber und darunter zeigen das 75. bzw. das 25. Quartil. Oder einfach gesagt: 25 % der Befragten haben den Wert <code>2</code> oder weniger angegeben und weitere 25 % den Wert <code>5</code> oder mehr. Die Linien nach unten und oben gehen bis zum Minimum bzw. Maximum.</p>
 <p>Folgende Probleme hat die Darstellung:</p>
 <ul>
 <li>Der Boxplot ist sehr breit. Das sieht furchtbar aus!</li>
@@ -566,7 +568,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Die x-Achse hat eine Beschriftung, die überhaupt nicht nachvollziehbar ist.</li>
 <li>Das Koordinatensystem hat senkrechte Linien, die keinen Sinn ergeben, da wir ja eigentlich gar nichts auf der x-Achse abbilden.</li>
 </ul>
-<p>Fangen wir mit den ersten beiden Problemen an. Wir sehen auf der Grafik oben, dass der auf der x-Achse der Bereich von <code>x = -0,4</code> bis <code>x = 0,4</code> (was auch immer diese Werte bedeuten mögen!) dargestellt ist und der Boxplot genau diesen Bereich einnimmt. Wir können die Funktion <code>xlim()</code> nutzen, um den dargestellten Bereich zu erweitern. Dazu müssen wir einfach nur zwei Werte angeben, z.B. <code>-1</code> und <code>1</code>.</p>
+<p>Fangen wir mit den ersten beiden Problemen an. Wir sehen auf der Grafik oben, dass auf der x-Achse der Bereich von <code>x = -0,4</code> bis <code>x = 0,4</code> (was auch immer diese Werte bedeuten mögen!) dargestellt ist und der Boxplot genau diesen Bereich einnimmt. Wir können die Funktion <code>xlim()</code> nutzen, um den dargestellten Bereich zu erweitern. Dazu müssen wir einfach nur zwei Werte angeben, z.B. <code>-1</code> und <code>1</code>.</p>
 <p>Um die y-Achse etwas schöner zu machen, können wir eine ähnliche Funktion nutzen, wie im Balkendiagramm oben: <code>scale_y_continuous()</code>. Mit dem Argument <code>breaks</code> können wir angeben, welche Werte beschriftet sein sollen. Hier können wir <code>1:6</code> angeben, um alle ganzen Zahlen zwischen 1 und 6 anzeigen zu lassen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung <span class="ot">&lt;-</span> boxplot_lokalzeitung<span class="sc">+</span>  </span>
@@ -583,8 +585,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Das sieht schon etwas besser aus. Wir haben nun aber ein neues Problem: Auf der y-Achse werden nun waagerechte Linien zwischen den ganzen Zahlen angezeigt, dabei konnte die Variable diese Werte gar nicht annhemen.</p>
-<p>Dieses Problem können wir gemeinsam mit den übrigen Punkte von oben in einem Rutsch erledigen, indem wir die <code>theme()</code>-Funktion nutzen. Diese Funktion kann zugegebenermaßen etwas abschreckend sein. Sie können damit die Darstellung aller einzelnen Elemente eines Plots anpassen oder - und das ist für uns hier aber auch generell häufig entscheidend - sie entfernen! Das Schema ist immer gleich: Sie geben ein Element an und schreiben hinter ein Gleichheitszeichen, wie es dargestellt werden soll. Geben Sie dort <code>element_blank()</code> an, wird das Element entfernt. Das nutzen wir hier um die folgenden Elemente zu entfernen:</p>
+<p>Das sieht schon etwas besser aus. Wir haben nun aber ein neues Problem: Auf der y-Achse werden nun waagerechte Linien zwischen den ganzen Zahlen angezeigt, dabei konnte die Variable diese Werte gar nicht annehmen.</p>
+<p>Dieses Problem können wir gemeinsam mit den übrigen Punkte von oben in einem Rutsch erledigen, indem wir die <code>theme()</code>-Funktion nutzen. Diese Funktion kann zugegebenermaßen etwas abschreckend sein. Sie können damit die Darstellung aller einzelnen Elemente eines Plots anpassen oder - und das ist für uns hier aber auch generell häufig entscheidend - sie entfernen! Das Schema ist immer gleich: Sie geben ein Element an und schreiben hinter ein Gleichheitszeichen, wie es dargestellt werden soll. Geben Sie dort <code>element_blank()</code> an, wird das Element entfernt. Das nutzen wir hier, um die folgenden Elemente zu entfernen:</p>
 <ul>
 <li>Die Beschriftung der x-Achse –&gt; das Element heißt <code>axis.text.x</code></li>
 <li>Die vertikalen Linien im Koordinatensystem –&gt; die Elemente heißen <code>panel.grid.major.x</code> und <code>panel.grid.minor.x</code></li>
@@ -626,7 +628,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Das Ergebnis sieht schon sehr ordentlich aus. Der einsame Punkt in der Spalte <code>divers</code> steht für einen Ausreißer: Eine Person liest deutlich höufiger Lokalzeitungen als andere Menschen, die sich nicht-binär identifizieren. In erster Linie liegt das an der sehr geringen Fallzahl in der Gruppe (vgl. das Balkendiagramm von oben). Um das sichtbar zu machen, können wir die Rohdaten anzeigen lassen. Das geht grundsätzlich mit geom_point(), hat aber den Nachteil, dass dann alle Datenpunkte an derselben Stelle dargestellt werden:</p>
+<p>Das Ergebnis sieht schon sehr ordentlich aus. Der einsame Punkt in der Spalte <code>divers</code> steht für einen Ausreißer: Eine Person liest deutlich häufiger Lokalzeitungen als andere Menschen, die sich nicht-binär identifizieren. In erster Linie liegt das an der sehr geringen Fallzahl in der Gruppe (vgl. das Balkendiagramm von oben). Um das sichtbar zu machen, können wir die Rohdaten anzeigen lassen. Das geht grundsätzlich mit geom_point(), hat aber den Nachteil, dass dann alle Datenpunkte an derselben Stelle dargestellt werden:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht<span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -655,8 +657,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="mittelwert-und-standardabweichung" class="level3" data-number="4.2.3">
 <h3 data-number="4.2.3" class="anchored" data-anchor-id="mittelwert-und-standardabweichung"><span class="header-section-number">4.2.3</span> Mittelwert und Standardabweichung</h3>
-<p>Für Mitelwert und Standardabweichung gibt es ebenfalls zwei R-Funktionen, die wir direkt nutzen können: <code>mean()</code> und <code>sd()</code>. Auch hier müssen wir darauf achten, dass wir <code>na.rm = TRUE</code> angeben.</p>
-<p>Im folgenden Beispiel berechnen wir zunächst das Alter der Befragten mit dem Code aus dem letzten Kapitel. Anschließend nutzen wir <code>summarse()</code>, um den Datensatz auf Mittelwert und Standardabweichung des Alters zu reduzieren. Innerhalb von <code>summarise()</code> berechnen wir entsprechen mit <code>mean()</code> den Mittelwert und mit <code>sd()</code> die Standardabweichung. Beides runden wir mit round() auf zwei Nachkommastellen.</p>
+<p>Für Mittelwert und Standardabweichung gibt es ebenfalls zwei R-Funktionen, die wir direkt nutzen können: <code>mean()</code> und <code>sd()</code>. Auch hier müssen wir darauf achten, dass wir <code>na.rm = TRUE</code> angeben.</p>
+<p>Im folgenden Beispiel berechnen wir zunächst das Alter der Befragten mit dem Code aus dem letzten Kapitel. Anschließend nutzen wir <code>summarise()</code>, um den Datensatz auf Mittelwert und Standardabweichung des Alters zu reduzieren. Innerhalb von <code>summarise()</code> berechnen wir mit <code>mean()</code> den Mittelwert und mit <code>sd()</code> die Standardabweichung. Beides runden wir mit round() auf zwei Nachkommastellen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet das Alter der Befragten</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
@@ -683,7 +685,7 @@ Caused by warning:
 1   49.66   15.31</code></pre>
 </div>
 </div>
-<p>Wir sehen, dass die Befragten im Mittel 49,66 also fast 50 Jahre als waren, bei einer Standardabweichung von 15,31 Jahren. Im Video oben haben Sie erfahren, dass bei einer Normalverteilung ca. 68 % aller Werte innerhalb der Region Mittelwert - 1 Standardabweichung bis Mittelwert + 1 Standardabweichung liegen. Hier wäre das entsprechend der Bereich von 34,35 bis 64.97 Jahren, zumindest sofern die Variable normalverteilt ist. Um das zu prüfen und genereall um metrische Daten zu visualisieren, können wir ein sogenanntes Histogramm zeichnen. Dazu nutzen wir <code>geom_histogramm()</code>. Im Prinzip handelt es sich dabei um eine Art Balkendiagramm für metrische Daten, bei der einzelne Ausprägungen zusammengefasst werden,</p>
+<p>Wir sehen, dass die Befragten im Mittel 49,66 also fast 50 Jahre alt waren, bei einer Standardabweichung von 15,31 Jahren. Im Video oben haben Sie erfahren, dass bei einer Normalverteilung ca. 68 % aller Werte innerhalb der Region Mittelwert - 1 Standardabweichung bis Mittelwert + 1 Standardabweichung liegen. Hier wäre das entsprechend der Bereich von 34,35 bis 64.97 Jahren, zumindest sofern die Variable normalverteilt ist. Um das zu prüfen und generell um metrische Daten zu visualisieren, können wir ein sogenanntes Histogramm zeichnen. Dazu nutzen wir <code>geom_histogram()</code>. Im Prinzip handelt es sich dabei um eine Art Balkendiagramm für metrische Daten, bei der einzelne Ausprägungen zusammengefasst werden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>histogramm_alter <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(alter)) <span class="sc">|&gt;</span></span>
@@ -702,9 +704,9 @@ Caused by warning:
 </div>
 </div>
 </div>
-<p>Dem Histogramm können wir entnehmen, dass die Daten annähnernd normalverteilt sind. Das linke Ende der Verteilung ist etwas steiler. Das ist zu erwarten, denn üblicherweise gibt es ein Mindestalter zur Teilnahme an Befragungen. Wir sehen auch, dass Menschen um die 60 Jahre und älter relativ stark vertreten sind. Gemessen an der Bevölkerung ist auch das nicht sonderlich. Für die meisten statistischen Zweck könnten Sie bei so einer Verteilung aber davon ausgehen, dass Sie zumindest nah genug an einer Normalverteilung dran sind.</p>
+<p>Dem Histogramm können wir entnehmen, dass die Daten annähernd normalverteilt sind. Das linke Ende der Verteilung ist etwas steiler. Das ist zu erwarten, denn üblicherweise gibt es ein Mindestalter zur Teilnahme an Befragungen. Wir sehen auch, dass Menschen um die 60 Jahre und älter relativ stark vertreten sind. Gemessen an der Bevölkerung ist auch das nicht ungewöhnlich. Für die meisten statistischen Zweck könnten Sie bei so einer Verteilung aber davon ausgehen, dass Sie zumindest nah genug an einer Normalverteilung dran sind.</p>
 <p>Während uns das Histogramm einen guten Überblick über die Verteilung als Ganze gibt, ist es manchmal sinnvoll, Mittelwert und Standardabweichung direkt darzustellen. Das gilt insbesondere dann, wenn Sie mehrere Gruppen vergleichen wollen. Im folgenden Beispiel stelle wir das Durchschnittsalter (also den Mittelwert) der Befragten nach Geschlecht dar. Dazu wollen wir die Streuung um den Mittelwert der jeweiligen Gruppen darstellen. Hier machen wir das, indem wir die Standardabweichung ebenfalls darstellen. In wissenschaftlichen Arbeiten werden Sie auch immer mal Darstellungen begegnen, in denen andere Maße genutzt werden: entweder der Standardfehler oder sogenannte Konfidenzintervalle. Die Begriffe werden wir noch kennenlernen, ignorieren sie aber in diesem Kapitel noch.</p>
-<p>Für unser Beispiel berechnen wir als erstes Mittelwert und Standardabweichung der jeweiligen Gruppen. Alles, was wir dafür brauchen, haben wir schon kennengelernt: Wir nutzen <code>filter()</code> um fehlende Werte auszuschließen, nutzen <code>group_by()</code>, um die Daten zu Gruppieren und rufen dann <code>mean()</code> und <code>sd()</code> innerhalb von <code>summarise()</code> auf.</p>
+<p>Für unser Beispiel berechnen wir als erstes Mittelwert und Standardabweichung der jeweiligen Gruppen. Alles, was wir dafür brauchen, haben wir schon kennengelernt: Wir nutzen <code>filter()</code> um fehlende Werte auszuschließen, nutzen <code>group_by()</code>, um die Daten zu gruppieren und rufen dann <code>mean()</code> und <code>sd()</code> innerhalb von <code>summarise()</code> auf.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet Mittelwert und Standardabweichung nach Geschecht</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df_lokal_alterUndGeschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
@@ -714,7 +716,7 @@ Caused by warning:
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MWAlter =</span> <span class="fu">mean</span>(alter),</span>
 <span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">SDAlter =</span> <span class="fu">sd</span>(alter))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Um die Gruppenmittelwerte mit jeweiliger Standardabweichug abzubilden, nutzen wir zwei neue geom_ Funktionen: <code>geom_point()</code> für die Mittelwerte und <code>geom_errorbar()</code> für die Standardabweichungen. Aber fangen wir obne an: zunächst legen wir in <code>ggplot()</code> und <code>aes()</code> fest, dass wir das Alter auf der y-Achse und das Geschlecht auf der x-Achse darstellen wollen. geom_point() sorgt dafür, dass die Gruppenmittelwerte jeweils durch einen Punkt dargestellt werden. <code>geom_errorbar()</code> zeichnet Balken um diese Punkte. Dazu müssen wir wieder in aes() angeben, wo diese Balken anfangen und aufhören sollen. Den Startpunkt legen wir mit y<code>min=MWAlter-SDAlter</code> und den Endpunkt mit <code>ymax=MWAlter+SDAlter</code> fest.</p>
+<p>Um die Gruppenmittelwerte mit jeweiliger Standardabweichung abzubilden, nutzen wir zwei neue geom_ Funktionen: <code>geom_point()</code> für die Mittelwerte und <code>geom_errorbar()</code> für die Standardabweichungen. Aber fangen wir oben an: zunächst legen wir in <code>ggplot()</code> und <code>aes()</code> fest, dass wir das Alter auf der y-Achse und das Geschlecht auf der x-Achse darstellen wollen. geom_point() sorgt dafür, dass die Gruppenmittelwerte jeweils durch einen Punkt dargestellt werden. <code>geom_errorbar()</code> zeichnet Balken um diese Punkte. Dazu müssen wir wieder in aes() angeben, wo diese Balken anfangen und aufhören sollen. Den Startpunkt legen wir mit <code>ymin=MWAlter-SDAlter</code> und den Endpunkt mit <code>ymax=MWAlter+SDAlter</code> fest.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plottet die Gruppenmittelwerte und Standardabweichungen</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>alter_nach_geschlecht <span class="ot">&lt;-</span> df_lokal_alterUndGeschlecht <span class="sc">|&gt;</span></span>
@@ -749,7 +751,7 @@ Grafiken speichern
 <li><code>plot =</code> Den Namen des Objekts, das Sie speichern wollen.</li>
 <li><code>width =</code> Die gewünschte Breite der Grafik.</li>
 <li><code>height =</code> Die gewünschte Höhe der Grafik.</li>
-<li><code>units =</code> Die Maßeinheit in der Breite und Höhe angegeben werden: “mm”, “cm”, “px” oder “in” für millimeter centimeter, pixel oder inch.</li>
+<li><code>units =</code> Die Maßeinheit in der Breite und Höhe angegeben werden: “mm”, “cm”, “px” oder “in” für Millimeter Zentimeter, Pixel oder Inch.</li>
 </ul>
 </div>
 </div>

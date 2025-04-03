@@ -275,17 +275,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Im letzten Kapitel haben wir uns mit einigen Basics von R beschäftigt. Daran werden wir in diesem Kapitel anknüpfen und lernen, wie wir R durch sogenannte Pakete erweitern können und wie wir Daten so transformieren können, dass wir damit sinnvoll arbeiten können.</p>
 <section id="pakete" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="pakete"><span class="header-section-number">3.1</span> Pakete</h2>
-<p>Zwar kann R direkt nach der Installation schon relativ viel, aber gleichzeitig gibt es viele Aufgaben, die wir nur lösen können, indem wir R erweitern. Dazu nutzen wir sogenannte <strong>Pakete</strong>. Vereinfacht gesagt handelt es sich dabei um Sammlungen von Funktionen. Im Lauf des Kurses werden wir einige Pakete benötigen, die wir entsprechend nach und nach kennenlernen werden. Zunächst schauen wir uns an, wie wir Pakete installieren und laden können.</p>
+<p>Zwar kann R direkt nach der Installation schon relativ viel, aber gleichzeitig gibt es viele Aufgaben, die wir nur lösen können, indem wir R erweitern. Dazu nutzen wir sogenannte <strong>Pakete</strong>. Vereinfacht gesagt handelt es sich dabei um Sammlungen von Funktionen. Im Laufe des Kurses werden wir einige Pakete benötigen, die wir entsprechend nach und nach kennenlernen werden. Zunächst schauen wir uns an, wie wir Pakete installieren und laden können.</p>
 <section id="pakete-installieren" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="pakete-installieren"><span class="header-section-number">3.1.1</span> Pakete installieren</h3>
 <p>Um ein Paket zu installieren, müssen Sie zunächst dessen Namen kennen. Dann haben Sie zwei Möglichkeiten:</p>
 <ol type="1">
 <li><p>Sie können die Funktion <code>install.packages()</code> nutzen. Als Argument nimmt die Funktion den Namen mindestens eines Pakets in Anführungszeichen, oder mehrere Pakete durch Kommata getrennt. Für den weiteren Verlauf des Kapitels werden wir das Paket <code>tidyverse</code> nutzen. Damit wir das Paket nicht jedes Mal aufs Neue installieren, wenn wir ein Skript ausführen, können wir die Funktion mit dem folgenden Befehl aufrufen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prüft, ob das Paket "tidyverse" installiert ist. Falls nicht, wird es installiert</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prüft, ob das Paket "tidyverse" installiert ist. Falls nicht, wird es installiert und geladen</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(tidyverse)){</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Lade nötiges Paket: tidyverse</code></pre>
 </div>
@@ -294,7 +295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -302,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 </div>
-<p>Die Funktionsweise ist für Sie nicht entscheidend, aber für den Fall, dass es Sie interessiert, wird sie hier noch kurz erklärt: Wir starten mit einem sogenannten <code>if-Befehl</code>, deren Aufbau immer gleich ist. In der Klammer steht eine Bedingung, die geprüft wird. Sofern sie zutrifft, wird der Teil in der in den geschwungenen Klammern (<code>{}</code>) ausgefführt. Die Bedingung in einem <code>if-Befehl</code> muss immer wahr oder falsch sein, bzw. <code>TRUE</code> oder <code>FALSE</code> zurückgeben. Wird <code>TRUE</code> zurückgegeben, gilt die Bedingung als erfüllt, andernfalls nicht. In diesem Fall wird die Bedingung <code>!require(tidyverse)</code> geprüft. <code>require()</code> ist eine Funktion, die versucht ein Paket zu laden. Falls es aber nicht installiert ist, gibt sie <code>FALSE</code> zurück. Durch das Ausrufezeichen, wird dieser Ausdruck negiert. Etwas das nicht <code>FALSE</code> ist, ist in der R-Logik <code>TRUE</code>. In der Summe bedeutet das also, dass wir erst prüfen, ob das Paket vorhanden ist und falls nicht, wird es installiert.</p></li>
+<p>Die Funktionsweise ist für Sie nicht entscheidend, aber für den Fall, dass es Sie interessiert, wird sie hier noch kurz erklärt: Wir starten mit einem sogenannten <code>if-Befehl</code>, dessen Aufbau immer gleich ist. In der Klammer steht eine Bedingung, die geprüft wird. Sofern sie zutrifft, wird der Teil in der in den geschweiften Klammern (<code>{}</code>) ausgeführt. Die Bedingung in einem <code>if-Befehl</code> muss immer wahr oder falsch sein bzw. <code>TRUE</code> oder <code>FALSE</code> zurückgeben. Wird <code>TRUE</code> zurückgegeben, gilt die Bedingung als erfüllt, andernfalls nicht. In diesem Fall wird die Bedingung <code>!require(tidyverse)</code> geprüft. <code>require()</code> ist eine Funktion, die versucht ein Paket zu laden. Falls es aber nicht installiert ist, gibt sie <code>FALSE</code> zurück. Durch das Ausrufezeichen wird dieser Ausdruck negiert. Etwas, das nicht <code>FALSE</code> ist, ist in der R-Logik <code>TRUE</code>. In der Summe bedeutet das also, dass wir erst prüfen, ob das Paket vorhanden ist, und falls nicht, wird es installiert.</p></li>
 <li><p>Alternativ können Sie im Bereich unten rechts auf den Reiter <code>Packages</code> und dort auf <code>Install</code> klicken.</p></li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
@@ -322,12 +323,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Auch zum Laden von Paketen haben Sie mehrere Möglichkeiten:</p>
 <ol type="1">
 <li><p>Sie können den Befehl von oben nutzen, da die <code>require()</code>-Funktion versucht, das angegebene Paket zu laden. Sofern das Paket bereits installiert ist, wird es einfach nur geladen.</p></li>
-<li><p>Sie können auch die <code>library()</code>-Funktion verwenden. Auch hier müssen Sie nur den Namen des Pakets als Argument übergeben. Diesmal allerdings ohne Anführungszeichen. Der Unterschied zu <code>require()</code> ist, dass die Funktion eine Fehlermeldung zurückgibt, falls das Paket nicht vorhanden ist.</p>
+<li><p>Sie können auch die <code>library()</code>-Funktion verwenden. Auch hier müssen Sie nur den Namen des Pakets als Argument übergeben - diesmal allerdings ohne Anführungszeichen. Der Unterschied zu <code>require()</code> ist, dass die Funktion eine Fehlermeldung zurückgibt, falls das Paket nicht vorhanden ist.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt das Paket "tidyverse"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
-<li><p>Alterantiv können Sie wieder auf den Reiter <code>Packages</code> unten rechts navigieren, den Namen des Pakets im Suchfeld eingeben und anschließend einen Haken im entsprechenden Feld setzen.</p></li>
+<li><p>Alternativ können Sie wieder auf den Reiter <code>Packages</code> unten rechts navigieren, den Namen des Pakets im Suchfeld eingeben und anschließend einen Haken im entsprechenden Feld setzen.</p></li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -337,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="das-tidyverse" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="das-tidyverse"><span class="header-section-number">3.1.3</span> Das tidyverse</h3>
-<p>In den beiden vorherigen Abschnitten haben wir das <code>tidyverse</code>-Paket installiert und geladen. Strenggenommen handelt es sich dabei nicht um ein einzelnes Paket, sondern gleich eine ganze Sammlung. Das sehen Sie auch, nachdem Sie das Paket geladen haben. In der Konsole wird uns gleich eine ganze Reihe an Paketen angezeigt, die geladen wurden:</p>
+<p>In den beiden vorherigen Abschnitten haben wir das <code>tidyverse</code>-Paket installiert und geladen. Streng genommen handelt es sich dabei nicht um ein einzelnes Paket, sondern gleich eine ganze Sammlung. Das sehen Sie auch, nachdem Sie das Paket geladen haben. In der Konsole wird uns gleich eine ganze Reihe an Paketen angezeigt, die geladen wurden:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Screenshots/tidyverse.PNG" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
@@ -345,22 +346,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Schauen wir uns einmal kurz an, worum es sich bei diesen Paketen handelt:</p>
 <ol type="1">
-<li><code>dplyr</code> ist gewissermaßen das Herzstück des <code>tidyverse</code>. Das Pekt enthält zahlreiche Funktionen, die wir für die Datentransformation benötigen. Sie können damit z.B. neue Variablen berechnen, Datensätze filtern, einzelne Spalten selektieren und vieles mehr. Wir werden das Paket hauptsächlich nutzen, um Daten in ein Format zu bringen, mit dem wir weiterarbeiten können und, um Datensätze deskriptiv auszuwerten.</li>
-<li><code>forcats</code> erleichtert die Arbeit mit kategorischen Variablen, also z.B. dem Geschlecht der Befragten aus dem letzten Kapitel.</li>
+<li><code>dplyr</code> ist gewissermaßen das Herzstück des <code>tidyverse</code>. Das Paket enthält zahlreiche Funktionen, die wir für die Datentransformation benötigen. Sie können damit z. B. neue Variablen berechnen, Datensätze filtern, einzelne Spalten selektieren und vieles mehr. Wir werden das Paket hauptsächlich nutzen, um Daten in ein Format zu bringen, mit dem wir weiterarbeiten können und um Datensätze deskriptiv auszuwerten.</li>
+<li><code>forcats</code> erleichtert die Arbeit mit kategorischen Variablen, also z. B. dem Geschlecht der Befragten aus dem letzten Kapitel.</li>
 <li><code>ggplot2</code> ist ein Paket zum Erstellen von Grafiken. Wir werden es in den kommenden Wochen näher kennenlernen.</li>
 <li><code>lubridate</code> enthält Funktionen, die das Arbeiten mit Zeit- und Datumsvariablen erleichtern. In diesem Kurs werden wir solchen Daten allerdings nicht begegnen.</li>
-<li><code>purrr</code> ist eher etwas für fortgeschrittene Programmierer:innen. Es enthält Funktionen, die das Arbeiten anderen R Funktionen optimieren können. Keine Sorge: Wir bleiben in diesem Kurs bei den Basics und werden uns nicht damit befassen.</li>
-<li><code>readr</code> ist ein Paket zum Laden von Daten, zum Beispiel enthält es die <code>read_csv()</code>-Funktion als Alternative zur <code>read.csv()</code>-Funktion aus dem letzten Kapitel. Das mag redundant wirken, aber zeigt in erster Linie, dass es in R in der Regel viele verschiedene Möglichkeiten gibt, ein gegebenes Problem zu lösen. Der Grund, warum readr entwickelt wurde ist, dass die enthaltenen Funktionen oftmals schneller sind, als ihre in R enthaltenen Pendants. Allerdings zeigt sich dieser Geschwindigkeitsvorteil hauptsächlich bei sehr großen Datensätzen.</li>
-<li><code>stringr</code> ist ein Paket, um strings zu manipulieren. Man kann damit z.B. prüfen, ob eine Zeichenfolge bestimmte Zeichen enthält, die wiederum entfernt oder geändert werden können.</li>
-<li><code>tibble</code> nicht nur der Name des Pakets, sondern auch der Name des Objekttyps, den das Paket erzeugt. Im Prinzip ist die Kernfunktion <code>tibble()</code> eine moderne Version der <code>data.frame()</code>-Funktion aus dem letzten Kapitel.</li>
+<li><code>purrr</code> ist eher etwas für fortgeschrittene Programmierer:innen. Es enthält Funktionen, die das Arbeiten anderen R-Funktionen optimieren können. Keine Sorge: Wir bleiben in diesem Kurs bei den Basics und werden uns nicht damit befassen.</li>
+<li><code>readr</code> ist ein Paket zum Laden von Daten, zum Beispiel enthält es die <code>read_csv()</code>-Funktion als Alternative zur <code>read.csv()</code>-Funktion aus dem letzten Kapitel. Das mag redundant wirken, zeigt aberin erster Linie, dass es in R in der Regel viele verschiedene Möglichkeiten gibt, ein gegebenes Problem zu lösen. Der Grund, warum <code>readr</code> entwickelt wurde, ist, dass die enthaltenen Funktionen oftmals schneller sind als ihre in R enthaltenen Pendants. Allerdings zeigt sich dieser Geschwindigkeitsvorteil hauptsächlich bei sehr großen Datensätzen.</li>
+<li><code>stringr</code> ist ein Paket, um Strings zu manipulieren. Man kann damit z. B. prüfen, ob eine Zeichenfolge bestimmte Zeichen enthält, die wiederum entfernt oder geändert werden können.</li>
+<li><code>tibble</code> ist nicht nur der Name des Pakets, sondern auch der Name des Objekttyps, den das Paket erzeugt. Im Prinzip ist die Kernfunktion <code>tibble()</code> eine moderne Version der <code>data.frame()</code>-Funktion aus dem letzten Kapitel.</li>
 <li><code>tidyr</code> enthält Funktionen, mit denen wir Datensätze bzw. <code>tibbles</code> in ein bestimmtes Format bringen können, das schlicht <strong>tidy</strong> genannt wird. Dieses Format haben Sie im letzten Kapitel bereits kennengelernt, wenn auch nicht unter diesem Namen. Es bedeutet nicht mehr als die Idee, dass in einem gut strukturierten Datensatz jede Zeile einem Fall und jede Spalte einer Variable entspricht.</li>
 </ol>
-<p>Der Vorteil des <code>tidyverse</code> ist, dass Sie immer nur ein Paket laden müssen, um einen umfangreichen Wekrzeugkasten nutzen zu können. Gleichwohl kann das Paket am Anfang aufgrund seines Umfangs etwas abschreckend und unzugänglich wirken. Hier können sogenannte <strong>Cheatsheets</strong>, also Spickzettel, Abhilfe schaffen. Darauf werden die wichtigsten Funktionen der einzelnen Pakete vorgestellt und erklärt. Für die meisten <code>tidyverse</code>-Pakete finden Sie solche Cheatsheets auf der Webseite von posit, dem Unternehmen, das auch RStudio entwickelt: <a href="https://posit.co/resources/cheatsheets/" class="uri">https://posit.co/resources/cheatsheets/</a></p>
+<p>Der Vorteil des <code>tidyverse</code> ist, dass Sie immer nur ein Paket laden müssen, um einen umfangreichen Werkzeugkasten nutzen zu können. Gleichwohl kann das Paket am Anfang aufgrund seines Umfangs etwas abschreckend und unzugänglich wirken. Hier können sogenannte <strong>Cheatsheets</strong>, also Spickzettel, Abhilfe schaffen. Darauf werden die wichtigsten Funktionen der einzelnen Pakete vorgestellt und erklärt. Für die meisten <code>tidyverse</code>-Pakete finden Sie solche Cheatsheets auf der Webseite von posit, dem Unternehmen, das auch RStudio entwickelt: <a href="https://posit.co/resources/cheatsheets/" class="uri">https://posit.co/resources/cheatsheets/</a></p>
 </section>
 </section>
 <section id="datentransformationen" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="datentransformationen"><span class="header-section-number">3.2</span> Datentransformationen</h2>
-<p>Mit Hilfe des <code>tidyverse</code> und insbesondere den in <code>dplyr</code> enthaltenen Funktionen können wir Datensätze transformieren. Das ist etwas vereinfacht ausgedrückt, denn eigentlich verbirgt sich hinter der Transformation von Daten und Datensätzen eine Vielzahl von Dingen. Einige davon werden wir uns nun angucken. Ganz konkret das Umbenennen von Spalten, das Hinzufügen von neuen Spalten, das Selektieren von bestimmten Spalten und das Filtern von Fällen, also Zeilen.</p>
+<p>Mit Hilfe des <code>tidyverse</code> und insbesondere den in <code>dplyr</code> enthaltenen Funktionen können wir Datensätze transformieren. Das ist etwas vereinfacht ausgedrückt, denn eigentlich verbirgt sich hinter der Transformation von Daten und Datensätzen eine Vielzahl von Dingen. Einige davon werden wir uns nun anschauen Ganz konkret das Umbenennen von Spalten, das Hinzufügen neuer Spalten, das Selektieren bestimmter Spalten und das Filtern von Fällen, also Zeilen.</p>
 <section id="spalten-umbenennen" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="spalten-umbenennen"><span class="header-section-number">3.2.1</span> Spalten umbenennen</h3>
 <p>Um eine oder mehrere Spalten umzubenennen, können wir die <code>rename()</code>-Funktion nutzen. Das Schema ist dabei relativ einfach: <code>neuerName = alterName</code>. In der Praxis sieht das so aus:</p>
@@ -370,7 +371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/lokalkommunikation.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Damit der neue Name im Datensatz gespeichert wird, müssen wir das Ergebnis der <code>rename()</code>-Funktion in einem Objekt speichern. In solchen Fällen ist es häufig sinnvoll, das vorhadene Datensatzobjekt zu überschreiben. Mit der Pipe (<code>|&gt;</code>) übergeben wir den Datensatz an die <code>rename()</code>-Funktion.</p>
+<p>Damit der neue Name im Datensatz gespeichert wird, müssen wir das Ergebnis der <code>rename()</code>-Funktion in einem Objekt speichern. In solchen Fällen ist es häufig sinnvoll, das vorhandene Datensatzobjekt zu überschreiben. Mit der Pipe (<code>|&gt;</code>) übergeben wir den Datensatz an die <code>rename()</code>-Funktion.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benennt die Spalte A101_01 in Themeninteresse_lokal um</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -385,7 +386,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Wenn Sie eine neue Variable berechnen wollen oder</li>
 <li>wenn Sie eine bestehende Variable verändern wollen.</li>
 </ol>
-<p>Dazu können wir die <code>dplyr</code>-Funktion <code>mutate()</code> nutzen. Als Argument übergeben wir der Funktion den Namen der neuen Spalte und deren Inhalt. Das Schema sieht so aus: <code>mutate(nameDerNeuenSpalte = fester Wert, Berechnung oder Veränderung einer bestehenden Spalte)</code>. Schauen wir uns die Funktion einmal am Beispiel aus dem letzten Kapitel an. Dort haben wir die Spalte <code>A602</code> in einen Faktor umgewandelt und eine Häufigkeitstabelle ausgegeben. Das geht auch mit der <code>mutate()</code>-Funktion Dieser sagen wir, dass wir eine neue Spalte namens <code>geschlecht</code> erstellen wollen. Diese ist gleich einem Faktor aus der Spalte <code>A602</code>, mit den entsprechenden Wertbeschriftungen.</p>
+<p>Dazu können wir die <code>dplyr</code>-Funktion <code>mutate()</code> nutzen. Als Argument übergeben wir der Funktion den Namen der neuen Spalte und deren Inhalt. Das Schema sieht so aus: <code>mutate(nameDerNeuenSpalte = fester Wert, Berechnung oder Veränderung einer bestehenden Spalte)</code>. Schauen wir uns die Funktion einmal am Beispiel aus dem letzten Kapitel an. Dort haben wir die Spalte <code>A602</code> in einen Faktor umgewandelt und eine Häufigkeitstabelle ausgegeben. Das geht auch mit der <code>mutate()</code>-Funktion. Dieser sagen wir, dass wir eine neue Spalte namens <code>geschlecht</code> erstellen wollen. Diese ist gleich einem Faktor aus der Spalte <code>A602</code>, mit den entsprechenden Wertbeschriftungen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt einen Faktor aus der Spalte A602 und speichert diesen in der neuen Spalte Geschlecht</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -401,7 +402,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
          813          996            7           18 </code></pre>
 </div>
 </div>
-<p>Oben haben Sie erfahren, dass man mit <code>mutate()</code> neue Spalten hinzufügen kann. Sie können aber auch bestehende Spalten verändern. Das sollten Sie allerdings nur in absoluten Ausnahmen machen! Eine davon ist, wenn Sie zum erstellen neuer Spalten mehrere Schritte benötigen. Zum Beispiel können wir mit der Antwort <code>"keine Angabe"</code> auf die Geschlechtsabfrage wenig anfangen. Für viele Analysen wäre es daher sinnvoll, wenn diese Werte als fehlende Werte codiert wären. In R nennen wir solche Werte <code>NAs</code> (für not available). Um diese Werte entsprechend als fehlend zu codieren, können wir in zwei Schritten vorgehen. Erst codieren wir den Wert 4 aus der Ausgangsspalte <code>A602</code> als fehlend. Das geht mit der <code>na_if()</code>-Funktion aus dem dyplr-Paket. Dieser Funktion übergeben wir ein Objekt und den Wert, der in <code>NA</code> umgewandelt werden soll. Im zweiten Schritt können wir dann einen Faktor mit den drei Kategorien <code>"männlich"</code>, <code>"weiblich"</code> und <code>"divers"</code> erstellen.</p>
+<p>Oben haben Sie erfahren, dass man mit <code>mutate()</code> neue Spalten hinzufügen kann. Sie können aber auch bestehende Spalten verändern. Das sollten aber die absolute Aussanahme sein! Eine davon ist, wenn Sie zum Erstellen neuer Spalten mehrere Schritte benötigen. Zum Beispiel können wir mit der Antwort <code>"keine Angabe"</code> auf die Geschlechtsabfrage wenig anfangen. Für viele Analysen wäre es daher sinnvoll, wenn diese Werte als fehlende Werte codiert wären. In R nennen wir solche Werte <code>NAs</code> (für not available). Um diese Werte entsprechend als fehlend zu codieren, können wir in zwei Schritten vorgehen. Erst codieren wir den Wert 4 aus der Ausgangsspalte <code>A602</code> als fehlend. Das geht mit der <code>na_if()</code>-Funktion aus dem <code>dyplr</code>-Paket. Dieser Funktion übergeben wir ein Objekt und den Wert, der in <code>NA</code> umgewandelt werden soll. Im zweiten Schritt können wir dann einen Faktor mit den drei Kategorien <code>"männlich"</code>, <code>"weiblich"</code> und <code>"divers"</code> erstellen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt eine Spalte aus der Geschlechtsabfrage. Erst wird der Wert "keine Angabe" als fehlend deklariertm dann wird ein Faktor mit den übrigen drei Kategorien erstellt</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -418,9 +419,9 @@ männlich weiblich   divers
      813      996        7 </code></pre>
 </div>
 </div>
-<p>Schauen wir uns noch ein weiteres Beispiel an. In der Spalte <code>A601_01</code> ist das Geburtsjahr der Befragten angegeben, das in ein offenes Textfeld eingetragen werden sollte. Mit der <code>unique()</code>-Funktion können wir uns alle Werte anzeigen lassen, die mindestens einmal in der Spalte vorkommen. Anders als die <code>table()</code>-Funktion erhalten wir aber keine Häufigkeiten. <code>unique()</code> ist also praktisch, wenn wir nur wissen wollen, was für Werte eine Spalte eigentlich enthält.</p>
+<p>Schauen wir uns noch ein weiteres Beispiel an. In der Spalte <code>A601_01</code> ist das Geburtsjahr der Befragten angegeben, das in ein offenes Textfeld eingetragen werden sollte. Mit der <code>unique()</code>-Funktion können wir uns alle Werte anzeigen lassen, die mindestens einmal in der Spalte vorkommen. Anders als die <code>table()</code>-Funktion erhalten wir aber keine Häufigkeiten. <code>unique()</code> ist also praktisch, wenn wir nur wissen wollen, welche Werte eine Spalte eigentlich enthält.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt alle Werte on A601_01, die mindestens einmal vorkommen</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt alle Werte von A601_01, die mindestens einmal vorkommen</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(df_lokal<span class="sc">$</span>A601_01)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -445,11 +446,11 @@ männlich weiblich   divers
 [91] "1937"         "1961 "       </code></pre>
 </div>
 </div>
-<p>Wie es aussieht, haben einige Befragte die Frage nicht ganz verstanden und unsinnige Werte (z.B. Deutschland) oder ihren genauen Geburtstag angegeben. Wieder andere haben ein Leerzeichen am Ende der Jahresangabe angehängt. All das führt dazu, dass die Spalte nicht als Zahl, sondern als string gespeichert ist. Das ist ziemlich unpraktisch!</p>
+<p>Wie es aussieht, haben einige Befragte die Frage nicht ganz verstanden und unsinnige Werte (z. B. Deutschland) oder ihren genauen Geburtstag angegeben. Wieder andere haben ein Leerzeichen am Ende der Jahresangabe angehängt. All das führt dazu, dass die Spalte nicht als Zahl, sondern als String gespeichert ist. Das ist ziemlich unpraktisch!</p>
 <p>Um diese Spalte etwas aufzuräumen, müssen wir in mehreren Schritten vorgehen. Das Ziel ist, pro Person entweder eine Zahl mit vier Ziffern oder ein <code>NA</code> zu erhalten.</p>
 <p>Wir fangen mit den Leerzeichen an. Diese können wir mit der <code>str_trim()</code>-Funktion aus dem <code>stringr</code>-Paket entfernen. Dazu übergeben wir der Funktion einfach die entsprechende Spalte. Das Ergebnis speichern wir in der neuen Spalte <code>geburtsjahr</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entfernt Leerzeichen am Anfang und Ende der strings und speichert das Ergebnis in der neuen Spalte "geburtsjahr"</span></span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entfernt Leerzeichen am Anfang und Ende der Strings und speichert das Ergebnis in der neuen Spalte "geburtsjahr"</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">str_trim</span>(A601_01))</span>
@@ -475,7 +476,7 @@ männlich weiblich   divers
 [81] "1933"         "24.10.1945"   "I 966"        "1937"        </code></pre>
 </div>
 </div>
-<p>Als nächstes können wir die Fälle behandeln, die ihr vollständiges Geburtsdatum angegeben haben. Dazu nutzen wir die <code>str_sub()</code>-Funktion, die es uns erlaubt, Teile von strings auf Basis ihrer Position zu extrahieren. Indem wir <code>-4</code> angeben, sagen wir der Funktion, dass wir nur die letztn vier Stellen behalten wollen.</p>
+<p>Als nächstes können wir die Fälle behandeln, die ihr vollständiges Geburtsdatum angegeben haben. Dazu nutzen wir die <code>str_sub()</code>-Funktion, die es uns erlaubt, Teile von Strings auf Basis ihrer Position zu extrahieren. Indem wir <code>-4</code> angeben, sagen wir der Funktion, dass wir nur die letzten vier Stellen behalten wollen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entfernt alle Zeichen bis auf die letzten 4</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -495,7 +496,7 @@ männlich weiblich   divers
 [81] "1937"</code></pre>
 </div>
 </div>
-<p>Diese Vorarbeit reicht, um fast alle problematischen Fälle mit einem weiteren Schritt zu bereinigen. Wir können nun die <code>as.integer()</code>-Funktion benutzen, um die Spalte in eine Zahl umzuwandeln. Alles was nicht umgewandelt werden kann, wird automatisch zu einem <code>NA</code>.</p>
+<p>Diese Vorarbeit reicht, um fast alle problematischen Fälle mit einem weiteren Schritt zu bereinigen. Wir können nun die <code>as.integer()</code>-Funktion benutzen, um die Spalte in eine Zahl umzuwandeln. Alles, was nicht umgewandelt werden kann, wird automatisch zu einem <code>NA</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wandelt geburtsjahr in eine Zahl um</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -517,7 +518,7 @@ Caused by warning:
 [76] 1937</code></pre>
 </div>
 </div>
-<p>Das sieht schon deutlich besser aus! Nur ein einziger Fall bleibt problematisch: Eine Person hat den Wert <code>966</code>. Da es recht unwahrscheinlich ist, dass eine so alte Person an der Befragung teilgenommen hat, müssen wir entscheiden, wie wir mit dem Wert umgehen. Wenn wir uns die vorherigen Ausgaben der <code>unique()</code>-Funktion ansehen, sehen wir, dass die Person ursprünglich <code>"I 966"</code> angegeben hatte. Wir könnten nun eher streng sein und den Wert als <code>NA</code> deklarieren, da die Eingabe unsinnig ist. Oder wir gehen davon aus, dass <code>1966</code> gemeint war. In dem Fall könnten wir den einzelnen Wert einfach umcodieren oder 1000 addieren. Das ist ein schönes Beispiel dafür, dass es bei der Datenaufbereitung nicht immer eindeutig richitge oder falsche Entscheidungen gibt. In diesem konkreten Fall wandeln wir die <code>966</code> in eine <code>1966</code> um. Dazu nutzen wir die <code>ifelse()</code>-Funktion, die immer drei Argumente benötigt:</p>
+<p>Das sieht schon deutlich besser aus! Nur ein einziger Fall bleibt problematisch: Eine Person hat den Wert <code>966</code>. Da es recht unwahrscheinlich ist, dass eine so alte Person an der Befragung teilgenommen hat, müssen wir entscheiden, wie wir mit dem Wert umgehen. Wenn wir uns die vorherigen Ausgaben der <code>unique()</code>-Funktion ansehen, sehen wir, dass die Person ursprünglich <code>"I 966"</code> angegeben hatte. Wir könnten nun eher streng sein und den Wert als <code>NA</code> deklarieren, da die Eingabe unsinnig ist. Oder wir gehen davon aus, dass <code>1966</code> gemeint war. In dem Fall könnten wir den einzelnen Wert einfach umcodieren oder 1000 addieren. Das ist ein schönes Beispiel dafür, dass es bei der Datenaufbereitung nicht immer eindeutig richtige oder falsche Entscheidungen gibt. In diesem konkreten Fall wandeln wir die <code>966</code> in eine <code>1966</code> um. Dazu nutzen wir die <code>ifelse()</code>-Funktion, die immer drei Argumente benötigt:</p>
 <ol type="1">
 <li>Eine Bedingung, die geprüft werden soll.</li>
 <li>Was getan werden soll, falls die Bedingung zutrifft.</li>
@@ -539,7 +540,7 @@ Caused by warning:
 [61] 1939 2003 1998 1992 1946 1945 1943 1936 1938 2007 1935 1940 1934 1933 1937</code></pre>
 </div>
 </div>
-<p>Um jetzt aus dem Geburtsjahr das Alter zu berechnen, können wir wieder <code>mutate()</code> nutzen, um eine neue Variable zu berechnen. Die Befragung wurde 2022 durchgeführt, also können wir davon den Wert aus <code>geburtsjahr</code> subtrahieren. Damit bekommen wir zwar strenggenommen nicht das Alter zum Zeitpunkt der Befragung, sondern zum Jahresende, aber genauer liegen die Daten nicht vor, sodass wir damit leben müssen.</p>
+<p>Um jetzt aus dem Geburtsjahr das Alter zu berechnen, können wir wieder <code>mutate()</code> nutzen, um eine neue Variable zu berechnen. Die Befragung wurde 2022 durchgeführt, also können wir davon den Wert aus <code>geburtsjahr</code> subtrahieren. Damit bekommen wir zwar streng genommen nicht das Alter zum Zeitpunkt der Befragung, sondern zum Jahresende, aber genauer liegen die Daten nicht vor, sodass wir damit leben müssen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet das Alter der Befragten</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -549,14 +550,14 @@ Caused by warning:
 </section>
 <section id="spalten-auswählen" class="level3" data-number="3.2.3">
 <h3 data-number="3.2.3" class="anchored" data-anchor-id="spalten-auswählen"><span class="header-section-number">3.2.3</span> Spalten auswählen</h3>
-<p>Manchmal enthalten Datensätze Spalten, die wir nicht benötigen. Um Speicherplatz zu sparen oder insgesamt effizienteren Code zu haben, können wir einzelne Spalten selektieren. Dazu nutzen wir die <code>dplyr</code>-Funktion <code>select()</code>. Sie können der Funktion einfach die Namen derjenige Spalten übergeben, die Sie behalten wollen. Wenn wir beispielsweise nur Alter und Geschlecht behalten wollen, sieht das wie folgt aus:</p>
+<p>Manchmal enthalten Datensätze Spalten, die wir nicht benötigen. Um Speicherplatz zu sparen oder insgesamt effizienteren Code zu haben, können wir einzelne Spalten selektieren. Dazu nutzen wir die <code>dplyr</code>-Funktion <code>select()</code>. Sie können der Funktion einfach die Namen derjenigen Spalten übergeben, die Sie behalten wollen. Wenn wir beispielsweise nur Alter und Geschlecht behalten wollen, sieht das wie folgt aus:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstell einen Datensatz der nur aus Alter und Geschlecht der Befragten besteht</span></span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstell einen Datensatz, der nur aus Alter und Geschlecht der Befragten besteht</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>df_lokal_alterUndGeschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(alter, geschlechtMitNAs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Alternativ können Sie auch mit einem Minuszeichen einzelne Spalten ausschließen. Wenn wir z.B. die Zwischenschritte unserer Datentransformationen oben entfernen möchten, geht das deutlich leichter über den Ausschluss einiger weniger Spalten als den Einschluss aller anderen. Dabei können wir wieder mal die <code>c()</code>-Funktion nutzen, um gleich mehrere Spalten auf einmal loszuwerden:</p>
+<p>Alternativ können Sie auch mit einem Minuszeichen einzelne Spalten ausschließen. Wenn wir z. B. die Zwischenschritte unserer Datentransformationen oben entfernen möchten, geht das deutlich leichter über den Ausschluss einiger weniger Spalten als den Einschluss aller anderen. Dabei können wir wieder mal die <code>c()</code>-Funktion nutzen, um gleich mehrere Spalten auf einmal loszuwerden:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schließt die Zwischenschritte aus der Transformation aus dem Datensatz aus</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -573,11 +574,11 @@ Caused by warning:
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>df_lokal_u60 <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(alter <span class="sc">&lt;</span> <span class="dv">60</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Wir können auch die <code>is.na()</code>-Funktion nutzen (bzw. dere Negation mit <code>!</code>), um Befragte aszuschließen, die ihr Geschlecht nicht angegeben haben.</p>
+<p>Wir können auch die <code>is.na()</code>-Funktion nutzen (bzw. deren Negation mit <code>!</code>), um Befragte auszuschließen, die ihr Geschlecht nicht angegeben haben.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entfernt Befragte ohne Angaben zum Geschlecht</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>df_lokla_geschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>df_lokal_geschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(geschlechtMitNAs))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Manchmal kann es auch sinnvoll sein, zwei Bedingungen zu kombinieren. Das geht mit <code>&amp;</code>:</p>

@@ -235,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#statistische-grundlagen" id="toc-statistische-grundlagen" class="nav-link active" data-scroll-target="#statistische-grundlagen"><span class="header-section-number">7.1</span> Statistische Grundlagen</a></li>
-  <li><a href="#deskription-und-visulisierung-der-daten" id="toc-deskription-und-visulisierung-der-daten" class="nav-link" data-scroll-target="#deskription-und-visulisierung-der-daten"><span class="header-section-number">7.2</span> Deskription und Visulisierung der Daten</a></li>
+  <li><a href="#deskription-und-visualisierung-der-daten" id="toc-deskription-und-visualisierung-der-daten" class="nav-link" data-scroll-target="#deskription-und-visualisierung-der-daten"><span class="header-section-number">7.2</span> Deskription und Visualisierung der Daten</a></li>
   <li><a href="#korrelationen-berechnen" id="toc-korrelationen-berechnen" class="nav-link" data-scroll-target="#korrelationen-berechnen"><span class="header-section-number">7.3</span> Korrelationen berechnen</a>
   <ul class="collapse">
   <li><a href="#pearson-korrelationen" id="toc-pearson-korrelationen" class="nav-link" data-scroll-target="#pearson-korrelationen"><span class="header-section-number">7.3.1</span> Pearson Korrelationen</a></li>
@@ -272,8 +272,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="7.1" class="anchored" data-anchor-id="statistische-grundlagen"><span class="header-section-number">7.1</span> Statistische Grundlagen</h2>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/RCoJXmWmEnY" title="Korrelationen" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
-<section id="deskription-und-visulisierung-der-daten" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="deskription-und-visulisierung-der-daten"><span class="header-section-number">7.2</span> Deskription und Visulisierung der Daten</h2>
+<section id="deskription-und-visualisierung-der-daten" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="deskription-und-visualisierung-der-daten"><span class="header-section-number">7.2</span> Deskription und Visualisierung der Daten</h2>
 <p>Wir starten wie im letzten Kapitel damit, unsere R-Umgebung vorzubereiten, indem wir das <code>tidyverse</code> laden, den Datensatz einlesen und die Optionen so ändern, dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt das tidyverse</span></span>
@@ -283,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -296,7 +296,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Stellt ein, dass sehr kleine Zahlen normal dargestellt werden</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Eine gute Möglichkeit, den Zusammenhang zwischen zwei metrischen Variablen grafisch darzustellen, ist durch ein sogenanntes Streudiagramm bzw. eine Punktewolke. Dabei wird eine Variable auf der x- und die andere auf der y-Achse dargestellt. Schauen wir uns das einmal am Besipel der Spalten <code>A202_01</code> und <code>A202_02</code> an, in denen das Interesse an Nachrichten über lokale bzw. nationale Geschehnisse abgefragt wurde.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Zunächst benennen wir beiden Spalten um. Anschließend rufen wir <code>ggplot()</code> auf, geben dort innerhalb von <code>aes()</code> an, welche Variable wir auf der x- bzw. y-Achse darstellen wollen. Dann müssen wir nur noch <code>geom_point()</code> ergänzen. Mit <code>theme_minimal()</code> und <code>labs()</code> verschönern wir unseren Plot gleich noch ein wenig.</p>
+<p>Eine gute Möglichkeit, den Zusammenhang zwischen zwei metrischen Variablen grafisch darzustellen, ist durch ein sogenanntes Streudiagramm bzw. eine Punktewolke. Dabei wird eine Variable auf der x- und die andere auf der y-Achse dargestellt. Schauen wir uns das einmal am Beispel der Spalten <code>A202_01</code> und <code>A202_02</code> an, in denen das Interesse an Nachrichten über lokale bzw. nationale Geschehnisse abgefragt wurde.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Zunächst benennen wir die beiden Spalten um. Anschließend rufen wir <code>ggplot()</code> auf, geben dort innerhalb von <code>aes()</code> an, welche Variable wir auf der x- bzw. y-Achse darstellen wollen. Dann müssen wir nur noch <code>geom_point()</code> ergänzen. Mit <code>theme_minimal()</code> und <code>labs()</code> verschönern wir unseren Plot gleich noch ein wenig.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benennt die Spalten A202_01 und A202_02 um</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span>  </span>
@@ -319,13 +319,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Das sieht gar nicht schlecht aus. Wir sehen allerdings, dass relativ viele Befragte die Skala vollständig ausgreizt haben und den jeweiligen Maximalwert (101) angegeben haben. Daran können wir auch ein Verhalten von <code>geom_point()</code> erhnen, das tendenziell problematisch ist. Und zwar werden identische Datenpunkte einfach übereinander gelegt. Wenn also zwei Personen die exakt gleichen Antworten gegeben haben, zeigt <code>geom_point()</code> nur einen Punkt an.</p>
+<p>Das sieht gar nicht schlecht aus. Wir sehen allerdings, dass relativ viele Befragte die Skala vollständig ausgereizt haben und den jeweiligen Maximalwert (101) angegeben haben. Daran können wir auch ein Verhalten von <code>geom_point()</code> erahnen, das tendenziell problematisch ist. Und zwar werden identische Datenpunkte einfach übereinander gelegt. Wenn also zwei Personen die exakt gleichen Antworten gegeben haben, zeigt <code>geom_point()</code> nur einen Punkt an.</p>
 <p>Schauen wir uns das mal am Beispiel der Spalten <code>A208_01</code> und <code>A208_03</code> an. In beiden Spalten wurden Aspekte der politischen Selbstwirksamkeit abgefragt, jeweils bezogen auf den eigenen Wohnort. Die konkreten Formulierungen lauteten:</p>
 <ol type="1">
 <li><code>A208_01</code>: Wichtige Fragen der Lokalpolitik kann ich gut verstehen und einschätzen.</li>
 <li><code>A208_03</code>: Ich traue mir zu, mich an einem Gespräch über Fragen der Lokalpolitik aktiv zu beteiligen.</li>
 </ol>
-<p>Schauen wir uns einmal ein Streudiagramm dieser beiden Variablen an. Da die Items Teil einer größeren Abfrage waren und üblicherweise nicht einzeln ausgwertet werden würden, sind die Beschriftungen hier sehr pragmatisch gewählt.</p>
+<p>Schauen wir uns einmal ein Streudiagramm dieser beiden Variablen an. Da die Items Teil einer größeren Abfrage waren und üblicherweise nicht einzeln ausgewertet werden würden, sind die Beschriftungen hier sehr pragmatisch gewählt.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benennt die Spalten A208_01 und A208_03 um</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span>  </span>
@@ -353,8 +353,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Hier wird das Problem an <code>geom_point()</code> deutlich. Die Grafik verrät uns herzlich wenig. Wir haben nach wie vor keinerlei Vorstellung davon, wie stark der Zusammenhang sein könnte. Wir erfahren lediglich, dass jede mögliche Wertekombination im Datensatz enthalten ist. Es gibt also z.B. Leute, die auf eins der Items mit 1 (= “stimme überhaupt nicht zu”) und auf das andere mit 5 (= “stimme sehr zu”) geantwortet haben.</p>
-<p>In solchen Fällen ist es sinnvoll, die Alternative <code>geom_jitter()</code> zu nutzen. Jitter ist Englisch für zittern und genau das tut die Funktion: Sie verschiebt die einzelen Punkte minimal nach oben, unten, rechts und links (lässt sie also zittern), sodass wir besser erkennen können, wie die Daten verteilt sind. Um das umzusetzen, müssen wir nur <code>geom_point()</code> durch <code>geom_jitter()</code> ersetzen.</p>
+<p>Hier wird das Problem an <code>geom_point()</code> deutlich. Die Grafik verrät uns herzlich wenig. Wir haben nach wie vor keinerlei Vorstellung davon, wie stark der Zusammenhang sein könnte. Wir erfahren lediglich, dass jede mögliche Wertekombination im Datensatz enthalten ist. Es gibt also z.B. Leute, die auf eines der Items mit 1 (= “stimme überhaupt nicht zu”) und auf das andere mit 5 (= “stimme sehr zu”) geantwortet haben.</p>
+<p>In solchen Fällen ist es sinnvoll, die Alternative <code>geom_jitter()</code> zu nutzen. Jitter ist Englisch für zittern und genau das tut die Funktion: Sie verschiebt die einzelnen Punkte minimal nach oben, unten, rechts und links (lässt sie also zittern), sodass wir besser erkennen können, wie die Daten verteilt sind. Um das umzusetzen, müssen wir nur <code>geom_point()</code> durch <code>geom_jitter()</code> ersetzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein Streudiagramm der beiden Spalten mit geom_jitter()</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -383,7 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="7.3" class="anchored" data-anchor-id="korrelationen-berechnen"><span class="header-section-number">7.3</span> Korrelationen berechnen</h2>
 <section id="pearson-korrelationen" class="level3" data-number="7.3.1">
 <h3 data-number="7.3.1" class="anchored" data-anchor-id="pearson-korrelationen"><span class="header-section-number">7.3.1</span> Pearson Korrelationen</h3>
-<p>Pearson Korrelationen, also normale Korrelationen zwischen zwei metrischen Variablen, können wir mit der <code>cor.test()</code>-Funktion berechnen, der wir mit den Argumenten <code>x</code>und <code>y</code> zwei Variablen übergeben müssen. Die Funktion gibt uns dann eine Liste zurück. Das Element <code>estimate</code> enthält den Korrelationskoeffizienten. Den dazugehörigen p-Wert können wir über das Element <code>p.value</code> abrufen. Beides speichern wir hier in einem neuen Objekt, indem wir <code>cor.test()</code> innerhalb von <code>summarise()</code> aufrufen. Der Übersicht halber runden wir die jeweiligen Ergebnisse auf 3 Nachkommastellen.</p>
+<p>Pearson Korrelationen, also normale Korrelationen zwischen zwei metrischen Variablen, können wir mit der <code>cor.test()</code>-Funktion berechnen, der wir mit den Argumenten <code>x</code> und <code>y</code> zwei Variablen übergeben müssen. Die Funktion gibt uns dann eine Liste zurück. Das Element <code>estimate</code> enthält den Korrelationskoeffizienten. Den dazugehörigen p-Wert können wir über das Element <code>p.value</code> abrufen. Beides speichern wir hier in einem neuen Objekt, indem wir <code>cor.test()</code> innerhalb von <code>summarise()</code> aufrufen. Der Übersicht halber runden wir die jeweiligen Ergebnisse auf 3 Nachkommastellen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein neues Objekt in dem der Korrelationskoeffizient und der zugehörigen p-Wert für die Korelation zwischen interesseLokal und interesseDE gespeichert wird.</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>korrelationInt <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
@@ -398,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1       0.422     0</code></pre>
 </div>
 </div>
-<p>Die Korrelation beträgt demnach <code>0,422</code>. Wir können also von einer mäßigen Korrelation sprechen. Der gerundete p-Wert wird als <code>0</code> angegeben. Da p-Werte aber immer <strong>zwischen</strong> 0 und 1 liegen müssen und nie genau 0 (oder 1) sein können, können wir dem entnehmen, dass die Abweichung von 0 erst nach der dritten Nachkommastelle kommt<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Entsprechend würden wir den p-Wert als &lt;0,001 angeben. Bevor wir die Ergebnisse verschriftlichen können, sollten wir noch die Mittelwerte und Standardabweichungen der beiden Variablen berechnen, die immer zusätzlich angegeben werden sollten.</p>
+<p>Die Korrelation beträgt demnach <code>0,422</code>. Wir können also von einer mäßigen Korrelation sprechen. Der gerundete p-Wert wird als <code>0</code> angegeben. Da p-Werte aber immer <strong>zwischen</strong> 0 und 1 liegen müssen und nie genau 0 (oder 1) sein können, können wir dem entnehmen, dass die Abweichung von 0 erst nach der dritten Nachkommastelle liegt<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Entsprechend würden wir den p-Wert als &lt;0,001 angeben. Bevor wir die Ergebnisse verschriftlichen können, sollten wir noch die Mittelwerte und Standardabweichungen der beiden Variablen berechnen, die immer zusätzlich angegeben werden sollten.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet Mittelwert und Standardabweichung der Variablen interesseLokal und interesseDE</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -421,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="rangkorrelationen" class="level3" data-number="7.3.2">
 <h3 data-number="7.3.2" class="anchored" data-anchor-id="rangkorrelationen"><span class="header-section-number">7.3.2</span> Rangkorrelationen</h3>
-<p>Bei der Korrelation, die wir gerade berechnet haben, handelt es sich um eine normale Korrelation zwischen zwei metrischen Variablen. Wie im Video besprochen, können wir auch sogeannte Rangkorrelationen berechnen, wenn mindestens eine der beiden Variablen ordinal skaliert ist. Dazu müssen wir der <code>cor.test()</code>-Funktion lediglich das zusätzliche Argument <code>method</code> mit dem Wert <code>"spearman"</code> übergeben.</p>
+<p>Bei der Korrelation, die wir gerade berechnet haben, handelt es sich um eine normale Korrelation zwischen zwei metrischen Variablen. Wie im Video besprochen, können wir auch sogenannte Rangkorrelationen berechnen, wenn mindestens eine der beiden Variablen ordinal skaliert ist. Dazu müssen wir der <code>cor.test()</code>-Funktion lediglich das zusätzliche Argument <code>method</code> mit dem Wert <code>"spearman"</code> übergeben.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benennt die Spalten A604 und A605 um </span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -471,7 +471,7 @@ Caused by warning in `cor.test.default()`:
 </div>
 <p>Nun haben wir alle relevanten Informationen, um das Ergebnis zu verschriftlichen.</p>
 <blockquote class="blockquote">
-<p>Durch eine Rangkorrelation wurde geprüft, ob ein Zusammenhang zwischen der Wohndauer (Median = 6; “mehr als 20 Jahre”) und der Größe des Wohnorts (Median = 3; Kleinstadt) besteht. Die beiden Variablen hängen signifikant, aber sehr schwach, negativ zusammen (r = -0,089; p &lt; 0,001).</p>
+<p>Durch eine Rangkorrelation wurde geprüft, ob ein Zusammenhang zwischen der Wohndauer (Median = 6; “mehr als 20 Jahre”) und der Größe des Wohnorts (Median = 3; “Kleinstadt”) besteht. Die beiden Variablen hängen signifikant, aber sehr schwach, negativ zusammen (r = -0,089; p &lt; 0,001).</p>
 </blockquote>
 </section>
 <section id="korrelationskoeffizienten-visualisieren" class="level3" data-number="7.3.3">
@@ -503,7 +503,7 @@ Caused by warning in `cor.test.default()`:
 </section>
 <section id="korrelationen-erkennen-und-einschätzen" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="korrelationen-erkennen-und-einschätzen"><span class="header-section-number">7.4</span> Korrelationen erkennen und einschätzen</h2>
-<p>Korrelationen wie wir sie in diesem Kapitel kennengelernt haben anhand von Daten zu erkennen, ist gar nicht so einfach. Gleichzeitig können sehr kleine p-Werte dazu verleiten, die tatsächliche Bedeutung eines Zusammenhangs zu überschätzen. Beispielsweise hat eine Auswertung von Meta-Analysen in der Kommunikationswissenschaft ergeben, dass die durchschnittliche Effektstärke im Fach gerade einmal r = 0,21 beträgt (<a href="https://doi.org/10.1080/23808985.2018.1446350">Rains et al., 2018</a>). Grafisch dargestellt sieht eine solche Korrelation etwa so aus:</p>
+<p>Korrelationen anhand von Daten zu erkennen, ist gar nicht so einfach. Gleichzeitig können sehr kleine p-Werte dazu verleiten, die tatsächliche Bedeutung eines Zusammenhangs zu überschätzen. Beispielsweise hat eine Auswertung von Meta-Analysen in der Kommunikationswissenschaft ergeben, dass die durchschnittliche Effektstärke im Fach gerade einmal r = 0,21 beträgt (<a href="https://doi.org/10.1080/23808985.2018.1446350">Rains et al., 2018</a>). Grafisch dargestellt sieht eine solche Korrelation etwa so aus:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -513,7 +513,7 @@ Caused by warning in `cor.test.default()`:
 </div>
 </div>
 </div>
-<p>Die beiden fiktiven Variablen hängen zwar zusammen, aber wirklich leicht zu erkennen ist das optisch nicht. Zusammenhänge zu erkennen und Gefühlt dafür zu bekommen, wie verschieden starke Korrelationen eigentlich aussehen ist vor allem Übungssache. Wenn Sie Lust haben, können Sie mit dem kleinen Spiel unten etwas üben.</p>
+<p>Die beiden fiktiven Variablen hängen zwar zusammen, aber wirklich leicht zu erkennen ist das optisch nicht. Zusammenhänge zu erkennen und Gefühl dafür zu bekommen, wie verschieden starke Korrelationen eigentlich aussehen ist vor allem Übungssache. Wenn Sie Lust haben, können Sie mit dem kleinen Spiel unten etwas üben.</p>
 <center><iframe width="500" height="800" src="https://jakobh.shinyapps.io/guessR/" title="Wie stark ist die Korrelation"></iframe></center>
 
 
