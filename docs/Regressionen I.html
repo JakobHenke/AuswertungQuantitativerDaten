@@ -241,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#regressionen-berechnen" id="toc-regressionen-berechnen" class="nav-link" data-scroll-target="#regressionen-berechnen"><span class="header-section-number">8.3</span> Regressionen berechnen</a>
   <ul class="collapse">
   <li><a href="#einfache-lineare-regression" id="toc-einfache-lineare-regression" class="nav-link" data-scroll-target="#einfache-lineare-regression"><span class="header-section-number">8.3.1</span> Einfache lineare Regression</a></li>
-  <li><a href="#multiplie-regression" id="toc-multiplie-regression" class="nav-link" data-scroll-target="#multiplie-regression"><span class="header-section-number">8.3.2</span> Multiplie Regression</a></li>
+  <li><a href="#multiple-regression" id="toc-multiple-regression" class="nav-link" data-scroll-target="#multiple-regression"><span class="header-section-number">8.3.2</span> Multiple Regression</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -274,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="vorbereitung" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">8.2</span> Vorbereitung</h2>
-<p>Wir starten wider damit, unsere R-Umgebung vorzubereiten, indem wir das <code>tidyverse</code> und das Paket <code>effectsize</code> laden, den Datensatz einlesen und die Optionen so ändern, dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.</p>
+<p>Wir starten wieder damit, unsere R-Umgebung vorzubereiten, indem wir das <code>tidyverse</code> und das Paket <code>effectsize</code> laden, den Datensatz einlesen und die Optionen so ändern, dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt das tidyverse</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -283,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -291,39 +291,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt effectsize</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Liest die Daten ein</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/lokalkommunikation.csv"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Stellt ein, dass sehr kleine Zahlen normal dargestellt werden</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Paket 'effectsize' wurde unter R Version 4.4.3 erstellt</code></pre>
 </div>
-<p>Außerdem sollten wir die Variablen, mit denen wir Arbeiten umbenennen und ggf. transformieren.</p>
-<p>Im folgenden Beispiel werden wir drei Variablen brauchen, die Sie alle schon kennen: Die Spalten <code>A202_01</code> und <code>A202_02</code> enthalten das Interesse an lokalen und nationalen Geschehnissen. Die Spalte <code>A601_01</code> das Geburtsjahr. Zunächst benennen wir die Spalten um.</p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Liest die Daten ein</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/lokalkommunikation.csv"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Stellt ein, dass sehr kleine Zahlen normal dargestellt werden</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Außerdem sollten wir die Variablen, mit denen wir arbeiten umbenennen und ggf. transformieren.</p>
+<p>Im folgenden Beispiel werden wir drei Variablen brauchen, die Sie alle schon kennen: Die Spalten <code>A202_01</code> und <code>A202_02</code> enthalten das Interesse an lokalen und nationalen Geschehnissen. Die Spalte enthält <code>A601_01</code> das Geburtsjahr. Zunächst benennen wir die Spalten um.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benennt die Spalten A202_01 und A202_02 um</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span>  </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">interesseLokal =</span> A202_01,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">interesseDE =</span> A202_02,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">geburtsjahr =</span> A601_01)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benennt die Spalten A202_01 und A202_02 um</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span>  </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">interesseLokal =</span> A202_01,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">interesseDE =</span> A202_02,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">geburtsjahr =</span> A601_01)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Als nächstes transformieren wir die Spalten interesseLokal und interesseDE so, dass sie nicht mehr Werte von 1 bis 101 enthalten, sondern von 0 bis 1.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformiert die Spalten so, dass sie Werte von 0 bis 1 statt 1 bis 101 enthalten.</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">interesseLokalRec =</span> (interesseLokal<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">100</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">interesseDERec =</span> (interesseDE<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformiert die Spalten so, dass sie Werte von 0 bis 1 statt 1 bis 101 enthalten.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">interesseLokalRec =</span> (interesseLokal<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">100</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">interesseDERec =</span> (interesseDE<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Abschließend transformieren wir das Geburtsjahr in das Alter um. Der Vorgang ist relativ komplex, Sie kennen ihn aber bereits aus Kapitel 3.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transfomiert das Geburtsjahr zum Alter. Siehe Kapitel 3 für Details</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">alter =</span> <span class="fu">str_trim</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">str_sub</span>(geburtsjahr, <span class="sc">-</span><span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">as.integer</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">ifelse</span>(geburtsjahr <span class="sc">&lt;</span> <span class="dv">1000</span>, geburtsjahr<span class="sc">+</span><span class="dv">1000</span>, geburtsjahr)) <span class="sc">|&gt;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">alter =</span> <span class="dv">2022</span> <span class="sc">-</span> geburtsjahr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transfomiert das Geburtsjahr zum Alter. Siehe Kapitel 3 für Details</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">alter =</span> <span class="fu">str_trim</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">str_sub</span>(geburtsjahr, <span class="sc">-</span><span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">as.integer</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">ifelse</span>(geburtsjahr <span class="sc">&lt;</span> <span class="dv">1000</span>, geburtsjahr<span class="sc">+</span><span class="dv">1000</span>, geburtsjahr)) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">alter =</span> <span class="dv">2022</span> <span class="sc">-</span> geburtsjahr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There was 1 warning in `mutate()`.
 ℹ In argument: `geburtsjahr = as.integer(geburtsjahr)`.
@@ -335,36 +337,36 @@ Caused by warning:
 </section>
 <section id="regressionen-berechnen" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="regressionen-berechnen"><span class="header-section-number">8.3</span> Regressionen berechnen</h2>
-<p>Um Regressionen zu berechnen nutzen wir die <code>lm()</code>-Funktion. lm steht dabei für lineares Modell. Der Funktion müssen wir eine Formel übergeben, die immer nach demselben Schema aufgebut ist: links steht die abhängige Varibale, darauf folgt eine Tilde (~). Rechts von dieser stehen dann alle unabhängigen Varibalen. Die Tilde können Sie mit der Tastenkombinstion <kbd aria-hidden="true" data-mac="options" data-windows="AltGr"></kbd><span class="visually-hidden"></span> + <kbd aria-hidden="true" data-mac="Leertaste" data-windows="+"></kbd><span class="visually-hidden"></span> schreiben. Das Ergebnis dieser Funktion sollten Sie immer in ein Objekt schreiben.</p>
+<p>Um Regressionen zu berechnen nutzen wir die <code>lm()</code>-Funktion. lm steht dabei für lineares Modell. Der Funktion müssen wir eine Formel übergeben, die immer nach demselben Schema aufgebaut ist: links steht die abhängige Variable, darauf folgt eine Tilde (~). Rechts von dieser stehen dann alle unabhängigen Variablen. Die Tilde können Sie mit der Tastenkombination <kbd aria-hidden="true" data-mac="options" data-windows="AltGr"></kbd><span class="visually-hidden"></span> + <kbd aria-hidden="true" data-mac="Leertaste" data-windows="+"></kbd><span class="visually-hidden"></span> schreiben. Das Ergebnis dieser Funktion sollten Sie immer in ein Objekt schreiben.</p>
 <p>Wichtig ist, dass Sie der <code>lm()</code>-Funktion immer den Datensatz durch das <code>data</code>-Argument übergeben.</p>
 <section id="einfache-lineare-regression" class="level3" data-number="8.3.1">
 <h3 data-number="8.3.1" class="anchored" data-anchor-id="einfache-lineare-regression"><span class="header-section-number">8.3.1</span> Einfache lineare Regression</h3>
 <p>Schauen wir uns zunächst an, wie wir eine einfache Regression mit einer unabhängigen Variable berechnen können.</p>
 <p>Konkret versuchen wir, das Interesse an lokalen Geschehnissen mit dem Alter der Befragten zu erklären. Bevor wir die Regression berechnen, schauen wir uns die Korrelation der beiden Variablen an. Das ist nicht immer zwingend notwendig, aber häufig sinnvoll.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet die Korrelation vom Interesse an lokalen Geschehnissen und dem Alter der Befragten</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>korrIntAlter <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Korrelation =</span> <span class="fu">round</span>(<span class="fu">cor.test</span>(<span class="at">x =</span> interesseLokalRec, </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">y =</span> alter)<span class="sc">$</span>estimate, <span class="dv">3</span>),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">pWert =</span> <span class="fu">round</span>(<span class="fu">cor.test</span>(<span class="at">x =</span> interesseLokalRec, </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">y =</span> alter)<span class="sc">$</span>p.value, <span class="dv">3</span>))</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>korrIntAlter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet die Korrelation vom Interesse an lokalen Geschehnissen und dem Alter der Befragten</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>korrIntAlter <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Korrelation =</span> <span class="fu">round</span>(<span class="fu">cor.test</span>(<span class="at">x =</span> interesseLokalRec, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">y =</span> alter)<span class="sc">$</span>estimate, <span class="dv">3</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">pWert =</span> <span class="fu">round</span>(<span class="fu">cor.test</span>(<span class="at">x =</span> interesseLokalRec, </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">y =</span> alter)<span class="sc">$</span>p.value, <span class="dv">3</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>korrIntAlter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Korrelation pWert
 1       0.204     0</code></pre>
 </div>
 </div>
 <p>Die Korrelation ist schwach (r = 0,204) und signifikant (p &lt; 0,001).</p>
-<p>Als nächstes berechnen wir die Regression. Als Formel übergeben wir der Funktion <code>interesseLokalRec ~ alter</code>.</p>
+<p>Als Nächstes berechnen wir die Regression. Als Formel übergeben wir der Funktion <code>interesseLokalRec ~ alter</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet eine Regression mit dem Interesse an lokalen Geschehnissen als AV und dem Alter als UV</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lmInteresseLokal <span class="ot">&lt;-</span> <span class="fu">lm</span>(interesseLokalRec <span class="sc">~</span> alter, <span class="at">data =</span> df_lokal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet eine Regression mit dem Interesse an lokalen Geschehnissen als AV und dem Alter als UV</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>lmInteresseLokal <span class="ot">&lt;-</span> <span class="fu">lm</span>(interesseLokalRec <span class="sc">~</span> alter, <span class="at">data =</span> df_lokal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Mit der summary()-Funktion können wir nun das Ergebnis betrachten:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt die Ergebnisse der Regression an</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmInteresseLokal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt die Ergebnisse der Regression an</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmInteresseLokal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -387,23 +389,23 @@ Multiple R-squared:  0.04161,   Adjusted R-squared:  0.04108
 F-statistic: 79.06 on 1 and 1821 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 </div>
 </div>
-<p>Gehen wir das Ergebnis einmal der Reihe nach durch. Ganz oben in der Ausgabe sehen sie die Überschrift <code>Call:</code>. Darunter sagt R uns, was wir genau berechnet haben.</p>
-<p>Als nächstes sehen wir die <code>Residuals</code>, also die Schätzfehler. Konkret sagt uns R etwas über die Verteilung. Für heute ignorieren wir diesen Teil.</p>
+<p>Gehen wir das Ergebnis einmal der Reihe nach durch. Ganz oben in der Ausgabe sehen Sie die Überschrift <code>Call:</code>. Darunter sagt R uns, was wir genau berechnet haben.</p>
+<p>Als Nächstes sehen wir die <code>Residuals</code>, also die Schätzfehler. Konkret sagt uns R etwas über die Verteilung. Für heute ignorieren wir diesen Teil.</p>
 <p>Danach wird es unter der Überschrift <code>Coefficients</code> spannend. Hier erfahren wir etwas über die Koeffizienten. Der erste, die sogenannte Regressionskonstante oder <code>Intercept</code> gibt an, welchen Wert die abhängige Variable dem Modell nach hat, wenn die unabhängige Variable den Wert 0 hat. Beachten Sie, dass das in unserem konkreten Fall wenig Sinn ergibt. Weder haben wir Personen im Alter von 0 Jahren befragt, noch ist es vorstellbar, dass das irgendwie möglich ist. Relevanter ist dagegen der Koeffizient für das Alter der Befragten. In der Spalte <code>Estimate</code> sehen Sie den Regressionskoeffizienten B. Auf den ersten Blick sieht dieser Wert sehr klein aus (B = 0,002), aber bedenken Sie, dass die abhängige Variable (Interesse an lokalen Geschehnissen) nur von 0 bis 1 geht. In der zweiten Spalte steht der dazugehörige <code>Standardfehler</code> (hier: 0.0003). Darauf folgt der <code>t-Wert</code>. Hierbei handet es sich um eine Teststatistik, die für den Signifikanztest berechnet wird. Das Prinzip kennen Sie schon vom Chi²-Test, nur dass hier eine andere Statistik berechnet wird. Der t-Wert wird uns hier als 8,892 angegeben. Als letztes sehen Sie den <code>p-Wert</code>. Hier sehen wir direkt, dass der Wert kleiner als 0,001 und somit signifikant ist.</p>
-<p>Die nächsten paar Zeilen können wir überspringen. Relevant wird es erst wieder bei der Angabe von R². Hier sehen wir zwei Werte: <code>Multiple R-squared</code> und <code>Adjusted R-squared</code>. Der erste Wert wurde im Video nur als R² bezeichnet. Und wir dort besprochen entspricht er genau der Korrelation unserer beiden Varibalen zum Quadrat:</p>
+<p>Die nächsten paar Zeilen können wir überspringen. Relevant wird es erst wieder bei der Angabe von R². Hier sehen wir zwei Werte: <code>Multiple R-squared</code> und <code>Adjusted R-squared</code>. Der erste Wert wurde im Video nur als R² bezeichnet. Und wir dort besprochen entspricht er genau der Korrelation unserer beiden Variablen zum Quadrat:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mutipliziert den oben berechneten Korrelationskoeefizienten mit sich selbst:</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>korrIntAlter<span class="sc">$</span>Korrelation <span class="sc">*</span> korrIntAlter<span class="sc">$</span>Korrelation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mutipliziert den oben berechneten Korrelationskoeefizienten mit sich selbst:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>korrIntAlter<span class="sc">$</span>Korrelation <span class="sc">*</span> korrIntAlter<span class="sc">$</span>Korrelation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.041616</code></pre>
 </div>
 </div>
 <p>Die unabhängige Variable erklärt also ungefähr 4 Prozent der Varianz der abhängigen Variable. Bei <code>Adjusted R-suqred</code> handelt es sich um den korrigierten R² Wert, den Sie nur angeben müssen, wenn Sie mehr als einen Prädiktor (also mehr als eine unabhängige Variable) nutzen.</p>
-<p>In der letzten Zeile finden Sie einen Test des Gesamtmodells. Zunächst steht dort die <code>F-Statistic</code>. Ähnlich wie Chi² und oben t, handelt es sich hierbei um eine weitere Teststatistik, diesmal eben für das Gesamtmodell. Der zugehörige Wert ist hier 79,06. Dahinter stehen die zugehörigen Freiheitsgerade (<code>DF</code> für degrees of freedom; 1 und 1821), die etwas über die Anzahl der Prädiktoren und die Stichprobengröße sagen. Schließlich sehen Sie einen Weiteren <code>p-Wert</code> (&lt; 0,001), der uns verrät, dass das Gesamtmodell signifikant ist.</p>
-<p>Damit haben wir schon fast alle relevanten Infos, um das Ergebnis zu verschriftlichen. Was fehlt, ist nur der standardisierte Koeffizient beta für das Alter. Diesen können wir mit der <code>standardize_parameters()</code>-Funktion aus dem <code>effectsize</code>-Paket anzeigen lassen. Dieser Funktion übergeben wir das Objekt, in das wir oben das Ergebnis der Regression gespeichert habe:</p>
+<p>In der letzten Zeile finden Sie einen Test des Gesamtmodells. Zunächst steht dort die <code>F-Statistic</code>. Ähnlich wie Chi² und oben t, handelt es sich hierbei um eine weitere Teststatistik, diesmal eben für das Gesamtmodell. Der zugehörige Wert ist hier 79,06. Dahinter stehen die zugehörigen Freiheitsgrade (<code>DF</code> für degrees of freedom; 1 und 1821), die etwas über die Anzahl der Prädiktoren und die Stichprobengröße sagen. Schließlich sehen Sie einen Weiteren <code>p-Wert</code> (&lt; 0,001), der uns verrät, dass das Gesamtmodell signifikant ist.</p>
+<p>Damit haben wir schon fast alle relevanten Infos, um das Ergebnis zu verschriftlichen. Was fehlt, ist nur der standardisierte Koeffizient beta für das Alter. Diesen können wir mit der <code>standardize_parameters()</code>-Funktion aus dem <code>effectsize</code>-Paket anzeigen lassen. Dieser Funktion übergeben wir das Objekt, in das wir oben das Ergebnis der Regression gespeichert haben:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt den standardisierten Koeffizienten beta für das Alter an. </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">standardize_parameters</span>(lmInteresseLokal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt den standardisierten Koeffizienten beta für das Alter an. </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">standardize_parameters</span>(lmInteresseLokal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Standardization method: refit
 
@@ -413,23 +415,23 @@ Parameter   | Std. Coef. |        95% CI
 alter       |       0.20 | [ 0.16, 0.25]</code></pre>
 </div>
 </div>
-<p>In der Spalte <code>Std. Coef.</code> (für standardized Coefficient) zeigt R uns den standardisierten Koeffizienten beta an, der hier 0,20 beträgt. Wie im Video angesprochen handelt es sich dabei genau um die Korrelation zwischen den beiden Variablen. Aber beachten Sie, dass das nur bei einfachen Regressionen der Fall ist. Zusätzlich gibt uns die Funktion ein Konfidenzintervall aus</p>
-<p>Tragen wir die Ergebnisse also einmal zusammen: Das Alter hat einen signifikanten, aber schwachen positiven Effekt auf das Interesse an lokalen Geschehnissen. Ältere Menschen tendieren also eher dazu, sich dafür zu interessieren. Außerdem ist das Gesamtmodell signifikant, erklärt aber nur etwa 4 Prozent der Varianz. Etwas formaler können wir die Ergebniss so verschriftlichen:</p>
+<p>In der Spalte <code>Std. Coef.</code> (für standardized Coefficient) zeigt R uns den standardisierten Koeffizienten Beta an, der hier 0,20 beträgt. Wie im Video angesprochen handelt es sich dabei genau um die Korrelation zwischen den beiden Variablen. Aber beachten Sie, dass das nur bei einfachen Regressionen der Fall ist. Zusätzlich gibt uns die Funktion ein Konfidenzintervall aus.</p>
+<p>Tragen wir die Ergebnisse also einmal zusammen: Das Alter hat einen signifikanten, aber schwachen positiven Effekt auf das Interesse an lokalen Geschehnissen. Ältere Menschen tendieren also eher dazu, sich dafür zu interessieren. Außerdem ist das Gesamtmodell signifikant, erklärt aber nur etwa 4 Prozent der Varianz. Etwas formaler können wir die Ergebnisse so verschriftlichen:</p>
 <blockquote class="blockquote">
 <p>Durch eine Regression wurde geprüft, ob das Alter der Befragten (M = 49,66; SD = 15,31) einen Einfluss auf ihr Interesse an lokalen Geschhnissen hat (M = 0,81; SD = 0,20). Das Modell war insgesamt signifikant (F(1, 1821) = 79,06; p &lt; 0,001), konnte aber nur etwa 4 Prozent der Varianz erklären (R² = 0,042). Der Effekt des Alters war signifikant, aber schwach (beta = 0,20; p &lt; 0,001).</p>
 </blockquote>
 </section>
-<section id="multiplie-regression" class="level3" data-number="8.3.2">
-<h3 data-number="8.3.2" class="anchored" data-anchor-id="multiplie-regression"><span class="header-section-number">8.3.2</span> Multiplie Regression</h3>
+<section id="multiple-regression" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="multiple-regression"><span class="header-section-number">8.3.2</span> Multiple Regression</h3>
 <p>Das Vorgehen bei multiplen Regressionen ist quasi identisch. Um weitere Prädiktoren hinzuzufügen, können wir unsere Formel ganz einfach erweitern. Schauen wir es uns hier einmal an, indem wir der Regression von oben das Interesse an Geschehnissen in Deutschland als Prädiktor hinzufügen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erweitert die Regression von oben um das Interesse an Geschehnissen in Deutschland</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>lmInteresseLokalErweitert <span class="ot">&lt;-</span> <span class="fu">lm</span>(interesseLokalRec <span class="sc">~</span> alter <span class="sc">+</span> interesseDERec, <span class="at">data =</span> df_lokal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erweitert die Regression von oben um das Interesse an Geschehnissen in Deutschland</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>lmInteresseLokalErweitert <span class="ot">&lt;-</span> <span class="fu">lm</span>(interesseLokalRec <span class="sc">~</span> alter <span class="sc">+</span> interesseDERec, <span class="at">data =</span> df_lokal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Schauen wir uns das Ergebnis an:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt die Ergebnisse der Regression an</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmInteresseLokalErweitert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt die Ergebnisse der Regression an</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmInteresseLokalErweitert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -460,11 +462,11 @@ F-statistic: 218.4 on 2 and 1820 DF,  p-value: &lt; 0.00000000000000022</code></
 <li>Der Effekt des Alters ist etwas schwächer als im ersten Modell.</li>
 <li>Der Effekt des Interesses an Geschehnissen in Deutschland deutlich stärker als der des Alters. Aber: Beachten Sie, dass wir bisher nur die unstandardisierten Koeffizienten betrachtet haben!</li>
 </ol>
-<p>Außerdem sollten Sie eine wichtige Sache beachten: Die Interpretation der Koeffizienten ändert sich in der multiplen Regression leicht! Im Video haben wir gesagt, dass die Effekte jeweils so interpretiert werden können, dass die Effekte der anderen Variablen “rausgerechnet” werden. Ganz konkret ist es so, dass die Effekte jeweils angeben, wie stark der Einfluss einer Variable ist, wenn alle anderen Variablen den Wert 0 annehmen. Wie oben schon, haben wir hier allerdings das Problem, dass der Wert 0 nicht immer sinnvoll ist, z.B. beim Alter. Dieses Problem haben die standardisierten Koeffizienten nicht.</p>
-<p>Schauen wir die uns also noch an:</p>
+<p>Außerdem sollten Sie eine wichtige Sache beachten: Die Interpretation der Koeffizienten ändert sich in der multiplen Regression leicht! Im Video haben wir gesagt, dass die Effekte jeweils so interpretiert werden können, dass die Effekte der anderen Variablen “herausgerechnet” werden. Ganz konkret ist es so, dass die Effekte jeweils angeben, wie stark der Einfluss einer Variable ist, wenn alle anderen Variablen den Wert 0 annehmen. Wie oben schon, haben wir hier allerdings das Problem, dass der Wert 0 nicht immer sinnvoll ist, z.B. beim Alter. Dieses Problem haben die standardisierten Koeffizienten nicht.</p>
+<p>Schauen wir uns die also noch an:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt den standardisierten Koeffizienten beta für die beiden Prädiktoren an</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">standardize_parameters</span>(lmInteresseLokalErweitert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt den standardisierten Koeffizienten beta für die beiden Prädiktoren an</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">standardize_parameters</span>(lmInteresseLokalErweitert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Standardization method: refit
 
@@ -475,11 +477,11 @@ alter          |       0.11 | [ 0.07, 0.16]
 interesseDERec |       0.40 | [ 0.36, 0.44]</code></pre>
 </div>
 </div>
-<p>Für die Berechnung der standardisierten Koeffizienten, werden die Varibalen selbst standardisiert. Das bedeutet, dass sie so transformiert werden, dass sie den Mittelwert 0 und die Standardabweichung 1 haben. Das heißt, der Effekt einer Varibale entspricht nun nicht mehr dem Effekt, wenn alle anderen Varibalen den Wert 0 haben, sondern wenn diese Variablen ihren Mittelwert annehmen.</p>
+<p>Für die Berechnung der standardisierten Koeffizienten, werden die Variablen selbst standardisiert. Das bedeutet, dass sie so transformiert werden, dass sie den Mittelwert 0 und die Standardabweichung 1 haben. Das heißt, der Effekt einer Variable entspricht nun nicht mehr dem Effekt, wenn alle anderen Variablen den Wert 0 haben, sondern wenn diese Variablen ihren Mittelwert annehmen.</p>
 <p>Schauen wir uns nun aber die eigentlichen Effekte an. Wie wir oben schon erahnen konnten, ist der Effekt des Alters etwas schwächer. Er wird nun nur noch als 0,11 angegeben. Der Effekt des Interesses an Geschehnissen in Deutschland beträgt dagegen 0,40. Er ist also mäßig stark. Beachten Sie, dass die beta-Werte nun nicht mehr der einfachen Korrelation zwischen den jeweiligen Variablen entsprechen.</p>
 <p>Verschriftlichen wir die Ergebnisse noch einmal:</p>
 <blockquote class="blockquote">
-<p>Durch eine Regression wurde geprüft, ob das Alter der Befragten (M = 49,66; SD = 15,31) und das Interesse an Geschehnissen in Deutschland (M = 0,80; SD = 0,21) einen Einfluss auf ihr Interesse an lokalen Geschhnissen haben (M = 0,81; SD = 0,20). Das Modell war insgesamt signifikant (F(2, 1820) = 218,4; p &lt; 0,001) und konnte etwa 19,3 Prozent der Varianz erklären (R² = 0,193). Der Effekt des Alters war signifikant, aber schwach (beta = 0,11; p &lt; 0,001). Dagegen hatte das Interesse an Geschehnissen in Deutschland einen mäßigen Effekt (beta = 0,40; p &lt; 0,001).</p>
+<p>Durch eine Regression wurde geprüft, ob das Alter der Befragten (M = 49,66; SD = 15,31) und das Interesse an Geschehnissen in Deutschland (M = 0,80; SD = 0,21) einen Einfluss auf ihr Interesse an lokalen Geschehnissen haben (M = 0,81; SD = 0,20). Das Modell war insgesamt signifikant (F(2, 1820) = 218,4; p &lt; 0,001) und konnte etwa 19,3 Prozent der Varianz erklären (R² = 0,193). Der Effekt des Alters war signifikant, aber schwach (beta = 0,11; p &lt; 0,001). Dagegen hatte das Interesse an Geschehnissen in Deutschland einen mäßigen Effekt (beta = 0,40; p &lt; 0,001).</p>
 </blockquote>
 
 
