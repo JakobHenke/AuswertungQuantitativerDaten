@@ -270,7 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/mnnBbGRv7AA" title="t-Test" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <section id="vorbereitung" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">10.1</span> Vorbereitung</h2>
-<p>Auch für den t-Test benötigen wir das ‘tidyverse’ und das Paket ‘effectsize’. Außerdem lesen wir den Datensatz ein und ändern die Optionen so , dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.</p>
+<p>Auch für den t-Test benötigen wir das ‘tidyverse’ und das Paket ‘effectsize’. Außerdem lesen wir den Datensatz ein und ändern die Optionen so, dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt das tidyverse</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -287,22 +287,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt effectsize</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Liest die Daten ein</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/lokalkommunikation.csv"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Stellt ein, dass sehr kleine Zahlen normal dargestellt werden</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Paket 'effectsize' wurde unter R Version 4.4.3 erstellt</code></pre>
 </div>
-<p>Außerdem werden wir in diesem Kapitel mit den Spalten <code>A501_01</code> bis <code>A501_04</code> arbeiten. In den entsprechenden Fragen sollten die Befragten angeben, wie stark ihre Bindung zu ihrem Wohnort ist (z.B. “Ich fühle mich als Teil meines Wohnorts”), wobei der Wert 1 für geringen Zustimmung zu den Aussagen steht und der Wert 5 für hohe Zustimmung.</p>
-<p>Da diese vier Variablen alle dasselbe Konstrukt abfragen, berechnen wir zunächst pro Person einen Mittelwert aus den vier Spalten. Dazu nutzen wir zunächst die Funktion <code>rowwise()</code> aus dem <code>dplyr</code>-Paket. Damit sagen wir R, dass die nachfolgenden Zeilen jeweils für jede einzelne Zeile im Datensatz ausgeführt werden sollen. Anschließend nutzen wir <code>mutate()</code> und darin <code>mean()</code>, um den Mittelwert zu berechnen. Wichtig ist, dass wir abschließend die <code>ungroup()</code>-Funktion nutzen, da R ansosnten versucht, auch den nachfolgenden Code, der sich auf den Datensatz bezieht, versucht pro Zeile durchzuführen.</p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Liest die Daten ein</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/lokalkommunikation.csv"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Stellt ein, dass sehr kleine Zahlen normal dargestellt werden</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Außerdem werden wir in diesem Kapitel mit den Spalten <code>A501_01</code> bis <code>A501_04</code> arbeiten. In den entsprechenden Fragen sollten die Befragten angeben, wie stark ihre Bindung zu ihrem Wohnort ist (z.B. “Ich fühle mich als Teil meines Wohnorts”), wobei der Wert 1 für geringe Zustimmung zu den Aussagen steht und der Wert 5 für hohe Zustimmung.</p>
+<p>Da diese vier Variablen alle dasselbe Konstrukt abfragen, berechnen wir zunächst pro Person einen Mittelwert aus den vier Spalten. Dazu nutzen wir zunächst die Funktion <code>rowwise()</code> aus dem <code>dplyr</code>-Paket. Damit sagen wir R, dass die nachfolgenden Zeilen jeweils für jede einzelne Zeile im Datensatz ausgeführt werden sollen. Anschließend nutzen wir <code>mutate()</code> und darin <code>mean()</code>, um den Mittelwert zu berechnen. Wichtig ist, dass wir abschließend die <code>ungroup()</code>-Funktion nutzen, da R ansonsten versucht, auch den nachfolgenden Code, der sich auf den Datensatz bezieht, versucht pro Zeile durchzuführen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet pro Person einen Mittelwert der Spalten A501_01 bis A501_04</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lokaleBindung =</span> <span class="fu">mean</span>(<span class="fu">c</span>(A501_01, A501_02, A501_03, A501_04), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet pro Person einen Mittelwert der Spalten A501_01 bis A501_04</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lokaleBindung =</span> <span class="fu">mean</span>(<span class="fu">c</span>(A501_01, A501_02, A501_03, A501_04), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="t-test-durchführen" class="level2" data-number="10.2">
@@ -310,14 +312,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Um einen t-Test durchzuführen benötigen wir die <code>t.test()</code>-Funktion. Damit können wir alle drei Varianten des t-Tests rechnen, die wir im Video kennengelernt haben.</p>
 <section id="einstichproben-t-test" class="level3" data-number="10.2.1">
 <h3 data-number="10.2.1" class="anchored" data-anchor-id="einstichproben-t-test"><span class="header-section-number">10.2.1</span> Einstichproben t-Test</h3>
-<p>Wie im Video besprochen berechnen wir einen t-Test für eine Stichprobe immer dann, wenn wir wissen möchten, ob sich der von uns gemessene Mittelwert von einem a priori definierten Wert unterscheidet. Wenn wir z.B. wüssten, dass die Menschen in Thüringen und Rheinland-Pfalz sich im Durchschnitt nicht sehr an ihren Wohnort gebunden fühlen (also z.B. der Wert 2 dem Mittelwert der Grundgesamtheit entspricht), könnten wir mit dieser Variante des t-Tests prüfe, ob das auch auf unsere Stichprobe zutrifft.</p>
-<p>Um diesen Test durchzuführen, übergeben wir der <code>t.test()</code>-Funktion zunächst die Daten. Hier also die Spalte <code>lokaleBindung</code>. Wichtig ist, dass wir in diesem Beispiel keine Pipe (<code>|&gt;</code>) nutzen und anders als bei der Regression sagen wir der <code>t.test()</code>-Funktion auch nicht, welchen Datensatz wir benutzen. Wir müssen also mit Hilfe des Dollarzeiens erst den Datensatz und dann die Spalte angeben, so wie wir es in Kapitel 2 kennengelernt haben. Außerdem nutzen wir das Argument <code>mu</code>. Damit können wir den Wert angeben, gegen den wir unseren Stichprobenmittelwert testen wollen.</p>
+<p>Wie im Video besprochen berechnen wir einen t-Test für eine Stichprobe immer dann, wenn wir wissen möchten, ob sich der von uns gemessene Mittelwert von einem a priori definierten Wert unterscheidet. Wenn wir z.B. wüssten, dass die Menschen in Thüringen und Rheinland-Pfalz sich im Durchschnitt nicht sehr an ihren Wohnort gebunden fühlen (also z.B. der Wert 2 dem Mittelwert der Grundgesamtheit entspricht), könnten wir mit dieser Variante des t-Tests prüfen, ob das auch auf unsere Stichprobe zutrifft.</p>
+<p>Um diesen Test durchzuführen, übergeben wir der <code>t.test()</code>-Funktion zunächst die Daten. Hier also die Spalte <code>lokaleBindung</code>. Wichtig ist, dass wir in diesem Beispiel keine Pipe (<code>|&gt;</code>) nutzen und anders als bei der Regression sagen wir der <code>t.test()</code>-Funktion auch nicht, welchen Datensatz wir benutzen. Wir müssen also mit Hilfe des Dollarzeichens erst den Datensatz und dann die Spalte angeben, so wie wir es in Kapitel 2 kennengelernt haben. Außerdem nutzen wir das Argument <code>mu</code>. Damit können wir den Wert angeben, gegen den wir unseren Stichprobenmittelwert testen wollen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen einstichproben t-Test</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tTest1sample <span class="ot">&lt;-</span> <span class="fu">t.test</span>(df_lokal<span class="sc">$</span>lokaleBindung, <span class="at">mu =</span> <span class="dv">2</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt die Ergebnisse an</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>tTest1sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen einstichproben t-Test</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tTest1sample <span class="ot">&lt;-</span> <span class="fu">t.test</span>(df_lokal<span class="sc">$</span>lokaleBindung, <span class="at">mu =</span> <span class="dv">2</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt die Ergebnisse an</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>tTest1sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -332,26 +334,26 @@ mean of x
  3.935044 </code></pre>
 </div>
 </div>
-<p>Schauen wir uns das Ergebnis an. Oben werden uns der t-Wert, also die Teststatistik, die Freiheitsgrade (df) und der p-Wert des Tests angezeigt. Darunter erinnert uns R daran, welche Hypothese wir getestet haben. Darunter befindet sich wiederum ein 95%-Konfidenzintervall. Die Darstellung ist hier etwas unglücklich denn erst danach, also ganz unten, steht der Stichprobenmittelwert auf den sich das Konfidenzintervall bezieht.</p>
+<p>Schauen wir uns das Ergebnis an. Oben werden uns der t-Wert, also die Teststatistik, die Freiheitsgrade (df) und der p-Wert des Tests angezeigt. Darunter erinnert uns R daran, welche Hypothese wir getestet haben. Darunter befindet sich wiederum ein 95%-Konfidenzintervall. Die Darstellung ist hier etwas unglücklich, denn erst danach, also ganz unten, steht der Stichprobenmittelwert, auf den sich das Konfidenzintervall bezieht.</p>
 <p>Wir halten fest: Wir haben die Alternativhypothese getestet, dass sich der Stichprobenmittelwert vom Wert 2 unterscheidet. Das Ergebnis lautet: t(1840) = 83,155; p &lt; 0,001. Das bedeutet, dass wir die Nullhypothese (Stichprobenmittelwert = 2) verwerfen müssen und die Alternativhypothese annehmen können.</p>
 </section>
 <section id="t-test-für-gepaarte-stichproben" class="level3" data-number="10.2.2">
 <h3 data-number="10.2.2" class="anchored" data-anchor-id="t-test-für-gepaarte-stichproben"><span class="header-section-number">10.2.2</span> t-Test für gepaarte Stichproben</h3>
-<p>Der t-Test für gepaarte Stichproben funktioniert im Grunde sehr ähnlich. Statt das <code>mu</code>-Argument zu nutzen, übergeben wir diesmal aber zwei Spalten aus einem Datensatz. Dazu nutzen wir das Argument <code>paired = TRUE</code>. Da der Datensatz mit dem wir arbeiten eine einfache Querschnittsbefragung darstellt, in dem es keine Paare gibt, können wir leider kein Beispiel rechnen. Wie der Code aussehen würde, sehen Sie aber unten:</p>
+<p>Der t-Test für gepaarte Stichproben funktioniert im Grunde sehr ähnlich. Statt das <code>mu</code>-Argument zu nutzen, übergeben wir diesmal aber zwei Spalten aus einem Datensatz. Dazu nutzen wir das Argument <code>paired = TRUE</code>. Da der Datensatz, mit dem wir arbeiten eine einfache Querschnittsbefragung darstellt, in dem es keine Paare gibt, können wir leider kein Beispiel rechnen. Wie der Code aussehen würde, sehen Sie aber unten:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### BEISPIELCODE, DER NICHT AUSGEFÜHRT WERDEN KANN! ####</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tTestPaare &lt;- t.test(df$Spalte1, df$Spalte2, paired = TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### BEISPIELCODE, DER NICHT AUSGEFÜHRT WERDEN KANN! ####</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tTestPaare &lt;- t.test(df$Spalte1, df$Spalte2, paired = TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="t-test-für-unabhängige-stichproben" class="level3" data-number="10.2.3">
 <h3 data-number="10.2.3" class="anchored" data-anchor-id="t-test-für-unabhängige-stichproben"><span class="header-section-number">10.2.3</span> t-Test für unabhängige Stichproben</h3>
-<p>Der t-Test für unabhängige Stichproben sieht der Regression sehr ähnlich. Das heißt, wir geben auch hier eine “Formel” ein, bei der die abhängige Variable links von einer Tilde (<code>~</code>) steht und die unabhängige Variable rechts davon. Für das Beispiel nehmen wir wieder die lokale Bindung (<code>df_lokal$lokaleBindung</code>) als AV und dazu das Bundesland aus dem die Befragten stammen (<code>df_lokal$Bula</code>) als UV.</p>
+<p>Der t-Test für unabhängige Stichproben sieht der Regression sehr ähnlich. Das heißt, wir geben auch hier eine “Formel” ein, bei der die abhängige Variable links von einer Tilde (<code>~</code>) steht und die unabhängige Variable rechts davon. Für das Beispiel nehmen wir wieder die lokale Bindung (<code>df_lokal$lokaleBindung</code>) als AV und dazu das Bundesland, aus dem die Befragten stammen, (<code>df_lokal$Bula</code>) als UV.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen t-Test für unabhängige Stichproben</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tTestIndSample <span class="ot">&lt;-</span> <span class="fu">t.test</span>(df_lokal<span class="sc">$</span>lokaleBindung <span class="sc">~</span> df_lokal<span class="sc">$</span>Bula)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Ergebnis an</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>tTestIndSample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen t-Test für unabhängige Stichproben</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tTestIndSample <span class="ot">&lt;-</span> <span class="fu">t.test</span>(df_lokal<span class="sc">$</span>lokaleBindung <span class="sc">~</span> df_lokal<span class="sc">$</span>Bula)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Ergebnis an</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>tTestIndSample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -366,11 +368,11 @@ mean in group RLP  mean in group TH
          3.868022          4.020730 </code></pre>
 </div>
 </div>
-<p>Schauen wir uns auch hier die Ergebnisse an. Oben stehen wieder die Teststatistik t sowie die dazugehörigen Freiheitsgrad und der p-Wert. Hier lautet unser Ergebnis also: t(1767,9) = -3,28; p = 0,001.</p>
+<p>Schauen wir uns auch hier die Ergebnisse an. Oben stehen wieder die Teststatistik t sowie die dazugehörigen Freiheitsgrade und der p-Wert. Hier lautet unser Ergebnis also: t(1767,9) = -3,28; p = 0,001.</p>
 <p>Weiter unten sehen wir dann wieder ein Konfidenzintervall. Es bezieht sich hier auf die Differenz zwischen den beiden Gruppenmittelwerten. Diese stehen dann direkt darunter. Wie wir sehen, fühlen sich die Menschen aus Rheinland-Pfalz etwas weniger lokal zugehörig (M = 3.87) als die Menschen aus Thüringen (M = 4,02).</p>
-<p>Für diesen Test berechnen wir nun Cohens d.&nbsp;Für die beiden Tests oben geht das grundsätzlich aber auch. Wir nutzen dafür ie <code>cohens_d()</code>-Funktion aus dem Paket <code>effectsize</code>, der wir das Objekt übergeben, in dem wir das Ergebnis des Tests gespeichert haben (hier also <code>tTestIndSample</code>). Außerdem übergeben wir der Funktion das Argument <code>pooled_sd = FALSE</code>. Darauf werden wir gleich noch mal kurz eingehen.</p>
+<p>Für diesen Test berechnen wir nun Cohens d.&nbsp;Für die beiden Tests oben geht das grundsätzlich aber auch. Wir nutzen dafür die <code>cohens_d()</code>-Funktion aus dem Paket <code>effectsize</code>, der wir das Objekt übergeben, in dem wir das Ergebnis des Tests gespeichert haben (hier also <code>tTestIndSample</code>). Außerdem übergeben wir der Funktion das Argument <code>pooled_sd = FALSE</code>. Darauf werden wir gleich noch mal kurz eingehen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_d</span>(tTestIndSample, <span class="at">pooled_sd =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_d</span>(tTestIndSample, <span class="at">pooled_sd =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Cohen's d |         95% CI
 --------------------------
@@ -379,17 +381,17 @@ mean in group RLP  mean in group TH
 - Estimated using un-pooled SD.</code></pre>
 </div>
 </div>
-<p>Cohens d wird hier mit dem Wert -0,15 ausgegeben.D.h., der Mittelwert der Menschen aus Rheinland-Pfalz liegt um 0,15 Standardabweichungen der AV unter dem Wert der Befragten aus Thüringen.</p>
-<p>Um das Ergebnis vollständig verschriftlichen zu können, benötigen wir noch die Mittelwerte und Standardabweichungen der beiden Gruppen. Das machen wir wie gewohnt mit Hilfe von <code>summarise()</code>. Damit die Werte für jede Gruppe erhalten, nutzen wir vorher noch <code>group_by()</code> und geben dort die Spalte <code>Bula</code> an.</p>
+<p>Cohens d wird hier mit dem Wert -0,15 ausgegeben. D.h., der Mittelwert der Menschen aus Rheinland-Pfalz liegt um 0,15 Standardabweichungen der AV unter dem Wert der Befragten aus Thüringen.</p>
+<p>Um das Ergebnis vollständig verschriftlichen zu können, benötigen wir noch die Mittelwerte und Standardabweichungen der beiden Gruppen. Das machen wir wie gewohnt mit Hilfe von <code>summarise()</code>. Damit wir die Werte für jede Gruppe erhalten, nutzen wir vorher noch <code>group_by()</code> und geben dort die Spalte <code>Bula</code> an.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet Mittelwerte und Standardabweichungen für die beiden Gruppen</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>MWsSDs <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Bula) <span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MW =</span> <span class="fu">round</span>(<span class="fu">mean</span>(lokaleBindung, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">2</span>),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD =</span> <span class="fu">round</span>(<span class="fu">sd</span>(lokaleBindung, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">2</span>))</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt die Werte an</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>MWsSDs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet Mittelwerte und Standardabweichungen für die beiden Gruppen</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>MWsSDs <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Bula) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MW =</span> <span class="fu">round</span>(<span class="fu">mean</span>(lokaleBindung, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">2</span>),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD =</span> <span class="fu">round</span>(<span class="fu">sd</span>(lokaleBindung, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">2</span>))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt die Werte an</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>MWsSDs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   Bula     MW    SD
@@ -398,7 +400,7 @@ mean in group RLP  mean in group TH
 2 TH     4.02  0.97</code></pre>
 </div>
 </div>
-<p>Nun können wir das Ergebnis wie folgt aufschreiben: &gt; Durch einen t-Test wurde geprüft, ob sich die Bindung an den Wohnort von Menschen in Rheinland-Pfalz (M = 3,87; SD = 1,02) von der Bindung der Befragten in Thüringen (M = 4,02; SD = 0,97). Die beiden Gruppen unterscheiden sich signifikant voneinander (t(1767,9) = -3,28; p = 0,001). Die Thüringer fühlen sich signifikant stärker an ihren Ort gebunden, aber dieser Effekt ist schwach (Cohens d = -0,15).</p>
+<p>Nun können wir das Ergebnis wie folgt aufschreiben: &gt; Durch einen t-Test wurde geprüft, ob sich die Bindung an den Wohnort von Menschen in Rheinland-Pfalz (M = 3,87; SD = 1,02) von der Bindung der Befragten in Thüringen (M = 4,02; SD = 0,97) unterscheidet. Die beiden Gruppen unterscheiden sich signifikant voneinander (t(1767,9) = -3,28; p = 0,001). Die Thüringer fühlen sich signifikant stärker an ihren Ort gebunden, aber dieser Effekt ist schwach (Cohens d = -0,15).</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -410,15 +412,15 @@ Varianzhomogenität beim t-Test
 </div>
 <div class="callout-body-container callout-body">
 <p>Am Ende des letzten Kapitels haben wir die Voraussetzungen von Regressionen kennengelernt. Dort hieß es unter anderem, dass die Streuung der Schätzfehler gleichmäßig sein muss. Ist das nicht der Fall, sprechen wir von Heteroskedastizität. Ist die Voraussetzung dagegen erfüllt, von Homoskedastizität. Im Video in diesem Kapitel haben Sie dann erfahren, dass der t-Test eigentlich nur eine spezielle Form der Regression ist und daher dieselben Voraussetzungen teilt. Im Kontext von t-Tests sprechen wir aber in der Regel von Varianzhomogenität (statt Homo- oder Heteroskedastizität).</p>
-<p>Der t-Test wird in R standardmäßig in einer Variante durchgeführt, die keine gleichen Varianzen voraussetzt. Das ist einerseits sinnvoll, da es immer gut ist, einen Test zu haben, der nominell weniger Voraussetzungen hat. Andererseits liegt hierin auch der Grund, dass wir in unserem Aufruf von <code>cohens_d()</code> das Argument <code>pooled_sd = FALSE</code> angeben mussten. Denn die <code>cohes_d()</code>-Funktion geht davon aus, dass die Version des t-Tests gerechnet wurde, die von Varianzhomogenität ausgeht.</p>
+<p>Der t-Test wird in R standardmäßig in einer Variante durchgeführt, die keine gleichen Varianzen voraussetzt. Das ist einerseits sinnvoll, da es immer gut ist, einen Test zu haben, der nominell weniger Voraussetzungen hat. Andererseits liegt hierin auch der Grund, dass wir in unserem Aufruf von <code>cohens_d()</code> das Argument <code>pooled_sd = FALSE</code> angeben mussten. Denn die <code>cohens_d()</code>-Funktion geht davon aus, dass die Version des t-Tests gerechnet wurde, die von Varianzhomogenität ausgeht.</p>
 <p>Alternativ könnten Sie auch beim Aufruf der <code>t.test()</code>-Funktion das Argument <code>var.equal = TRUE</code> angeben und könnten im Gegenzug <code>pooled_sd = FALSE</code> beim Aufruf von cohens_d() weglassen.</p>
 <p>In dieser Variante können wir übrigens schön sehen, dass der t-Test eigentlich eine Regression ist. Wenn Sie die Ergebnisse des Codes unten aufmerksam vergleichen, werden Sie feststellen, dass die t- und p-Werte des t-Tests und des entsprechenden Koeffizienten in der Regression quasi identisch sind. Gleiches gilt für die berechnete Effektstärke von <code>standardize_parameters()</code> und <code>cohens_d()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen t-Test mit angenommener Varianzhomogenität</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>tTest <span class="ot">&lt;-</span> <span class="fu">t.test</span>(df_lokal<span class="sc">$</span>lokaleBindung <span class="sc">~</span> df_lokal<span class="sc">$</span>Bula, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Ergebnis an</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>tTest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen t-Test mit angenommener Varianzhomogenität</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>tTest <span class="ot">&lt;-</span> <span class="fu">t.test</span>(df_lokal<span class="sc">$</span>lokaleBindung <span class="sc">~</span> df_lokal<span class="sc">$</span>Bula, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Ergebnis an</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>tTest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Two Sample t-test
@@ -432,11 +434,11 @@ sample estimates:
 mean in group RLP  mean in group TH 
          3.868022          4.020730 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet dasselbe Modell als Regression</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>regression <span class="ot">&lt;-</span> <span class="fu">lm</span>(lokaleBindung <span class="sc">~</span> Bula, <span class="at">data =</span> df_lokal)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt die Ergebnisse an</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regression)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet dasselbe Modell als Regression</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>regression <span class="ot">&lt;-</span> <span class="fu">lm</span>(lokaleBindung <span class="sc">~</span> Bula, <span class="at">data =</span> df_lokal)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt die Ergebnisse an</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regression)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -460,8 +462,8 @@ F-statistic: 10.66 on 1 and 1839 DF,  p-value: 0.001114</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet Cohens d und zeigt es an</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_d</span>(tTest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet Cohens d und zeigt es an</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_d</span>(tTest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Cohen's d |         95% CI
 --------------------------
@@ -469,8 +471,8 @@ F-statistic: 10.66 on 1 and 1839 DF,  p-value: 0.001114</code></pre>
 
 - Estimated using pooled SD.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet standardisierte Effektstärken für die Regression und zeigt sie an</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">standardize_parameters</span>(regression)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet standardisierte Effektstärken für die Regression und zeigt sie an</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">standardize_parameters</span>(regression)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Standardization method: refit
 
@@ -487,17 +489,17 @@ Bula [TH]   |       0.15 | [ 0.06,  0.24]</code></pre>
 <section id="ergebnis-visualisieren" class="level2" data-number="10.3">
 <h2 data-number="10.3" class="anchored" data-anchor-id="ergebnis-visualisieren"><span class="header-section-number">10.3</span> Ergebnis visualisieren</h2>
 <p>Im bisherigen Lauf der Veranstaltung haben wir schon einige Möglichkeiten kennengelernt, um Mittelwerte bzw. die dazugehörige Verteilung zu visualisieren. Für das Beispiel des t-Tests für unabhängige Stichproben, den wir oben berechnet haben, lernen Sie nun eine weitere Visualisierung kennen. Wir starten zunächst mit einem Histogramm, das die beiden Gruppen berücksichtigt. Wir starten mit einer sehr einfachen Variante und verfeinern sie nach und nach. Das Endresultat steht dann ganz unten.</p>
-<p>Im ersten Schritt filtern wir fehlende Werte in der Spalte <code>lokaleBindung</code> aus und übergeben unseren Datensatz an <code>ggplot()</code>. Dort legen wir fest, dass die Spalte <code>lokaleBindung</code> auf der x-Achse darstellen werden soll. Beim Histogramm wird auf der y-Achse automatisch die Häufigkeit dargestellt. Um die Gruppen abzubilden nutzen wir zusätzlich das Argument <code>fill = Bula</code>. Mit <code>geom_histogram()</code> erstellen wir dann das Histogramm. Dabei geben wir <code>bins = 17</code> an. Unter <code>bins</code> verstehen wir, in wieviele Bereiche die Daten eingeteilt werden sollen. D.h., bei einem Histogramm werden nicht wie bei einem Balkendiagramm alle Werte einzeln abgebildet, sondern kleine Gruppen gebildet. Hier nehmen wir den Wert 17, weil er a) die tatsächlich beobachteten Werte gut abbildet und b) weil das Resultat besser aussieht als der Standardwert 30 oder andere Werte. Abschließend machen wir den Plot mit <code>theme_minimal()</code> direkt noch etwas schöner.</p>
+<p>Im ersten Schritt filtern wir fehlende Werte in der Spalte <code>lokaleBindung</code> aus und übergeben unseren Datensatz an <code>ggplot()</code>. Dort legen wir fest, dass die Spalte <code>lokaleBindung</code> auf der x-Achse dargestellt werden soll. Beim Histogramm wird auf der y-Achse automatisch die Häufigkeit dargestellt. Um die Gruppen abzubilden nutzen wir zusätzlich das Argument <code>fill = Bula</code>. Mit <code>geom_histogram()</code> erstellen wir dann das Histogramm. Dabei geben wir <code>bins = 17</code> an. Unter <code>bins</code> verstehen wir, in wie viele Bereiche die Daten eingeteilt werden sollen. D.h., bei einem Histogramm werden nicht wie bei einem Balkendiagramm alle Werte einzeln abgebildet, sondern kleine Gruppen gebildet. Hier nehmen wir den Wert 17, weil er a) die tatsächlich beobachteten Werte gut abbildet und b) weil das Resultat besser aussieht als der Standardwert 30 oder andere Werte. Abschließend machen wir den Plot mit <code>theme_minimal()</code> direkt noch etwas schöner.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt ein Histogramm der Spalte "lokaleBindung" nach Gruppe (RLP vs. TH)</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>histBindung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokaleBindung)) <span class="sc">|&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lokaleBindung, <span class="at">fill =</span> Bula))<span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">17</span>)<span class="sc">+</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Histogramm an</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>histBindung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt ein Histogramm der Spalte "lokaleBindung" nach Gruppe (RLP vs. TH)</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>histBindung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokaleBindung)) <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lokaleBindung, <span class="at">fill =</span> Bula))<span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">17</span>)<span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Histogramm an</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>histBindung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -506,19 +508,19 @@ Bula [TH]   |       0.15 | [ 0.06,  0.24]</code></pre>
 </div>
 </div>
 </div>
-<p>Das Resultat sieht nicht schrecklich aus, aber kann noch deutlich verbessert werden. Dass die Farben nicht sonderlich schön sind, ist das eine, aber vor allem handelt es sich hierbei um ein gestalpeltes Histogramm. D.h., die Anzahl, die auf der y-Achse dargestellt wird, ist die Gesamtanzahl der entsprechenden Werte in beiden Gruppen zusammen.</p>
-<p>Das können wir beheben, indem wir <code>geom_histogram()</code> das Argumet <code>position = "identity"</code> übergeben. So werden die Balken des Histogramms übereinandergelegt. Außerdem passen wir die Farben an. Dafür nutzen wir wie schon in anderen Beispielen die <code>scale_fill_manual()</code>-Funktion und übergeben ihr im Argument <code>values</code> zwei Farben (also eine pro Gruppe).</p>
+<p>Das Resultat sieht nicht schrecklich aus, aber kann noch deutlich verbessert werden. Dass die Farben nicht sonderlich schön sind, ist das eine, aber vor allem handelt es sich hierbei um ein gestapeltes Histogramm. D.h., die Anzahl, die auf der y-Achse dargestellt wird, ist die Gesamtanzahl der entsprechenden Werte in beiden Gruppen zusammen.</p>
+<p>Das können wir beheben, indem wir <code>geom_histogram()</code> das Argument <code>position = "identity"</code> übergeben. So werden die Balken des Histogramms übereinandergelegt. Außerdem passen wir die Farben an. Dafür nutzen wir wie schon in anderen Beispielen die <code>scale_fill_manual()</code>-Funktion und übergeben ihr im Argument <code>values</code> zwei Farben (also eine pro Gruppe).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt ein Histogramm der Spalte "lokaleBindung" nach Gruppe (RLP vs. TH)</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>histBindung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokaleBindung)) <span class="sc">|&gt;</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lokaleBindung, <span class="at">fill =</span> Bula))<span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">17</span>, <span class="at">position =</span> <span class="st">"identity"</span>)<span class="sc">+</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"orange"</span>))</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Histogramm an</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>histBindung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt ein Histogramm der Spalte "lokaleBindung" nach Gruppe (RLP vs. TH)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>histBindung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokaleBindung)) <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lokaleBindung, <span class="at">fill =</span> Bula))<span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">17</span>, <span class="at">position =</span> <span class="st">"identity"</span>)<span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"orange"</span>))</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Histogramm an</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>histBindung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -527,21 +529,21 @@ Bula [TH]   |       0.15 | [ 0.06,  0.24]</code></pre>
 </div>
 </div>
 </div>
-<p>Das sieht schon besser aus! Da die Balken nun hintereinander liegen und die Thüringer im Vordergrund dargestellt werden, wird der Balken für Rheinland-Pfalz an einigen Stellen verdeckt. Um das zu beheben können wir <code>geom_histogram()</code> das Argument <code>alpha</code> übergeben. Damit machen wir die Balken etwas transparent. Der Wert muss immer zwischen 0 und 1 liegen. Im Beispiel unten wurde 0,6 gewählt. Aber das ist eine Frage der Präferenz!</p>
-<p>Ein etwas weniger offensichtliches Problem gibt es allerdings noch. Und zwar, dass die beiden Gruppen unterschiedlich groß sind. Oben im Test haben wir erfahren, dass die Thüringer einen etwas höheren Mittelwert haben als die Menschen aus Rheinland-Pfalz. Allerdings sehen wir in diesem Diagramm, dass in fast alle Wertebereichen mehr Menschen aus Rheinland-Pfalz als aus Thüringen fallen. In anderen Worten: die unterschiedlichen Fallzahlen machen es nahezu unmöglich, den höheren Mittelwert der Thüringer optisch zu erahnen. Wir können es beheben, indem wir die Darstellung auf der y-Achse von absooluten Häufigkeiten zur sogenannten Wahrscheinlichkeitsdichte ändern. Das machen wir, <code>geom_histogram()</code> die <code>aes()</code>-Funktion übergeben und dort <code>y = after_stat(density)</code> angeben. Dadurch werden die beiden Gruppen vergleichbar. Stark vereinfacht können wir sagen, dass die Wahrscheinlichkeitsdichte angibt, wie wahrscheinlich es ist, dass ein zufälliger Wert aus unserer Stichprobe in einem bestimmten Wertebereich liegt.</p>
-<p>Da wir nun die Bedeutung der Achse geändert haben, sollten wir auch die Beschriftung der Achsen anpassen. Dazu nutzen wir wieder die labs()-Funktion.</p>
+<p>Das sieht schon besser aus! Da die Balken nun hintereinander liegen und die Thüringer im Vordergrund dargestellt werden, wird der Balken für Rheinland-Pfalz an einigen Stellen verdeckt. Um das zu beheben, können wir <code>geom_histogram()</code> das Argument <code>alpha</code> übergeben. Damit machen wir die Balken etwas transparent. Der Wert muss immer zwischen 0 und 1 liegen. Im Beispiel unten wurde 0,6 gewählt. Aber das ist eine Frage der Präferenz!</p>
+<p>Ein etwas weniger offensichtliches Problem gibt es allerdings noch. Und zwar, dass die beiden Gruppen unterschiedlich groß sind. Oben im Test haben wir erfahren, dass die Thüringer einen etwas höheren Mittelwert haben als die Menschen aus Rheinland-Pfalz. Allerdings sehen wir in diesem Diagramm, dass in fast alle Wertebereichen mehr Menschen aus Rheinland-Pfalz als aus Thüringen fallen. In anderen Worten: die unterschiedlichen Fallzahlen machen es nahezu unmöglich, den höheren Mittelwert der Thüringer optisch zu erahnen. Wir können es beheben, indem wir die Darstellung auf der y-Achse von absoluten Häufigkeiten zur sogenannten Wahrscheinlichkeitsdichte ändern. Das machen wir, indem wir <code>geom_histogram()</code> die <code>aes()</code>-Funktion übergeben und dort <code>y = after_stat(density)</code> angeben. Dadurch werden die beiden Gruppen vergleichbar. Stark vereinfacht können wir sagen, dass die Wahrscheinlichkeitsdichte angibt, wie wahrscheinlich es ist, dass ein zufälliger Wert aus unserer Stichprobe in einem bestimmten Wertebereich liegt.</p>
+<p>Da wir nun die Bedeutung der Achse geändert haben, sollten wir auch die Beschriftung der Achsen anpassen. Dazu nutzen wir wieder die <code>labs()</code>-Funktion.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt ein Histogramm der Spalte "lokaleBindung" nach Gruppe (RLP vs. TH)</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>histBindung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokaleBindung)) <span class="sc">|&gt;</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lokaleBindung, <span class="at">fill =</span> Bula))<span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">17</span>, <span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)))<span class="sc">+</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"orange"</span>))<span class="sc">+</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bindung an den Wohnort"</span>, <span class="at">y =</span> <span class="st">"Wahrscheinlichkeitsdichte"</span>)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Histogramm an</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>histBindung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt ein Histogramm der Spalte "lokaleBindung" nach Gruppe (RLP vs. TH)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>histBindung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokaleBindung)) <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lokaleBindung, <span class="at">fill =</span> Bula))<span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">17</span>, <span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)))<span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"orange"</span>))<span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bindung an den Wohnort"</span>, <span class="at">y =</span> <span class="st">"Wahrscheinlichkeitsdichte"</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das Histogramm an</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>histBindung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -550,19 +552,19 @@ Bula [TH]   |       0.15 | [ 0.06,  0.24]</code></pre>
 </div>
 </div>
 </div>
-<p>Eine besonderheit der Wahrscheinlichkeitsdichte ist, dass wir sie auch kontinuierlich darstellen können. Im Prinzip wird dazu auf Basis unserer Beobachtungen eine Funktion geschätzt, die die Verteilung einer kontinuierlichen, metrischne Variable abbildet. Dazu können wir <code>geom_histogram()</code> durch <code>geom_density()</code> ersetzen. Wir nutzen wieder das Argument <code>alpha</code>, um die Darstellung leicht transparent zu machen.</p>
+<p>Eine Besonderheit der Wahrscheinlichkeitsdichte ist, dass wir sie auch kontinuierlich darstellen können. Im Prinzip wird dazu auf Basis unserer Beobachtungen eine Funktion geschätzt, die die Verteilung einer kontinuierlichen, metrischen Variable abbildet. Dazu können wir <code>geom_histogram()</code> durch <code>geom_density()</code> ersetzen. Wir nutzen wieder das Argument <code>alpha</code>, um die Darstellung leicht transparent zu machen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt einen Densityplot der Spalte "lokaleBindung" nach Gruppe (RLP vs. TH)</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>densityBindung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokaleBindung)) <span class="sc">|&gt;</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lokaleBindung, <span class="at">fill =</span> Bula))<span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">6</span>)<span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"orange"</span>))<span class="sc">+</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bindung an den Wohnort"</span>, <span class="at">y =</span> <span class="st">"Wahrscheinlichkeitsdichte"</span>)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt den Densityplot an</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>densityBindung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt einen Densityplot der Spalte "lokaleBindung" nach Gruppe (RLP vs. TH)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>densityBindung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokaleBindung)) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lokaleBindung, <span class="at">fill =</span> Bula))<span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> .<span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"orange"</span>))<span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bindung an den Wohnort"</span>, <span class="at">y =</span> <span class="st">"Wahrscheinlichkeitsdichte"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt den Densityplot an</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>densityBindung</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
