@@ -1,0 +1,198 @@
+---
+title: "Varianzanalyse"
+---
+
+{{< video https://youtu.be/kTiYslViA6E title="Varianzanalyse" aspect-ratio="16x9" >}}
+
+## Vorbereitung
+
+Auch für die Varianzanalyse benötigen wir das `tidyverse` und das Paket `effectsize.` Außerdem lesen wir den Datensatz ein und ändern die Optionen so, dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.
+
+```{r}
+# Lädt das tidyverse
+library(tidyverse)
+
+# Lädt effectsize
+library(effectsize)
+
+# Liest die Daten ein
+df_lokal <- read.csv("Daten/lokalkommunikation.csv")
+
+# Stellt ein, dass sehr kleine Zahlen normal dargestellt werden
+options(scipen = 999)
+```
+
+Zusätzlich benötigen wir zwei neue Pakete namens `car` und `emmeans`, die wir installieren und laden müssen.
+
+```{r}
+# prüft, ob die Pakete "car" und "emmeans" installiert sind; falls nein, werden sie installiert und geladen
+
+if(!require(car)){
+  install.packages("car")
+  library(car)
+}
+
+if(!require(emmeans)){
+  install.packages("emmeans")
+  library(emmeans)
+}
+
+```
+
+Wie im letzten Kapitel werden wir mit den Spalten `A501_01` bis `A501_04` arbeiten, die die Bindung der Befragten an den Wohnort angeben. Wir bilden also wieder einen Mittelwertindex.
+
+```{r}
+# berechnet pro Person einen Mittelwert der Spalten A501_01 bis A501_04
+df_lokal <- df_lokal |>
+  rowwise() |>
+  mutate(lokaleBindung = mean(c(A501_01, A501_02, A501_03, A501_04), na.rm = TRUE)) |>
+  ungroup()
+```
+
+## Varianzanalyse durchführen
+
+Im folgenden Teil werden wir eine Varianzanalyse berechnen, bei der wir die neue Variable `lokaleBindung` als AV verwenden und das Bundesland, in dem die Befragten wohnen, sowie die Abfrage, ob die Befragten eine Lokalzeitung aboniert haben als UVs (Spalten `Bula` und `A204`). Letztere codieren wir zu einem beschrifteten Faktor um, wodurch die Interpretation später etwas leichter wird.
+
+```{r}
+#codiert die Spalte A204 zu einem beschrifteten Faktor um
+
+df_lokal <- df_lokal |>
+  mutate(aboLokal = factor(A204, labels = c("Abo", "kein Abo")))
+```
+
+### ANOVA
+
+Um eine ANOVA zu berechnen, gehen wir in 3 Schritten vor:
+
+1.  Wir nutzen die `lm()`-Funktion, um ein lineares Modell (also quasi eine Regression) zu schätzen. Dabei ist es wichtig, dass wir das `contrasts`-Argument nutzen, und für jede kategoriale Variable (Faktoren, in der ANOVA-Sprache) den Wert `"contr.sum"` angeben. Das bedeutet nur, dass die entsprechenden Variablen unter der Haube so umcodiert werden, dass die Ausprägungen entweder den Wert -1 oder 1 annehmen. Dadurch kann der Interzept nun als Mittelwert der Gesamtstichprobe interpretiert werden.
+2.  Wir nutzen die `Anova()`-Funktion aus dem car-Paket, um einen F-Test für jeden Prädiktor durchzuführen.
+3.  Sofern mindestens ein Prädiktor signifikant war, können wir Post-hoc-Tests durchführen, um zu erfahren, welche Gruppen sich voneinander unterscheiden.
+
+Für den ersten Schritt nutzen wir die oben berechnete Variable `lokaleBindung` als AV. Die Spalten `Bula` und `aboLokal` verbinden wir mit dem `*`-Operator, sodass wir neben den Haupteffekten auch den Interaktionseffekt berechnen. Ganz konkret bedeutet das, dass wir hier 4 Gruppen miteinander vergleichen: (1) Thüringer mit Lokalzeitungsabo, (2) Thüringer ohne Abo, (3) Rheinland-Pfälzer mit Abo und (4) Rheinland-Pfälzer ohne Abo.
+
+```{r}
+# berechnet eine Regression mit der lokalen Bindung als AV und Bundesland und Lokalzeitungsabo als UVs. Achten Sie auf das contrasts-Argument!
+model <- lm(lokaleBindung ~ Bula*aboLokal, data = df_lokal, 
+             contrasts=list(Bula="contr.sum", aboLokal="contr.sum"))
+```
+
+Ausnahmsweise ignorieren wir die Ausgabe dieser Berechnung. Stattdessen nutzen wir direkt die `Anova()`-Funktion, die für jeden Prädiktor einen F-Wert berechnet. Wichtig ist hier, dass wir das Argument `type = 3` verwenden. Auf die Details gehen wir an dieser Stelle nicht ein, aber im Prinzip geben wir R damit vor, in welcher Reihenfolge die Werte berechnet werden sollen. Tatsächlich kann das bei der ANOVA einen Unterschied machen!
+
+```{r}
+# berechnet F-Werte für jeden Prädiktor
+modelAnova <- Anova(model, type = 3)
+
+# zeigt die Ergebnisse an
+modelAnova
+```
+
+Bevor wir die Ergebnisse verschriftlichen können, müssen wir noch die Effektstärken berechnen. Dazu nutzen wir die `eta_squared()`-Funktion aus dem `effectsize`-Paket. Dieser können wir unsere oben berechnete ANOVA übergeben. Außerdem geben wir das Argument `alternative = "two"` an. Damit legen wir fest, dass wir keine a priori Annahmen darüber hatten, welche Gruppe(n) einen höheren Mittelwert hatte(n).
+
+```{r}
+# berechnet das partielle eta² pro Prädiktor
+eta_squared(modelAnova, alternative = "two")
+```
+
+Bevor wir die Ergebnisse verschriftlichen, lohnt ein genauerer Blick auf die Ausgabe. Ganz oben sehen wir eine Warnung, dass die Effekte nur dann sinnvoll interpretiert werden können, wenn die sogenannten Kontraste angepasst wurden. Das haben wir oben in unserem Aufruf der `lm()`-Funktion erledigt! Außerdem weist R uns darauf hin, dass etwaige Kovariaten um den Mittelwert zentriert sein müssen (*mean-centered*).
+
+::: callout-note
+## Mittelwertzentrierung
+
+Eine Variable zu zentrieren bedeutet, ihren Mittelwert auf 0 zu setzen. Das geht, indem der Mittelwert von jeder einzelnen Beobachtung abgezogen wird. Wenn wir z. B. einen Vektor haben, der die Zahlen von 0 bis 100 enthält, hat dieser Vektor den Mittelwert 50:
+
+```{r}
+# erstellt einen Vektor aus den Zahlen von 1 bis 100 und zeigt den Mittelwert an
+zahlen <- 0:100
+mean(zahlen)
+```
+
+Wir können diesen Vektor zentrieren, indem wir von jedem Element den Mittelwert abziehen. Der neue Mittelwert ist dann 0:
+
+```{r}
+# händische Zentrierung des Vektors
+zahlenZentriert <- zahlen-50
+mean(zahlenZentriert)
+```
+
+Glücklicherweise hat R eine Funktion, die diesen Prozess für uns übernimmt. Sie heißt `scale()`. Die Funktion nimmt immer einen Vektor (entweder so wie hier oder z. B. eine Spalte aus einem Datensatz) als erstes Argument. Zwei weitere Argumente sind `center` und `scale`, die beide automatisch als `TRUE` angenommen werden, sofern wir nichts anderes angeben. `center` bedeutet, dass der Mittelwert subtrahiert wird. `scale` bedeutet, dass die Beobachtungen zusätzlich durch die Standardabweichung aller Beobachtungen geteilt werden. Das Ergebnis ist dann nicht mehr eine zentrierte Variable, sondern eine *normalisierte*, die den Mittelwert 0 und die Standardabweichung 1 hat. Wenn Sie eine ANCOVA berechnen, sollten Sie für metrische Variablen vorher unbedingt diese Funktion anwenden!
+
+```{r}
+# nutzt die Funktion scale(), um den Vektor zu normalisieren
+zahlenScale <- scale(zahlen)
+mean(zahlenScale)
+sd(zahlenScale)
+```
+:::
+
+Mit dieser Warnung im Hinterkopf können wir die Ergebnisse interpretieren. Lassen Sie sich von der etwas komischen Darstellung der Effektstärke nicht abschrecken!
+
+Für das Bundesland wird ein Effekt von \`4.91e-03\` angegeben. Übersetzt in "normale" Zahlen bedeutet das 0,00491. Wir schreiben also einfach nur 3 Nullen vor die 4,91. Wenn Sie mal nicht sicher sind können Sie solche Zahlen auch  unten in die Konsole eingeben und mit Enter ausführen, dann zeigt R Ihnen die Zahl im gewohnten Format an. Ein partielles eta² von 0,00491 bedeutet, dass die Variable ca. 0,05 Prozent der Varianz erklärt. Ob die Leute ein Lokalzeitungsabo haben erklärt dagegen etwa 2 Prozent (partielles eta² = 0,02) und die Interaktion aus diesen beiden Variablen erklärt ca. 0,03 Prozent (partielles eta² = 0,003). Wir haben also drei (sehr) schwache Effekte identifiziert, die aber laut unserer ANOVA-Tabelle oben alle signifikant sind.
+
+Mit Hilfe der beiden Ausgaben können wir die Ergebnisse nach dem folgenden Muster aufschreiben: Pro Prädiktor werden der F-Wert, die dazugehörigen Freiheitsgrade (Spalte `Df`) und der p-Wert angegeben. Zusätzliche Informationen über das Gesamtmodell können wir der Tabelle oben entnehmen.
+
+> Um zu prüfen, ob ein Lokalzeitungsabo und das Bundesland, in dem die Befragten wohnen, sowie der Interaktionseffekt dieser beiden Variablen einen Effekt auf die lokale Bindung der Befragten haben, wurde eine ANOVA berechnet. Das Bundesland hatte einen signifikanten, aber sehr schwachen Effekt (F(1, 1825) = 9,01; p = 0,003; partielles eta² = 0,005). Der Effekt des Lokalzeitungsabos war ebenfalls signifikant und schwach (F(1, 1825) = 37,27; p < 0,001; partielles eta² = 0,02). Auch der Interaktionseffekt der beiden Variablen war signifikant, aber sehr schwach (F(1, 1825) = 5,99; p = 0,014; partielles eta² = 0,003).
+
+
+Bevor die Analyse abgeschlossen ist, müssen wir noch die sogenannten Post-hoc-Tests durchführen, bei denen wir die jeweiligen Gruppenmittelwerte miteinander vergleichen. Dazu nutzen wir zwei Funktionen: `emmeans()` berechnet die Mittelwerte und die dazugehörigen Standardfehler für alle Gruppen. Dazu übergeben wir der Funktion das oben geschätzte Modell (aus der `lm()`-Funktion) und mit dem Argument `specs` die Faktoren aus unserer ANOVA Das Ergebnis dieser Funktion geben wir an `pairs()` weiter. Diese Funktion berechnet Mittelwertvergleiche (also t-Tests) für alle möglichen Gruppenvergleiche. Dabei werden die p-Werte korrigiert (siehe Video).
+
+
+```{r}
+# berechnet Post-Hoc-Tests für die Anova
+emmeans(model, specs = c("Bula", "aboLokal")) |>
+  pairs()
+```
+
+Hier sehen wir (in der letzten Spalte), dass wir drei signifikante Gruppenvergleiche haben: Menschen aus Rheinland-Pfalz mit Abo haben eine höhere lokale Bindung als Menschen aus Rheinland-Pfalz ohne Abo. Das gleiche gilt nicht für Menschen aus Thüringen! Außerdem haben Menschen aus Thüringen mit Abo eine höhere Bindung als Menschen aus RLP ohne Abo. Letztere haben außerdem eine geringere Bindung als Menschen aus Thüringen ohne Abo. Das ist zugegebenermaßen etwas komplex. Um die Ergebnisse etwas besser nachvollziehen zu können, lohnt ein Blick auf die deskriptiven Werte. Diese können Sie sich anzeigen lassen, indem Sie nur die `emmeans()`-Funktion aufrufen, ohne das Ergebnis an `pairs()` weiterzugeben. Eine solche Tabelle sollten Sie auch im Ergebnisteil einer empirischen Arbeit mit angeben!
+
+```{r}
+# berechnet die Gruppenmittelwerte aus der ANOVA und zeigt diese an
+emmeans(model, specs = c("Bula", "aboLokal")) 
+```
+Hier sehen wir nun sehr deutlich, dass Befragte aus Thüringen mit und ohne Abo jeweils eine etwas höhere lokale Bindung hatten als die jeweiligen Gruppen aus Rheinland-Pfalz. Außerdem haben in jedem Bundesland die Befragten mit Abo eine höhere Bindung als Befragte ohne Abo. Den signifikanten Interaktionseffekt erkennen Sie daran, dass der Unterschied zwischen Thüringen und Rheinland-Pfalz nur für Befragte ohne Abo relativ klar zu sehen ist, nicht aber für Befragte mit Abo!
+
+Bevor wir diese Ergebnisse visualisieren, schreiben wir sie noch kurz auf:
+
+> Post-hoc-Tests zeigten, dass drei Gruppenvergleiche signifikant waren: Befragte aus Rheinland-Pfalz mit Abo einer Lokalzeitung hatten eine höhere lokale Bindung als Befragte aus Thüringen ohne Abo (t(1825) = 6,98; p < 0,001). Außerdem hatten Befragte aus TH eine höhere Bindung als Befragte aus Rheinland-Pfalz ohne Abo (t(1825) = 5,75; p < 0,001). Diese Gruppe hatte wiederum eine geringere Bindung als Befragte aus Thüringen ohne Abo (t(1825) = -4,95; p < 0,001)
+
+## Ergebnis visualisieren
+
+Im Kontext von ANOVAs wird oft eine Visualisierung verwendet, die wir ganz am Ende von Kapitel 4 schon mal kennengelernt haben: Dort haben wir die Mittelwerte und Standardabweichungen von Gruppenmittelwerten geplottet. Hier machen wir im Prinzip das Gleiche, nur dass wir nicht die Standardabweichungen, sondern die 95%-Konfidenzintervalle der Mittelwerte visualisieren. Außerdem müssen wir anders als in Kapitel 4 berücksichtigen, dass wir nun zwei Gruppierungsvariablen haben.
+
+Zuerst erstellen wir ein Objekt, in dem wir die Informationen aus der `emmeans()`-Funktion speichern. Da diese Funktion ein etwas komplexeres Format zurückgibt, nutzen wir dazu die Funktion `as.data.frame()`.
+
+
+```{r}
+# wandelt die Ausgabe von emmeans() in einen Datensatz um und speichtert diesen in einem Objekt namens MWsCIs
+MWsCIs <- as.data.frame(emmeans(model, specs = c("Bula", "aboLokal")))
+  
+```
+
+Damit können wir nun einen Plot erstellen. Verglichen mit dem Plot aus Kapitel 4 ergänzen wir hier nur das Argument `color` innerhalb der `aes()`-Funktion, um das Lokalzeitungsabo darzustellen.
+
+```{r}
+# Plottet die Gruppenmittelwerte und Konfidenzintervalle
+plotANOVA <- MWsCIs |>
+  ggplot(aes(x = Bula, y = emmean, color = aboLokal))+
+  geom_point(size = 2)+
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), size = 1)+
+  labs(x = "Bundesland", y = "lokale Bindung", color = "Lokalzeitung")+
+  theme_minimal()
+
+plotANOVA
+```
+Im Grunde sieht das schon ganz gut aus. Allerdings ist es etwas ungünstig, dass sich die Balken für die beiden Gruppen aus Thüringen überschneiden. Das können wir ganz einfach beheben, indem wir sowohl `geom_point()` als auch `geom_errorbar()` das Argument `position` mit dem Wert `position_dodge(1)` übergeben. Außerdem sind hier noch die Farben etwas angepasst:
+
+```{r}
+# Plottet die Gruppenmittelwerte und Konfidenzintervalle
+plotANOVA <- MWsCIs |>
+  ggplot(aes(x = Bula, y = emmean, color = aboLokal))+
+  geom_point(size = 2, position = position_dodge(1))+
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), size = 1, position = position_dodge(1))+
+  labs(x = "Bundesland", y = "lokale Bindung", color = "Lokalzeitung")+
+  theme_minimal()+
+  scale_color_manual(values = c("orange", "darkgreen"))
+
+plotANOVA
+```
+
+
