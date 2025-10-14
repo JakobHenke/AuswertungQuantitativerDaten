@@ -268,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/kTiYslViA6E" title="Varianzanalyse" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <section id="vorbereitung" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">11.1</span> Vorbereitung</h2>
-<p>Auch für die Varianzanalyse benötigen wir das ‘tidyverse’ und das Paket ‘effectsize’. Außerdem lesen wir den Datensatz ein und ändern die Optionen so , dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.</p>
+<p>Auch für die Varianzanalyse benötigen wir das <code>tidyverse</code> und das Paket <code>effectsize.</code> Außerdem lesen wir den Datensatz ein und ändern die Optionen so, dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt das tidyverse</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -285,22 +285,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt effectsize</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Liest die Daten ein</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/lokalkommunikation.csv"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Stellt ein, dass sehr kleine Zahlen normal dargestellt werden</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Paket 'effectsize' wurde unter R Version 4.4.3 erstellt</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Liest die Daten ein</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Daten/lokalkommunikation.csv"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Stellt ein, dass sehr kleine Zahlen normal dargestellt werden</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Zusätzlich benötigen wir zwei neue Pakete namens <code>car</code> und <code>emmeans</code>, die wir installieren und laden müssen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prüft, ob die Pakete "car" und "emmeans" installiert sind; falls nein, werden sie installiert und geladen</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(car)){</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"car"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(car)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prüft, ob die Pakete "car" und "emmeans" installiert sind; falls nein, werden sie installiert und geladen</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(car)){</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"car"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(car)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Lade nötiges Paket: car</code></pre>
 </div>
@@ -321,10 +323,10 @@ Attache Paket: 'car'</code></pre>
 
     some</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(emmeans)){</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"emmeans"</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(emmeans)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(emmeans)){</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"emmeans"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(emmeans)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Lade nötiges Paket: emmeans</code></pre>
 </div>
@@ -336,21 +338,21 @@ See '? untidy'</code></pre>
 </div>
 <p>Wie im letzten Kapitel werden wir mit den Spalten <code>A501_01</code> bis <code>A501_04</code> arbeiten, die die Bindung der Befragten an den Wohnort angeben. Wir bilden also wieder einen Mittelwertindex.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet pro Person einen Mittelwert der Spalten A501_01 bis A501_04</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lokaleBindung =</span> <span class="fu">mean</span>(<span class="fu">c</span>(A501_01, A501_02, A501_03, A501_04), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet pro Person einen Mittelwert der Spalten A501_01 bis A501_04</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lokaleBindung =</span> <span class="fu">mean</span>(<span class="fu">c</span>(A501_01, A501_02, A501_03, A501_04), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="varianzanalyse-durchführen" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="varianzanalyse-durchführen"><span class="header-section-number">11.2</span> Varianzanalyse durchführen</h2>
-<p>Im folgenden Teil werden wir eine Varianzanalyse berechnen, bei der wir die neue Variable <code>lokaleBindung</code> als AV verwenden und das Bundesland, in dem die Befragten wohnen sowie die Abfrage, ob die Befragten eine Lokalzeitung abboniert haben als UVs (Spalten <code>Bula</code> und <code>A204</code>). Letztere codieren wir zu einem beschrifteten Faktor um, wodurch die Interpretation später etwas leichter wird.</p>
+<p>Im folgenden Teil werden wir eine Varianzanalyse berechnen, bei der wir die neue Variable <code>lokaleBindung</code> als AV verwenden und das Bundesland, in dem die Befragten wohnen, sowie die Abfrage, ob die Befragten eine Lokalzeitung aboniert haben als UVs (Spalten <code>Bula</code> und <code>A204</code>). Letztere codieren wir zu einem beschrifteten Faktor um, wodurch die Interpretation später etwas leichter wird.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#codiert die Spalte A204 zu einem beschrifteten Faktor um</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">aboLokal =</span> <span class="fu">factor</span>(A204, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Abo"</span>, <span class="st">"kein Abo"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#codiert die Spalte A204 zu einem beschrifteten Faktor um</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">aboLokal =</span> <span class="fu">factor</span>(A204, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Abo"</span>, <span class="st">"kein Abo"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="anova" class="level3" data-number="11.2.1">
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="anova"><span class="header-section-number">11.2.1</span> ANOVA</h3>
@@ -358,21 +360,21 @@ See '? untidy'</code></pre>
 <ol type="1">
 <li>Wir nutzen die <code>lm()</code>-Funktion, um ein lineares Modell (also quasi eine Regression) zu schätzen. Dabei ist es wichtig, dass wir das <code>contrasts</code>-Argument nutzen, und für jede kategoriale Variable (Faktoren, in der ANOVA-Sprache) den Wert <code>"contr.sum"</code> angeben. Das bedeutet nur, dass die entsprechenden Variablen unter der Haube so umcodiert werden, dass die Ausprägungen entweder den Wert -1 oder 1 annehmen. Dadurch kann der Interzept nun als Mittelwert der Gesamtstichprobe interpretiert werden.</li>
 <li>Wir nutzen die <code>Anova()</code>-Funktion aus dem car-Paket, um einen F-Test für jeden Prädiktor durchzuführen.</li>
-<li>Sofern mindestens ein Prädiktor signifikant war, können wir Post-Hoc-Tests durchführen, um zu erfahren, welche Gruppen sich voneinander unterscheiden.</li>
+<li>Sofern mindestens ein Prädiktor signifikant war, können wir Post-hoc-Tests durchführen, um zu erfahren, welche Gruppen sich voneinander unterscheiden.</li>
 </ol>
 <p>Für den ersten Schritt nutzen wir die oben berechnete Variable <code>lokaleBindung</code> als AV. Die Spalten <code>Bula</code> und <code>aboLokal</code> verbinden wir mit dem <code>*</code>-Operator, sodass wir neben den Haupteffekten auch den Interaktionseffekt berechnen. Ganz konkret bedeutet das, dass wir hier 4 Gruppen miteinander vergleichen: (1) Thüringer mit Lokalzeitungsabo, (2) Thüringer ohne Abo, (3) Rheinland-Pfälzer mit Abo und (4) Rheinland-Pfälzer ohne Abo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet eine Regression mit der lokalen Bindung als AV und Bundesland und Lokalzeitungsabo als UVs. Achten Sie auf das contrasts-Argument!</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(lokaleBindung <span class="sc">~</span> Bula<span class="sc">*</span>aboLokal, <span class="at">data =</span> df_lokal, </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">contrasts=</span><span class="fu">list</span>(<span class="at">Bula=</span><span class="st">"contr.sum"</span>, <span class="at">aboLokal=</span><span class="st">"contr.sum"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet eine Regression mit der lokalen Bindung als AV und Bundesland und Lokalzeitungsabo als UVs. Achten Sie auf das contrasts-Argument!</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(lokaleBindung <span class="sc">~</span> Bula<span class="sc">*</span>aboLokal, <span class="at">data =</span> df_lokal, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">contrasts=</span><span class="fu">list</span>(<span class="at">Bula=</span><span class="st">"contr.sum"</span>, <span class="at">aboLokal=</span><span class="st">"contr.sum"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Ausnahmsweise ignorieren die Ausgabe dieser Berechnung. Stattdessen nutzen wir direkt die <code>Anova()</code>-Funktion, die für jeden Prädiktor einen F-Wert berechnet. Wichtig ist hier, dass wir das Argument <code>type = 3</code> verwenden. Auf die Details gehen wir an dieser Stelle nicht ein, aber im Prinzip geben wir R damit vor, in welcher Reihenfolge die Werte berechnet werden sollen. Tatsächlich kann das bei der ANOVA einen Unterschied machen!</p>
+<p>Ausnahmsweise ignorieren wir die Ausgabe dieser Berechnung. Stattdessen nutzen wir direkt die <code>Anova()</code>-Funktion, die für jeden Prädiktor einen F-Wert berechnet. Wichtig ist hier, dass wir das Argument <code>type = 3</code> verwenden. Auf die Details gehen wir an dieser Stelle nicht ein, aber im Prinzip geben wir R damit vor, in welcher Reihenfolge die Werte berechnet werden sollen. Tatsächlich kann das bei der ANOVA einen Unterschied machen!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet F-Werte für jeden Prädiktor</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>modelAnova <span class="ot">&lt;-</span> <span class="fu">Anova</span>(model, <span class="at">type =</span> <span class="dv">3</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt die Ergebnisse an</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>modelAnova</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet F-Werte für jeden Prädiktor</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>modelAnova <span class="ot">&lt;-</span> <span class="fu">Anova</span>(model, <span class="at">type =</span> <span class="dv">3</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt die Ergebnisse an</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>modelAnova</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Anova Table (Type III tests)
 
@@ -387,10 +389,10 @@ Residuals      1760.7 1825
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>Bevor die Ergebnisse verschriftlichen können müssen wir noch die Effektstärken berechnen. Dazu nutzebn wir die <code>eta_squared()</code>-Funktion aus dem <code>effectsize</code>-Paket. Dieser können wir unsere oben berechnete Anova übergeben. Außerdem geben wir das Argument <code>alternative = "two"</code> an. Damit legen wir fest, dass wir keine a priori Annahmen darüber hatten, welche Gruppe(n) einen höheren Mittelwert hatte(n).</p>
+<p>Bevor wir die Ergebnisse verschriftlichen können, müssen wir noch die Effektstärken berechnen. Dazu nutzen wir die <code>eta_squared()</code>-Funktion aus dem <code>effectsize</code>-Paket. Dieser können wir unsere oben berechnete ANOVA übergeben. Außerdem geben wir das Argument <code>alternative = "two"</code> an. Damit legen wir fest, dass wir keine a priori Annahmen darüber hatten, welche Gruppe(n) einen höheren Mittelwert hatte(n).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet das partielle eta² pro Prädiktor</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(modelAnova, <span class="at">alternative =</span> <span class="st">"two"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet das partielle eta² pro Prädiktor</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(modelAnova, <span class="at">alternative =</span> <span class="st">"two"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Type 3 ANOVAs only give sensible and informative results when covariates
   are mean-centered and factors are coded with orthogonal contrasts (such
@@ -407,7 +409,7 @@ aboLokal      |           0.02 | [0.01, 0.03]
 Bula:aboLokal |       3.27e-03 | [0.00, 0.01]</code></pre>
 </div>
 </div>
-<p>Bevor die Ergebnisse verschriftlichen lohnt ein genauerer Blick auf die Ausgabe. Ganz oben sehen wir eine Warnung, dass die Effekte nur dann sinnvoll interpretiert werden können, wenn die sogenannten Kontraste angepasst wurden. Das haben wir oben in unserem Aufruf der <code>lm()</code>-Funktion erledigt! Außerdem weist R uns darauf hin, dass etwaige Kovariaten um den Mittelwert zentriert sein müssen (<em>mean-centered</em>).</p>
+<p>Bevor wir die Ergebnisse verschriftlichen, lohnt ein genauerer Blick auf die Ausgabe. Ganz oben sehen wir eine Warnung, dass die Effekte nur dann sinnvoll interpretiert werden können, wenn die sogenannten Kontraste angepasst wurden. Das haben wir oben in unserem Aufruf der <code>lm()</code>-Funktion erledigt! Außerdem weist R uns darauf hin, dass etwaige Kovariaten um den Mittelwert zentriert sein müssen (<em>mean-centered</em>).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -418,50 +420,50 @@ Mittelwertzentrierung
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Eine Variabl zu zentrieren bedeutet, ihren Mittelwert auf 0 zu setzen. Das geht, indem der Mittelwert von jeder einzelnen Beobachtung abgezogen wird. Wenn wir z.B. einen Vektor haben, der die Zahlen von 0 bis 100 enthält, hat dieser Vektor den Mittelwert 50:</p>
+<p>Eine Variable zu zentrieren bedeutet, ihren Mittelwert auf 0 zu setzen. Das geht, indem der Mittelwert von jeder einzelnen Beobachtung abgezogen wird. Wenn wir z. B. einen Vektor haben, der die Zahlen von 0 bis 100 enthält, hat dieser Vektor den Mittelwert 50:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt einen Vektor aus den Zahlen von 1 bis 100 und zeigt den Mittelwert an</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>zahlen <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlen)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellt einen Vektor aus den Zahlen von 1 bis 100 und zeigt den Mittelwert an</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>zahlen <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlen)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 50</code></pre>
 </div>
 </div>
 <p>Wir können diesen Vektor zentrieren, indem wir von jedem Element den Mittelwert abziehen. Der neue Mittelwert ist dann 0:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># händische Zentrierung des Vektors</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>zahlenZentriert <span class="ot">&lt;-</span> zahlen<span class="dv">-50</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlenZentriert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># händische Zentrierung des Vektors</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>zahlenZentriert <span class="ot">&lt;-</span> zahlen<span class="dv">-50</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlenZentriert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
 </div>
-<p>Glücklicherweise hat R eine Funktion, die diesen Prozess für uns übernimmt. Sie heißt <code>scale()</code> . Die Funktion nimmt immer einen Vektor (entweder so wie hier oder z.B. eine Spalte aus einem Datensatz) als erstes Argument. Zwei weitere Argumente sind <code>center</code> und <code>scale</code>, die beide automatisch als <code>TRUE</code> angenommen werden, sofern wir nichts anderes angeben. <code>center</code> bedeutet, dass der Mittelwert subtrahiert wird. <code>scale</code> bedeutet, dass die Beobachtungen zusätzlich durch die Standardabweichung aller Beobachtungen geteilt werden. Das Ergebnis ist dann nicht mehr eine zentrierte Variable, sondern eine <em>normalisierte</em>, die den Mittelwert 0 und die Standardabweichung 1 hat. Wenn Sie eine ANCOVA berechnen, sollten Sie für metrische Variablen vorher unbedingt diese Funktion anwenden!</p>
+<p>Glücklicherweise hat R eine Funktion, die diesen Prozess für uns übernimmt. Sie heißt <code>scale()</code>. Die Funktion nimmt immer einen Vektor (entweder so wie hier oder z. B. eine Spalte aus einem Datensatz) als erstes Argument. Zwei weitere Argumente sind <code>center</code> und <code>scale</code>, die beide automatisch als <code>TRUE</code> angenommen werden, sofern wir nichts anderes angeben. <code>center</code> bedeutet, dass der Mittelwert subtrahiert wird. <code>scale</code> bedeutet, dass die Beobachtungen zusätzlich durch die Standardabweichung aller Beobachtungen geteilt werden. Das Ergebnis ist dann nicht mehr eine zentrierte Variable, sondern eine <em>normalisierte</em>, die den Mittelwert 0 und die Standardabweichung 1 hat. Wenn Sie eine ANCOVA berechnen, sollten Sie für metrische Variablen vorher unbedingt diese Funktion anwenden!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nutzt die Funktion scale(), um den Vektor zu normalisieren</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>zahlenScale <span class="ot">&lt;-</span> <span class="fu">scale</span>(zahlen)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlenScale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nutzt die Funktion scale(), um den Vektor zu normalisieren</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>zahlenScale <span class="ot">&lt;-</span> <span class="fu">scale</span>(zahlen)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlenScale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(zahlenScale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(zahlenScale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
 </div>
 </div>
-<p>Mit dieser Warnung im Hinterkopf können wir die Ergenisse interpretieren. Lassen Sie sich von der etwas komischen Darstellung der Effektstärke nict abschrecken!</p>
-<p>Für das Bundesland wird ein Effekt von `4.91e-03` angegeben. Übersetzt in “normale” Zahlen beudetet das 0,00491. Wir schreiben also einfach nur 3 Nullen vor die 4,91. Wenn Sie mal nicht sicher sind können Sie solche Zahlen auch einfach unten in die Konsole eingeben und mit Enter ausführen, dann zeigt R Ihnen die Zahl im gewohnten Format an. Ein partielles eta² von 0,00491 bedeutet, dass die Varibale ca. 0,05 Prozent der Varianz erklärt. Ob die Leute ein Lokalzeitungsabo haben erklärt dagegen etwa 2 Prozent (partielles eta² = 0,02) und die Interaktion aus diesen beiden Variablen erklärt ca. 0,03 Prozent (partielles eta² = 0,003). Wir haben also drei (sehr) schwache Effekte identifiziert, die aber laut unserer ANOVA-Tabelle oben alle signifikant sind.</p>
+<p>Mit dieser Warnung im Hinterkopf können wir die Ergebnisse interpretieren. Lassen Sie sich von der etwas komischen Darstellung der Effektstärke nicht abschrecken!</p>
+<p>Für das Bundesland wird ein Effekt von `4.91e-03` angegeben. Übersetzt in “normale” Zahlen bedeutet das 0,00491. Wir schreiben also einfach nur 3 Nullen vor die 4,91. Wenn Sie mal nicht sicher sind können Sie solche Zahlen auch unten in die Konsole eingeben und mit Enter ausführen, dann zeigt R Ihnen die Zahl im gewohnten Format an. Ein partielles eta² von 0,00491 bedeutet, dass die Variable ca. 0,05 Prozent der Varianz erklärt. Ob die Leute ein Lokalzeitungsabo haben erklärt dagegen etwa 2 Prozent (partielles eta² = 0,02) und die Interaktion aus diesen beiden Variablen erklärt ca. 0,03 Prozent (partielles eta² = 0,003). Wir haben also drei (sehr) schwache Effekte identifiziert, die aber laut unserer ANOVA-Tabelle oben alle signifikant sind.</p>
 <p>Mit Hilfe der beiden Ausgaben können wir die Ergebnisse nach dem folgenden Muster aufschreiben: Pro Prädiktor werden der F-Wert, die dazugehörigen Freiheitsgrade (Spalte <code>Df</code>) und der p-Wert angegeben. Zusätzliche Informationen über das Gesamtmodell können wir der Tabelle oben entnehmen.</p>
 <blockquote class="blockquote">
-<p>Um zu prüfen, ob ein Lokalzeitungsabo und das Bundesland, in dem die Befragten wohnen sowie der Interaktionseffekt dieser beiden Variablen einen Effekt auf die lokale Bindung der Befragten haben, wurde eine ANOVA berechnet. Das Bundesland hatte einen signifikanten, aber sehr schwachen Effekt (F(1, 1825) = 9,01; p = 0,003; partielles eta² = 0,005). Der Effekt des Lokalzeitungsabos war ebenfalls signifikant und schwach (F(1, 1825) = 37,27; p &lt; 0,001; partielles eta² = 0,02). Auch der Interaktionseffekt der beiden Variablen war signifikant, aber sehr schwach (F(1, 1825) = 5,99; p = 0,014; partielles eta² = 0,003).</p>
+<p>Um zu prüfen, ob ein Lokalzeitungsabo und das Bundesland, in dem die Befragten wohnen, sowie der Interaktionseffekt dieser beiden Variablen einen Effekt auf die lokale Bindung der Befragten haben, wurde eine ANOVA berechnet. Das Bundesland hatte einen signifikanten, aber sehr schwachen Effekt (F(1, 1825) = 9,01; p = 0,003; partielles eta² = 0,005). Der Effekt des Lokalzeitungsabos war ebenfalls signifikant und schwach (F(1, 1825) = 37,27; p &lt; 0,001; partielles eta² = 0,02). Auch der Interaktionseffekt der beiden Variablen war signifikant, aber sehr schwach (F(1, 1825) = 5,99; p = 0,014; partielles eta² = 0,003).</p>
 </blockquote>
-<p>Bevor die Analyse abgeschlossen ist, müssen wir noch die sogeannten Post-Hoc-Tests durchführen, bei denen wir die jeweiligen Gruppenmittelwerte vergleichen. Dazu nutzen wir zwei Funktionen: <code>emmeans()</code> berechnet Mittelwerte und dazugehörigen Standardfehler für alle Gruppen. Dazu übergeben wir der Funktion das oben geschätzte Modell (aus der <code>lm()</code>-Funktion) und mit Argument <code>specs</code> die Faktoren aus unserer Anova. Das Ergebnis dieser Funktion geben wir an <code>pairs()</code> weiter. Diese Funktion berechnet Mittelwertvergleiche (also t-Tests) für alle möglichen Gruppenvergleiche. Dabei werden die p-Werte korrigiert (siehe Video).</p>
+<p>Bevor die Analyse abgeschlossen ist, müssen wir noch die sogenannten Post-hoc-Tests durchführen, bei denen wir die jeweiligen Gruppenmittelwerte miteinander vergleichen. Dazu nutzen wir zwei Funktionen: <code>emmeans()</code> berechnet die Mittelwerte und die dazugehörigen Standardfehler für alle Gruppen. Dazu übergeben wir der Funktion das oben geschätzte Modell (aus der <code>lm()</code>-Funktion) und mit dem Argument <code>specs</code> die Faktoren aus unserer ANOVA Das Ergebnis dieser Funktion geben wir an <code>pairs()</code> weiter. Diese Funktion berechnet Mittelwertvergleiche (also t-Tests) für alle möglichen Gruppenvergleiche. Dabei werden die p-Werte korrigiert (siehe Video).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet Post-Hoc-Tests für die Anova</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(model, <span class="at">specs =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet Post-Hoc-Tests für die Anova</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(model, <span class="at">specs =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast                   estimate     SE   df t.ratio p.value
  RLP Abo - TH Abo            -0.0284 0.0853 1825  -0.332  0.9873
@@ -474,10 +476,10 @@ Mittelwertzentrierung
 P value adjustment: tukey method for comparing a family of 4 estimates </code></pre>
 </div>
 </div>
-<p>Hier sehen wir (in der letzten Saplte), dass wir drei signifikante Gruppenvergleiche haben: Menschen aus Rheinland-Pfalz mit Abo haben eine höhere lokale Bindung als Menschen aus Rheinland-Pfalz ohne Abo. Das gleiche gilt nicht für Menschen aus Thüringen! Außderdem haben Menschen aus Thüringen mit Abo eine höhere Bindung als Menschen RLP ohne Abo. Letztere haben außerdem eine geringere Bindung als Menschen aus Thüringen ohne Abo. Das ist zugegebenermaßen etwas komplex. Um die Ergebnisse etwas besser nachvollziehen zu können, lohnt ein Blick auf die deskriptiven Werte. Diese können Sie sich anzeigen lassen, indem Sie nur die <code>emmeans()</code>-Funktion aufrufen, ohne das Ergebnis an <code>pairs()</code> weiterzugeben. Eine solche Tabelle sollten Sie auch im Ergebnisteil einer empirischen Arbeit mit angeben!</p>
+<p>Hier sehen wir (in der letzten Spalte), dass wir drei signifikante Gruppenvergleiche haben: Menschen aus Rheinland-Pfalz mit Abo haben eine höhere lokale Bindung als Menschen aus Rheinland-Pfalz ohne Abo. Das gleiche gilt nicht für Menschen aus Thüringen! Außerdem haben Menschen aus Thüringen mit Abo eine höhere Bindung als Menschen aus RLP ohne Abo. Letztere haben außerdem eine geringere Bindung als Menschen aus Thüringen ohne Abo. Das ist zugegebenermaßen etwas komplex. Um die Ergebnisse etwas besser nachvollziehen zu können, lohnt ein Blick auf die deskriptiven Werte. Diese können Sie sich anzeigen lassen, indem Sie nur die <code>emmeans()</code>-Funktion aufrufen, ohne das Ergebnis an <code>pairs()</code> weiterzugeben. Eine solche Tabelle sollten Sie auch im Ergebnisteil einer empirischen Arbeit mit angeben!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet die Gruppenmittelwerte aus der ANOVA und zeigt diese an</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(model, <span class="at">specs =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet die Gruppenmittelwerte aus der ANOVA und zeigt diese an</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(model, <span class="at">specs =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Bula aboLokal emmean     SE   df lower.CL upper.CL
  RLP  Abo        4.13 0.0483 1825     4.04     4.23
@@ -488,35 +490,35 @@ P value adjustment: tukey method for comparing a family of 4 estimates </code></
 Confidence level used: 0.95 </code></pre>
 </div>
 </div>
-<p>Hier sehen wir nun sehr deutlich, dass Befragte aus Thüringen mit und ohne Abo jeweils eine etwas höhere lokale Bindung hatten als die jeweiligen Gruppen aus Rheinland-Pfalz. Außerdem haben in jedem Bundesland die Befragten mit Abo eine höhere Bindung als Befragte ohne Abo. Den signifikanten Interaktionseffekt erkennen Sie daran, dass der Unterschied zwischen Thüringen und Rheinland-Pfalz nur für Befragte ohne Abo relativ klar zu sehen ist, nicht aber für Befragte ohne Abo!</p>
+<p>Hier sehen wir nun sehr deutlich, dass Befragte aus Thüringen mit und ohne Abo jeweils eine etwas höhere lokale Bindung hatten als die jeweiligen Gruppen aus Rheinland-Pfalz. Außerdem haben in jedem Bundesland die Befragten mit Abo eine höhere Bindung als Befragte ohne Abo. Den signifikanten Interaktionseffekt erkennen Sie daran, dass der Unterschied zwischen Thüringen und Rheinland-Pfalz nur für Befragte ohne Abo relativ klar zu sehen ist, nicht aber für Befragte mit Abo!</p>
 <p>Bevor wir diese Ergebnisse visualisieren, schreiben wir sie noch kurz auf:</p>
 <blockquote class="blockquote">
-<p>Post-Hoc-Tests zeigten, dass drei Gruppenvergleiche signifikant waren: Befragte aus Rheinland-Pfalz mit Abo einer Lokalzeitung hatten eine höhere lokale Bindung als Befragte aus Thrüingen ohne Abo (t(1825) = 6,98; p &lt; 0,001). Außerdem hatten Befragte aus TH eine höhere Bindung als Befragte aus Rheinland-Pfalz ohne Abo (t(1825) = 5,75; p &lt; 0,001). Diese Gruppe hatte wiederum eine geringere Bindung als Befragte aus Gruppenvergleiche ohne Abo (t(1825) = -4,95; p &lt; 0,001)</p>
+<p>Post-hoc-Tests zeigten, dass drei Gruppenvergleiche signifikant waren: Befragte aus Rheinland-Pfalz mit Abo einer Lokalzeitung hatten eine höhere lokale Bindung als Befragte aus Thüringen ohne Abo (t(1825) = 6,98; p &lt; 0,001). Außerdem hatten Befragte aus TH eine höhere Bindung als Befragte aus Rheinland-Pfalz ohne Abo (t(1825) = 5,75; p &lt; 0,001). Diese Gruppe hatte wiederum eine geringere Bindung als Befragte aus Thüringen ohne Abo (t(1825) = -4,95; p &lt; 0,001)</p>
 </blockquote>
 </section>
 </section>
 <section id="ergebnis-visualisieren" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="ergebnis-visualisieren"><span class="header-section-number">11.3</span> Ergebnis visualisieren</h2>
-<p>Im Kontext von ANOVAS wird oft eine Visualisierung verwendet, die wir ganz am Ende von Kapitel 4 schon mal kennengelernt haben: Dort haben wir die Mittelwerte und Standardabweichungen von Gruppenmittelwerten geplottet. Hier machen wir im Prinzip das gleiche, nur dass wir nicht die Standardabweichungen, sondern die 95%-Konfidenzintervalle der Mittelwerte visualisieren. Außerdem müssen wir anders als in Kapitel 4 berücksichtigen, dass wir nun zwei Gruppierungsvariablen haben.</p>
+<p>Im Kontext von ANOVAs wird oft eine Visualisierung verwendet, die wir ganz am Ende von Kapitel 4 schon mal kennengelernt haben: Dort haben wir die Mittelwerte und Standardabweichungen von Gruppenmittelwerten geplottet. Hier machen wir im Prinzip das Gleiche, nur dass wir nicht die Standardabweichungen, sondern die 95%-Konfidenzintervalle der Mittelwerte visualisieren. Außerdem müssen wir anders als in Kapitel 4 berücksichtigen, dass wir nun zwei Gruppierungsvariablen haben.</p>
 <p>Zuerst erstellen wir ein Objekt, in dem wir die Informationen aus der <code>emmeans()</code>-Funktion speichern. Da diese Funktion ein etwas komplexeres Format zurückgibt, nutzen wir dazu die Funktion <code>as.data.frame()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wandelt die Ausgabe von emmeans() in einen Datensatz um und speichtert diesen in einem Objekt namens MWsCIs</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>MWsCIs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(model, <span class="at">specs =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wandelt die Ausgabe von emmeans() in einen Datensatz um und speichtert diesen in einem Objekt namens MWsCIs</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>MWsCIs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(model, <span class="at">specs =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Damit können wir nun einen Plot erstellen. Verglichen mit dem Plot aus Kapitel 4 ergänzen wir hier nur das Argument <code>color</code> innerhalb der <code>aes()</code>-Funktion, um das Lokalzeitungsabo darzustellen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plottet die Gruppenmittelwerte und Konfidenzintervalle</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>plotANOVA <span class="ot">&lt;-</span> MWsCIs <span class="sc">|&gt;</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Bula, <span class="at">y =</span> emmean, <span class="at">color =</span> aboLokal))<span class="sc">+</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower.CL, <span class="at">ymax =</span> upper.CL), <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bundesland"</span>, <span class="at">y =</span> <span class="st">"lokale Bindung"</span>, <span class="at">color =</span> <span class="st">"Lokalzeitung"</span>)<span class="sc">+</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plottet die Gruppenmittelwerte und Konfidenzintervalle</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>plotANOVA <span class="ot">&lt;-</span> MWsCIs <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Bula, <span class="at">y =</span> emmean, <span class="at">color =</span> aboLokal))<span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower.CL, <span class="at">ymax =</span> upper.CL), <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bundesland"</span>, <span class="at">y =</span> <span class="st">"lokale Bindung"</span>, <span class="at">color =</span> <span class="st">"Lokalzeitung"</span>)<span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>plotANOVA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>plotANOVA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -527,16 +529,16 @@ Confidence level used: 0.95 </code></pre>
 </div>
 <p>Im Grunde sieht das schon ganz gut aus. Allerdings ist es etwas ungünstig, dass sich die Balken für die beiden Gruppen aus Thüringen überschneiden. Das können wir ganz einfach beheben, indem wir sowohl <code>geom_point()</code> als auch <code>geom_errorbar()</code> das Argument <code>position</code> mit dem Wert <code>position_dodge(1)</code> übergeben. Außerdem sind hier noch die Farben etwas angepasst:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plottet die Gruppenmittelwerte und Konfidenzintervalle</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>plotANOVA <span class="ot">&lt;-</span> MWsCIs <span class="sc">|&gt;</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Bula, <span class="at">y =</span> emmean, <span class="at">color =</span> aboLokal))<span class="sc">+</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="dv">1</span>))<span class="sc">+</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower.CL, <span class="at">ymax =</span> upper.CL), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="dv">1</span>))<span class="sc">+</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bundesland"</span>, <span class="at">y =</span> <span class="st">"lokale Bindung"</span>, <span class="at">color =</span> <span class="st">"Lokalzeitung"</span>)<span class="sc">+</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"darkgreen"</span>))</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>plotANOVA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plottet die Gruppenmittelwerte und Konfidenzintervalle</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>plotANOVA <span class="ot">&lt;-</span> MWsCIs <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Bula, <span class="at">y =</span> emmean, <span class="at">color =</span> aboLokal))<span class="sc">+</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower.CL, <span class="at">ymax =</span> upper.CL), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bundesland"</span>, <span class="at">y =</span> <span class="st">"lokale Bindung"</span>, <span class="at">color =</span> <span class="st">"Lokalzeitung"</span>)<span class="sc">+</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"darkgreen"</span>))</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>plotANOVA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
