@@ -329,7 +329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geschlechtMitNAs =</span> <span class="fu">na_if</span>(A602, <span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geschlechtMitNAs =</span> <span class="fu">factor</span>(geschlechtMitNAs, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"männlich"</span>, <span class="st">"weiblich"</span>, <span class="st">"divers"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Anschließend können wir die <code>distribution_mode()</code>-Funktion aus dem <code>datawizard</code>-Paket verwenden. Um damit den Modus zu berechnen, müssen wir die Funktion innerhalb der <code>dplyr</code>-Funktion <code>summarise()</code> aufrufen. Diese verdichtet Datensätze. Schauen wir uns einmal an, was passiert, wenn wir <code>Mode()</code> einfach entsprechend ausführen:</p>
+<p>Anschließend können wir die <code>distribution_mode()</code>-Funktion aus dem <code>datawizard</code>-Paket verwenden. Schauen wir uns einmal an, was passiert, wenn wir <code>Mode()</code> einfach entsprechend ausführen:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Versucht den Modus der Spalte geschlechtMitNAs zu berechnen</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -558,7 +558,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Was Sie hier sehen, ist erstmal nicht sonderlich hübsch, sollte aber dennoch kurz erklärt werden: Die dicke schwarze Linie beim Wert 4 zeigt den Median. Die eingekasteten Bereiche darüber und darunter zeigen das 75. bzw. das 25. Quartil. Oder einfach gesagt: 25 % der Befragten haben den Wert <code>2</code> oder weniger angegeben und weitere 25 % den Wert <code>5</code> oder mehr. Die Linien nach unten und oben gehen bis zum Minimum bzw. Maximum.</p>
+<p>Was Sie hier sehen, ist erstmal nicht sonderlich hübsch, sollte aber dennoch kurz erklärt werden: Die dicke schwarze Linie beim Wert 4 zeigt den Median. Die eingekasteten Bereiche darüber und darunter zeigen das 75. bzw. das 25. Quartil. Oder einfach gesagt: 25 % der Befragten haben den Wert <code>2</code> oder weniger angegeben und weitere 25 % den Wert <code>5</code> oder mehr. Die Linien nach unten und oben zeigen den Bereich in dem die meisten Werte angesiedelt sind.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Folgende Probleme hat die Darstellung:</p>
 <ul>
 <li>Der Boxplot ist sehr breit. Das sieht furchtbar aus!</li>
@@ -756,6 +756,12 @@ Caused by warning:
 
 
 </section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Die exakte Definition ist, dass die Länge der Linien durch den Innerquartilabstand definiert werden. Hierbei handelt es sich um die Distanz zwischen dem 25. und dem 75. Quartil. Dieser Abstand wird mit 1,5 multipliziert, um die Länge der sogenannten Whisker zu erhalten.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

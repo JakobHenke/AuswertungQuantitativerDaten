@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="vorbereitung" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="vorbereitung"><span class="header-section-number">8.2</span> Vorbereitung</h2>
-<p>Wir starten wieder damit, unsere R-Umgebung vorzubereiten, indem wir das <code>tidyverse</code> und das Paket <code>effectsize</code> laden, den Datensatz einlesen und die Optionen so ändern, dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.</p>
+<p>Wir starten wieder damit, unsere R-Umgebung vorzubereiten, indem wir das <code>tidyverse</code> und das Paket <code>easystats</code> laden, den Datensatz einlesen und die Optionen so ändern, dass kleine Zahlen in einem uns gewohnten Format angezeigt werden.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt das tidyverse</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -331,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transfomiert das Geburtsjahr zum Alter. Siehe Kapitel 3 für Details</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">alter =</span> <span class="fu">str_trim</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">str_trim</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">str_sub</span>(geburtsjahr, <span class="sc">-</span><span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">as.integer</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">ifelse</span>(geburtsjahr <span class="sc">&lt;</span> <span class="dv">1000</span>, geburtsjahr<span class="sc">+</span><span class="dv">1000</span>, geburtsjahr)) <span class="sc">|&gt;</span></span>
@@ -476,11 +476,18 @@ F-statistic: 218.4 on 2 and 1820 DF,  p-value: &lt; 0.00000000000000022</code></
 <li>Der Effekt des Alters ist etwas schwächer als im ersten Modell.</li>
 <li>Der Effekt des Interesses an Geschehnissen in Deutschland deutlich stärker als der des Alters. Aber: Beachten Sie, dass wir bisher nur die unstandardisierten Koeffizienten betrachtet haben!</li>
 </ol>
-<p>Außerdem sollten Sie eine wichtige Sache beachten: Die Interpretation der Koeffizienten ändert sich in der multiplen Regression leicht! Im Video haben wir gesagt, dass die Effekte jeweils so interpretiert werden können, dass die Effekte der anderen Variablen “herausgerechnet” werden. Ganz konkret ist es so, dass die Effekte jeweils angeben, wie stark der Einfluss einer Variable ist, wenn alle anderen Variablen den Wert 0 annehmen. Wie oben schon, haben wir hier allerdings das Problem, dass der Wert 0 nicht immer sinnvoll ist, z.B. beim Alter. Dieses Problem haben die standardisierten Koeffizienten nicht.</p>
-<p>Schauen wir uns die also noch an:</p>
+<p>Außerdem sollten Sie eine wichtige Sache beachten: Die Interpretation der Koeffizienten ändert sich in der multiplen Regression leicht! Im Video haben wir gesagt, dass die Effekte jeweils so interpretiert werden können, dass die Effekte der anderen Variablen “herausgerechnet” werden. Ganz konkret ist es so, dass die Effekte jeweils angeben, wie stark der Einfluss einer Variable ist, bei Konstanthaltung der anderen Variablen.</p>
+<p>Theoretisch können wir anhand der Ausgabe oben Vorhersagen treffen. Wir könnten z.B. das Interesse an lokalen Geschehnissen einer Person mit einem Interesse an Geschehnissen in Deutschland von 0,5 wie folgt berechnen:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt den standardisierten Koeffizienten beta für die beiden Prädiktoren an</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">standardize_parameters</span>(lmInteresseLokalErweitert)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.4243107</span> <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">*</span><span class="fl">0.3886329</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6186272</code></pre>
+</div>
+</div>
+<p>Wie oben schon gibt die Konstante (0,4243107) das Interesse an, wenn alle unabhängigen Variablen gleich 0 sind. Entsprechend gibt der so berechnete Wert auch das Interesse einer Person mit Interesse an Geschehnissen in Deutschland = 0,5 und Alter = 0 an. Und wie oben ergibt das nur wenig Sinn. Auch hier lohnt sich daher ein Blick auf die standardisierten Koeffizienten:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt den standardisierten Koeffizienten beta für die beiden Prädiktoren an</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">standardize_parameters</span>(lmInteresseLokalErweitert)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Standardization method: refit
 
@@ -491,7 +498,7 @@ alter          |       0.11 | [ 0.07, 0.16]
 interesseDERec |       0.40 | [ 0.36, 0.44]</code></pre>
 </div>
 </div>
-<p>Für die Berechnung der standardisierten Koeffizienten, werden die Variablen selbst standardisiert. Das bedeutet, dass sie so transformiert werden, dass sie den Mittelwert 0 und die Standardabweichung 1 haben. Das heißt, der Effekt einer Variable entspricht nun nicht mehr dem Effekt, wenn alle anderen Variablen den Wert 0 haben, sondern wenn diese Variablen ihren Mittelwert annehmen.</p>
+<p>Für die Berechnung der standardisierten Koeffizienten werden die Variablen selbst standardisiert, also sowohl unabhängige Variablen als auch die abhängige. Das bedeutet, dass sie so transformiert werden, dass sie den Mittelwert 0 und die Standardabweichung 1 haben. Das heißt, die Konstante E entspricht nun nicht mehr dem Interesse, wenn alle anderen Variablen den Wert 0 haben, sondern wenn diese Variablen ihren Mittelwert annehmen.</p>
 <p>Schauen wir uns nun aber die eigentlichen Effekte an. Wie wir oben schon erahnen konnten, ist der Effekt des Alters etwas schwächer. Er wird nun nur noch als 0,11 angegeben. Der Effekt des Interesses an Geschehnissen in Deutschland beträgt dagegen 0,40. Er ist also mäßig stark. Beachten Sie, dass die beta-Werte nun nicht mehr der einfachen Korrelation zwischen den jeweiligen Variablen entsprechen.</p>
 <p>Verschriftlichen wir die Ergebnisse noch einmal:</p>
 <blockquote class="blockquote">

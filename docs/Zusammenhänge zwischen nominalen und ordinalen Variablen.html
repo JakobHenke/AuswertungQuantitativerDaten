@@ -413,19 +413,21 @@ X-squared = 53.925, df = 1, p-value = 0.0000000000002083</code></pre>
 <p>Stark simplifiziert sagen sie etwas darüber aus, wie viele Informationen in die Schätzung eines Parameters (hier Chi²) eingeflossen sind. Etwas genauer: Sie geben an, wie viele Werte wir frei variieren können, um auf das tatsächliche Ergebnis zu kommen. Stellen Sie sich z.B. vor, Sie haben 3 Zahlen und wissen nur, dass deren Mittelwert 5 ist. Daraus können Sie schließen, dass die Summe 15 sein muss (denn: 3 x 5 = 15). Nun gibt es aber unendlich viele Möglichkeiten, drei Zahlen auszusuchen, deren Summe genau 15 ist. Die erste Zahl könnte z.B. eine 3 sein und die zweite eine 11. Nun muss die letzte Zahl eine 1 sein, um auf die Summe 15 bzw. den Mittelwert 5 zu kommen. Da wir uns die ersten beiden Zahlen völlig frei aussuchen durften, die dritte dann aber fest vorgegeben war, hat dieser Mittelwert 2 Freiheitsgrade. Die Freiheitsgrade des Chi²-Tests ergeben sich immer aus der Anzahl der Ausprägungen der beiden Variablen: Von beiden wird 1 subtrahiert, dann werden diese Werte miteinander multipliziert. Hier also (2-1) * (2-1) = 1</p>
 </div>
 </div>
-<p>Als nächsten benötigen wir noch die Effektstärke Cramers V. Das <code>easystats</code>-Paket, das wir oben geladen haben, enthält eine Funktion dazu (<code>cramers_v()</code>), der wir unsere Tabelle übergeben müssen. Zusätzlich geben wir als weiteres Argument <code>alternative = "two.sided"</code> an. Damit sagen wir der Funktion, dass wir bevor wir mit unseren Berechnungen angefangen haben, keine gerichtete Hypothese hatten.</p>
+<p>Als nächsten benötigen wir noch die Effektstärke Cramers V. Das <code>easystats</code>-Paket, das wir oben geladen haben, enthält eine Funktion dazu (<code>cramers_v()</code>), der wir unsere Tabelle übergeben müssen.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet die Effektstärke Cramers V</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>cramersVSportBundesand <span class="ot">&lt;-</span> <span class="fu">cramers_v</span>(tabelleSportNachBundesland, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>cramersVSportBundesand <span class="ot">&lt;-</span> <span class="fu">cramers_v</span>(tabelleSportNachBundesland)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>cramersVSportBundesand</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Cramer's V (adj.) |       95% CI
 --------------------------------
-0.17              | [0.12, 0.22]</code></pre>
+0.17              | [0.13, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
 </div>
 </div>
-<p>Das Ergebnis der Funktion besteht aus zwei Teilen: Erstens dem Wert von Cramers V (hier <code>0,17</code>). Gemäß den Angaben im Video können wir also von einem schwachen Zusammenhang sprechen. Zweitens gibt uns die Funktion einen Bereich von <code>0,12</code> bis <code>0,22</code> aus, das sogenannte 95% Konfidenzintervall (CI Englisch für confidence interval). Hier haben wir es, mal wieder, mit einem dieser unintuitiven Konzepte der Statistik zu tun.</p>
+<p>Das Ergebnis der Funktion besteht aus zwei Teilen: Erstens dem Wert von Cramers V (hier <code>0,17</code>). Gemäß den Angaben im Video können wir also von einem schwachen Zusammenhang sprechen. Zweitens gibt uns die Funktion einen Bereich von <code>0,13</code> bis <code>1,00</code> aus, das sogenannte 95% Konfidenzintervall (CI Englisch für confidence interval). Hier haben wir es, mal wieder, mit einem dieser unintuitiven Konzepte der Statistik zu tun.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -439,9 +441,10 @@ X-squared = 53.925, df = 1, p-value = 0.0000000000002083</code></pre>
 <p>Konfidenzintervalle sind ein Maß, das Auskunft darüber gibt, wie viel Unisicherheit mit einer Schätzung (hier z.B. die Schätzung von Cramers V) verbunden ist. Sie basieren auf einer Kernidee der Statistik, nämlich dass jede Schätzung auf einer Stichprobe basiert und wir langfristig nur Sicherheit gewinnen können, indem wir immer wieder verschiedene Stichproben ziehen und bestimmte Parameter (z.B. einen Mittelwert oder eben eine Effektstärke wie Cramers V) schätzen. Die Definition lautet daher, dass langfristig 95% aller berechneten Konfidenzintervalle den wahren Parameter enthalten.</p>
 </div>
 </div>
-<p>Mit dem Ergebnis der <code>cramers_v()</code>-Funktion können wir die Verschriftlichung unseres Ergebnisses von oben erweitern:</p>
+<p>Das Konfidenzintervall hier ist dahingehend etwas unüblich, dass es bei <code>1</code> endet, was dem Maximalwert von Cramers V entspricht. Das liegt daran, dass wir statistisch nur prüfen, ob Cramers V größer als 0 ist und uns somit nur das untere Ende wirklich interessiert.</p>
+<p>Mit diesen Informationen und dem Ergebnis der <code>cramers_v()</code>-Funktion können wir die Verschriftlichung unseres Ergebnisses von oben erweitern:</p>
 <blockquote class="blockquote">
-<p>Ein Chi²-Test zeigt, dass ein schwacher signifikanter Zusammenhang zwischen dem Bundesland, aus dem die Befragten stammen, und ihrer Mitgliedschaft in einem Sportverein besteht (Chi²(1) = 53,925; p &lt; 0,001; Cramers V = 0,17; 95%-KI = [0,12; 0,22]).</p>
+<p>Ein Chi²-Test zeigt, dass ein schwacher signifikanter Zusammenhang zwischen dem Bundesland, aus dem die Befragten stammen, und ihrer Mitgliedschaft in einem Sportverein besteht (Chi²(1) = 53,925; p &lt; 0,001; Cramers V = 0,17; 95%-KI = [0,13; 1,00]).</p>
 </blockquote>
 <p>Für die Darstellung des Chi²-Tests in einem Forschungsbericht reicht dieser Satz im Prinzip aus. Allerdings ist es für Leserinnen und Leser wissenschaftlicher Texte immer leichter, eine Berechnung nachzuvollziehen, wenn Sie deskriptive Angaben machen. Im Fall von Kreuztabellen bietet sich dafür, wer hätte es gedacht, eine Tabelle an.</p>
 <p>Die beobachteten Werte können wir der Tabelle entnehmen, die wir ganz am Anfang erstellt haben (<code>tabelleSportNachBundesland</code>). Wie im Video besprochen sind diese Werte nur bedingt aussagekräftig, sodass wir auch relative Häufigkeiten angeben sollten. Diese können wir relativ einfach in dem Objekt berechnen, dass wir oben für das Stapeldiagramm angelegt haben (<code>df_plot_kreuztabelle</code>). Als Erstes nutzen wir <code>group_by()</code>, um die Daten nach Bundesland zu gruppieren. Anschließend können wir die absoluten Häufigkeiten pro Zelle (gespeichert in <code>Anzahl</code>) durch die Gesamtsumme aller Befragten aus einem Bundesland teilen (<code>sum(Anzahl)</code>). Die erwarteten Werte sind dagegen wieder einfacher, denn sie sind Teil der Liste, die uns die <code>chisq.test()</code>-Funktion zurückgegeben hat. Wir können sie aufrufen, indem wir das entsprechende Listenelement ansprechen: <code>kt_test$expected</code>.</p>

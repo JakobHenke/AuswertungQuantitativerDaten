@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Nachdem Sie im letzten Kapitel ein Projekt angelegt haben und ein neues Skript erstellt haben, werden Sie in diesem Kapitel einige Dinge kennenlernen, die man üblicherweise in einem Skript findet. Konkret werden wir uns mit Objekten und verschieden Objekttypen beschäftigen, mit Funktionen, die uns erlauben etwas mit diesen Objekten zu tun, mit Paketen, die solche Funktionen zur Verfügung stellen und mit Daten, unserem eigentlichen Kerngeschäft.</p>
+<p>Nachdem Sie im letzten Kapitel ein Projekt angelegt haben und ein neues Skript erstellt haben, werden Sie in diesem Kapitel einige Dinge kennenlernen, die man üblicherweise in einem Skript findet. Konkret werden wir uns mit Objekten und verschiedenen Objekttypen beschäftigen, mit Funktionen, die uns erlauben etwas mit diesen Objekten zu tun, mit Paketen, die solche Funktionen zur Verfügung stellen und mit Daten, unserem eigentlichen Kerngeschäft.</p>
 <section id="objekte" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="objekte"><span class="header-section-number">2.1</span> Objekte</h2>
 <p>Im letzten Kapitel haben Sie bereits zwei wichtige Dinge über Objekte erfahren:</p>
@@ -370,11 +370,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Bisher haben wir unseren Objekten sehr einfache Namen gegeben, die nicht sonderlich hilfreich sind und würden wir nur bei einfachen Buchstaben bleiben, gingen uns bald die Namen aus. Darum empfiehlt es sich, andere Namen zu verwenden. Welche das konkret sind, ist Ihnen überlassen. R gibt allerdings einige Regeln vor:</p>
 <ul>
 <li>Grundsätzlich sind Zahlen, Punkte, Unterstriche und Buchstaben erlaubt.</li>
-<li>Umlaute, Sonderzeichen (z. B. Bindestriche, Prozentzeichen) und Leerzeichen sind nicht erlaubt.</li>
+<li>Sonderzeichen (z. B. Bindestriche, Prozentzeichen) und Leerzeichen sind nicht erlaubt.</li>
+<li>R akzeptiert zwar Umlaute, dadurch wird das Skript aber anfälliger für Fehler (z.B. im internationalen Umfeld).</li>
 <li>Objektnamen müssen mit einem Buchstaben beginnen.</li>
 <li>Objektnamen beachten Groß- und Kleinschreibung.</li>
 <li>Objektnamen sind einzigartig. Das heißt, wenn Sie zwei Objekten nacheinander gleich benennen, wird das zweite das erste überschreiben.</li>
-<li><code>TRUE</code> und <code>FALSE</code> sind als Namen verboten, da es sich hierbei um sogenannte boolesche Operatoren handelt. Da Sie mit <code>T</code> und <code>F</code> abgekürzt werden können, sollten auch diese Namen vermieden werden. Was genau es damit auf sich hat, werden wir im Lauf der Veranstaltung lernen.</li>
+<li><code>TRUE</code> und <code>FALSE</code> sind als Namen verboten, da es sich hierbei um sogenannte boolesche Werte handelt. Da Sie mit <code>T</code> und <code>F</code> abgekürzt werden können, sollten auch diese Namen vermieden werden. Was genau es damit auf sich hat, werden wir im Lauf der Veranstaltung lernen.</li>
 </ul>
 <p>Darüber hinaus gibt es einige sinnvolle Konventionen, an die Sie sich halten sollten:</p>
 <ul>
@@ -523,7 +524,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Oder eine Anzahl, die so groß ist, dass die Anzahl der Elemente des Vektors ein Vielfaches dieser Zahl ist:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subtrahiert 1 bsi 5 von den Elementen von "zahlen"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subtrahiert 1 bis 5 von den Elementen von "zahlen"</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>zahlen <span class="sc">-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -540,13 +541,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Wie oben bereits erwähnt, kommt man in R schon ziemlich weit, wenn man ein gutes Verständnis von Vektoren mitbringt. In diesem Abschnitt haben Sie einige Basics gelernt, die Ihnen bei der Arbeit mit R immer wieder begegnen werden.</p>
-<p>Neben Vektoren gibt es noch zwei weitere Objekttypen, die Ihnen in Ihrer Arbeit mit R begegnen werden. Der erste ist die <strong>Liste</strong>. Der Name ist relativ selbsterklärend: Es handelt sich dabei um eine Liste von Elementen. Der Unterschied zum Vektor ist, dass Listenelemente alles Denkbare sein können. Also z. B. einzelne Werte wie <code>x</code>, <code>y</code>, <code>z</code> und <code>name</code> von oben, aber auch Vektoren wie <code>zahlen</code> und <code>zahlenAnders</code>. Sogar ganze Datensätze können Teil einer Liste sein! Am häufigsten werden Ihnen Listen als Ergebnis von statistischen Berechnungen begegnen, aber Sie können mit der <code>list()</code>-Funktion auch selber welche anlegen. Hier in Beispiel:</p>
+<p>Neben Vektoren gibt es noch zwei weitere Objekttypen, die Ihnen in Ihrer Arbeit mit R begegnen werden. Der erste ist die <strong>Liste</strong>. Der Name ist relativ selbsterklärend: Es handelt sich dabei um eine Liste von Elementen. Der Unterschied zum Vektor ist, dass Listenelemente alles Denkbare sein können. Also z. B. einzelne Werte wie <code>x</code>, <code>y</code>, <code>z</code> und <code>name</code> von oben, aber auch Vektoren wie <code>zahlen</code> und <code>zahlenAnders</code>. Sogar ganze Datensätze können Teil einer Liste sein! Am häufigsten werden Ihnen Listen als Ergebnis von statistischen Berechnungen begegnen, aber Sie können mit der <code>list()</code>-Funktion auch selber welche anlegen. Hier ein Beispiel:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt eine Liste aller bisher erstellten Elemente</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>wasBisherGeschah <span class="ot">&lt;-</span> <span class="fu">list</span>(x, y, z, name, zahlen, zahlenAnders)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>In dieser Liste haben wir alle bisher erstellten Objekte zusammengefasst. Ähnlich wie bei den Vektoren, können wir auch Listenelemente direkt über einen Index ansprechen. Diesmal nutzen wir aber doppelte Klammren: <code>[[]]</code>. Zum Beispiel können wir so das vierte Element ausgeben lassen:</p>
+<p>In dieser Liste haben wir alle bisher erstellten Objekte zusammengefasst. Ähnlich wie bei den Vektoren, können wir auch Listenelemente direkt über einen Index ansprechen. Diesmal nutzen wir aber doppelte Klammern: <code>[[]]</code>. Zum Beispiel können wir so das vierte Element ausgeben lassen:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt das vierte Element der Liste an</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -580,7 +581,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das fünfte Element des Element "zahlenAnders" der Liste "wasBisherWirklichGeschah" an</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt das fünfte Element des Elements "zahlenAnders" der Liste "wasBisherWirklichGeschah" an</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>wasBisherWirklichGeschah<span class="sc">$</span>zahlenAnders[<span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -602,7 +603,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Sie können aber auch auf den Namen klicken. Dann öffnet sich oben im Editor (da, wo Sie Ihr Skript schreiben) ein neues Tab, in dem Sie sich das Objekt genauer ansehen können.</p>
 </div>
 </div>
-<p>Der letzte Objektyp ist der, wegen dem wir eigentlich hier sind: <strong>Datensätze</strong>. Wir werden Sie uns nun etwas genauer ansehen.</p>
+<p>Der letzte Objekttyp ist der, wegen dem wir eigentlich hier sind: <strong>Datensätze</strong>. Wir werden Sie uns nun etwas genauer ansehen.</p>
 </section>
 </section>
 <section id="datensätze" class="level2" data-number="2.2">
@@ -651,7 +652,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code> [1] 10  9  8  7  6  5  4  3  2  1</code></pre>
 </div>
 </div>
-<p>Ab und zu kann es auch vorkommen, dass Sie eine bestimmte Zeile ansprechen wollen. Dazu können wir wieder Indizes benutzen, allerdings etwas anders als zuvor. Zum Beispiel liefert der Befehl <code>df[1]</code> dasselbe Ergebnis wie <code>df$var1</code>, nur etwas anders dargestellt.</p>
+<p>Ab und zu kann es auch vorkommen, dass Sie eine bestimmte Zeile ansprechen wollen. Dazu können wir wieder Indizes benutzen, allerdings etwas anders als zuvor. Zum Beispiel liefert der Befehl <code>df[1]</code> dasselbe Ergebnis wie <code>df$var1</code>, nur etwas anders repräsentiert: Einmal als 10x1 Tabelle (also quasi als Datensatz) und einmal als eindimensionaler Vektor.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt jeweils die erste Variable in df an</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -704,7 +705,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="Screenshots/projektoffen.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
-<p>Wenn Sie nun versuchen, eine Datei zu laden, wir R in Ihrem Projektordner danach suchen. Damit Sie im Lauf des Semesters nicht den Überblick verlieren, ist es ratsam, einen Unterordner für Daten anzulegen. Der untenstehende Code geht davon aus, dass Sie das getan haben:</p>
+<p>Wenn Sie nun versuchen, eine Datei zu laden, wird R in Ihrem Projektordner danach suchen. Damit Sie im Lauf des Semesters nicht den Überblick verlieren, ist es ratsam, einen Unterordner für Daten anzulegen. Der untenstehende Code geht davon aus, dass Sie das getan haben:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt den Datensatz "lokalkommunikation" aus dem Ordner "Daten" und speichert ihn als Objekt namens "df_lokal"</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -734,7 +735,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Wenn Sie einmal nicht wissen, wie eine Funktion funktioniert oder Sie z.B. wissen wollen, welche Argumente eine Funktion benötigt oder was sie zurückgibt, können Sie ganz einfach Hilfe erhalten. Dazu geben Sie einfach ein ? gefolgt vom Namen der Funktion ein, z. B. <code>?read.csv()</code>. Im Bereich unten rechts zeigt R Ihnen dann die Dokumentation der Funktion an.</p>
+<p>Wenn Sie einmal nicht wissen, wie eine Funktion funktioniert oder Sie z.B. wissen wollen, welche Argumente eine Funktion benötigt oder was sie zurückgibt, können Sie ganz einfach Hilfe erhalten. Dazu geben Sie einfach ein ? gefolgt vom Namen der Funktion ein, z. B. <code>?read.csv</code>. Im Bereich unten rechts zeigt R Ihnen dann die Dokumentation der Funktion an.</p>
 </div>
 </div>
 </section>
@@ -806,7 +807,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Übrigens: Funktionen erwarten Argumente in einer festen Reihenfolge, die Sie mit der Hilfsfunktion (<code>?</code> gefolgt vom Namen der Funktion) erfahren können. Solange wir die Argumente in dieser Reihenfolge nuzten, müssen wir sie nicht benennen. Im vorherigen Befehl können wir z.B. das <code>digits =</code> einfach weglassen und erhalten dasselbe Ergebnis.</p>
+<p>Übrigens: Funktionen erwarten Argumente in einer festen Reihenfolge, die Sie mit der Hilfsfunktion (<code>?</code> gefolgt vom Namen der Funktion) erfahren können. Solange wir die Argumente in dieser Reihenfolge nutzen, müssen wir sie nicht benennen. Im vorherigen Befehl können wir z.B. das <code>digits =</code> einfach weglassen und erhalten dasselbe Ergebnis.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rundet die Prozentwerte auf 2 Nachkommastellen, lässt aber den Namen des digits-Arguments weg.</span></span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1273,7 +1274,7 @@ Levels: männlich weiblich divers keine Angabe</code></pre>
 </section>
 <section id="r-beenden" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="r-beenden"><span class="header-section-number">2.4</span> R beenden</h2>
-<p>Wenn Sie R bzw. RStudio beenden, fragt Sie das Programm, ob Sie den sogenannten <strong>Workspace</strong> speichern möchten. Dabei handelt es sich um alle Objekte (u.ä.), die Sie in R angelegt haben. In der Regel sollten Sie das ablehnen. Andernfalls wird ihr Environment (siehe letztes Kapitel) im Lauf der Zeit immer größer und nimmt zu viel Speicherplatz ein.</p>
+<p>Wenn Sie R bzw. RStudio beenden, fragt Sie das Programm, ob Sie den sogenannten <strong>Workspace</strong> speichern möchten. Dabei handelt es sich um alle Objekte (u.ä.), die Sie in R angelegt haben. In der Regel sollten Sie das ablehnen. Hierfür gibt es mindestens zwei gute Gründe: Erstens sollten Skripte in sich reproduzierbar sein. Das heißt, sie sollten immer identisch funktionieren und nicht davon abhängig sein, wele Objekte sich im Workspace befinden. Und zweitens kann das Environment (siehe letztes Kapitel) mit der Zeit ziemlich voll und unübersichtlich werden.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Screenshots/R beenden.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
