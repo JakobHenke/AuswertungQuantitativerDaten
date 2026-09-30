@@ -399,26 +399,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="7.3" class="anchored" data-anchor-id="korrelationen-berechnen"><span class="header-section-number">7.3</span> Korrelationen berechnen</h2>
 <section id="pearson-korrelationen" class="level3" data-number="7.3.1">
 <h3 data-number="7.3.1" class="anchored" data-anchor-id="pearson-korrelationen"><span class="header-section-number">7.3.1</span> Pearson Korrelationen</h3>
-<p>Pearson Korrelationen, also Korrelationen zwischen zwei metrischen Variablen, können wir mit der <code>correlation()</code>-Funktion aus dem <code>easystats</code>Paket berechnen. Hierzu übergeben wir der Funktion einfach zwei Variablen, die wir vorher mit <code>select()</code> auswählen. Das Ergebnis speichern wir hier in einem neuen Objekt namens <code>korrelationInt</code>.</p>
+<p>Pearson Korrelationen, also Korrelationen zwischen zwei metrischen Variablen, können wir mit der <code>cor_test()</code>-Funktion aus dem <code>easystats</code>Paket berechnen. Hierzu übergeben wir der Funktion unseren Datensatz und wählen dann zwei Variablen aus. Wichtig ist, dass wir die Namen der beiden Variablen in Anführungszeichen setzen. Das Ergebnis speichern wir hier in einem neuen Objekt namens <code>korrelationInt</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein neues Objekt in dem der Korrelationskoeffizient und der zugehörigen p-Wert für die Korelation zwischen interesseLokal und interesseDE gespeichert wird.</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>korrelationInt <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(interesseLokal,interesseDE) <span class="sc">|&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">correlation</span>()</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>korrelationInt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(<span class="st">"interesseLokal"</span>, <span class="st">"interesseDE"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>korrelationInt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (pearson-method)
-
-Parameter1     |  Parameter2 |    r |       95% CI | t(1844) |         p
+<pre><code>Parameter1     |  Parameter2 |    r |       95% CI | t(1844) |         p
 ------------------------------------------------------------------------
 interesseLokal | interesseDE | 0.42 | [0.38, 0.46] |   20.02 | &lt; .001***
 
-p-value adjustment method: Holm (1979)
 Observations: 1846</code></pre>
 </div>
 </div>
-<p>Die Korrelation beträgt demnach <code>0,42</code> (Spalte <code>r</code>). Wir können also von einer mäßigen Korrelation sprechen. Der p-Wert wird lediglich als <code>&lt; .001</code> angegeben (Spalte <code>p</code>). Der Zusammenhang zwischen den beiden Variablen ist also signifikant. Die anderen Spalten geben Auskunft über die eingesetzten Variablen (<code>Parameter1</code> und <code>Parameter2</code>), das 95%-Konfidenzintervall (Spalte <code>95% CI</code>; siehe <a href="https://jakobhenke.github.io/AuswertungQuantitativerDaten/Zusammenh%C3%A4nge%20zwischen%20nominalen%20und%20ordinalen%20Variablen.html#signifikanztests-f%C3%BCr-kreuztabellen-in-r-berechnen">Kapitel 6</a>), sowie statistischen Testwert (Spalte <code>t</code>). Am Ende erhalten wir außerdem einen Hinweis: <code>p-value adjustment method: Holm (1979)</code>, den wir für den Moment aber ignorieren. Für unsere Zwecke reicht es, die Ergebnisse aus den Spalten <code>r</code> und <code>p</code> anzugeben. Bevor wir dies tun können, sollten wir aber noch die Mittelwerte und Standardabweichungen der beiden Variablen berechnen, die immer zusätzlich angegeben werden sollten.</p>
+<p>Die Korrelation beträgt demnach <code>0,42</code> (Spalte <code>r</code>). Wir können also von einer mäßigen Korrelation sprechen. Der p-Wert wird lediglich als <code>&lt; .001</code> angegeben (Spalte <code>p</code>). Der Zusammenhang zwischen den beiden Variablen ist also signifikant. Die anderen Spalten geben Auskunft über die eingesetzten Variablen (<code>Parameter1</code> und <code>Parameter2</code>), das 95%-Konfidenzintervall (Spalte <code>95% CI</code>; siehe <a href="https://jakobhenke.github.io/AuswertungQuantitativerDaten/Zusammenh%C3%A4nge%20zwischen%20nominalen%20und%20ordinalen%20Variablen.html#signifikanztests-f%C3%BCr-kreuztabellen-in-r-berechnen">Kapitel 6</a>), sowie statistischen Testwert (Spalte <code>t</code>). Unter der Tabelle finden wir die Fallzahl (hier: 1846). Für unsere Zwecke reicht es, die Ergebnisse aus den Spalten <code>r</code> und <code>p</code> anzugeben. Bevor wir dies tun können, sollten wir aber noch die Mittelwerte und Standardabweichungen der beiden Variablen berechnen, die immer zusätzlich angegeben werden sollten.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet Mittelwert und Standardabweichung der Variablen interesseLokal und interesseDE</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -441,7 +437,7 @@ Observations: 1846</code></pre>
 </section>
 <section id="rangkorrelationen" class="level3" data-number="7.3.2">
 <h3 data-number="7.3.2" class="anchored" data-anchor-id="rangkorrelationen"><span class="header-section-number">7.3.2</span> Rangkorrelationen</h3>
-<p>Bei der Korrelation, die wir gerade berechnet haben, handelt es sich um eine Korrelation zwischen zwei metrischen Variablen. Wie im Video besprochen, können wir auch sogenannte Rangkorrelationen berechnen, wenn mindestens eine der beiden Variablen ordinal skaliert ist. Dazu müssen wir der <code>correlation()</code>-Funktion lediglich das zusätzliche Argument <code>method</code> mit dem Wert <code>"spearman"</code> übergeben. Anders als oben heißt der Korrelationskoeffizient hier nicht einfach <code>r</code>, sondern <code>rho</code>. Die Spalte mit der Teststatistik heißt nun <code>s</code> statt <code>t</code>, aber wie oben brauchen wir sie erstmal nicht.</p>
+<p>Bei der Korrelation, die wir gerade berechnet haben, handelt es sich um eine Korrelation zwischen zwei metrischen Variablen. Wie im Video besprochen, können wir auch sogenannte Rangkorrelationen berechnen, wenn mindestens eine der beiden Variablen ordinal skaliert ist. Dazu müssen wir der <code>cor_test()</code>-Funktion lediglich das zusätzliche Argument <code>method</code> mit dem Wert <code>"spearman"</code> übergeben. Anders als oben heißt der Korrelationskoeffizient hier nicht einfach <code>r</code>, sondern <code>rho</code>. Die Spalte mit der Teststatistik heißt nun <code>s</code> statt <code>t</code>, aber wie oben brauchen wir sie erstmal nicht.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benennt die Spalten A604 und A605 um </span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -453,18 +449,14 @@ Observations: 1846</code></pre>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt ein neues Objekt in dem der Rangkorrelationskoeffizient und der zugehörigen p-Wert für die Korelation zwischen Wohndauer und Ortsgroeße gespeichert wird.</span></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>korrelationOrt <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Wohndauer, Ortsgroeße) <span class="sc">|&gt;</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">correlation</span>(<span class="at">method =</span> <span class="st">"spearman"</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>korrelationOrt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(<span class="st">"Wohndauer"</span>, <span class="st">"Ortsgroeße"</span>, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>korrelationOrt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (spearman-method)
-
-Parameter1 | Parameter2 |   rho |         95% CI |        S |         p
+<pre><code>Parameter1 | Parameter2 |   rho |         95% CI |        S |         p
 -----------------------------------------------------------------------
 Wohndauer  | Ortsgroeße | -0.09 | [-0.14, -0.04] | 1.12e+09 | &lt; .001***
 
-p-value adjustment method: Holm (1979)
 Observations: 1832</code></pre>
 </div>
 </div>
@@ -517,7 +509,7 @@ Observations: 1832</code></pre>
 </section>
 <section id="korrelationsmatrizen" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="korrelationsmatrizen"><span class="header-section-number">7.4</span> Korrelationsmatrizen</h2>
-<p>Manchmal ist es sinnvoll, gleich mehrere Korrelationen auf einmal zu berechnen. Dazu können wir einfach mehr als zwei Variablen der <code>correlation()</code>-Funktion übergeben. Das Ergebnis ist eine sogenannte Korrelationsmatrix, die wir mit der <code>summary()</code>-Funktion ansehen können.</p>
+<p>Manchmal ist es sinnvoll, gleich mehrere Korrelationen auf einmal zu berechnen. Dazu können wir die <code>correlation()</code>-Funktion nutzen. Sie funktioniert ähnlich wie <code>cor_test()</code>, wir können ihr aber mehrere Variablen übergeben. Diese können wir vorher mit <code>select()</code> auswählen. Das Ergebnis ist eine sogenannte Korrelationsmatrix, die wir mit der <code>summary()</code>-Funktion ansehen können.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet alle paarweisen Pearson-Korrelationen zwischen vier Variablen</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>korrelationen <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
@@ -538,7 +530,7 @@ polSelbstw1    |     0.57*** |             |
 p-value adjustment method: Holm (1979)</code></pre>
 </div>
 </div>
-<p>Bei den angezeigten Zahlen handelt es sich um den Korrelationskoeffizienten <code>r</code>. Die Sterne symbolisieren, dass die Korrelationen signifikant sind (also p-Werte unter 0,05 haben). Wenn wir eine solche Matrix berechnen, ist der Hinweis unten wichtig, den wir oben noch ignorieren konnten: <code>p-value adjustment method: Holm (1979)</code>. Dieser Satz sagt aus, dass die p-Werte korrigiert wurden. Den Grund dafür haben Sie in <a href="https://jakobhenke.github.io/AuswertungQuantitativerDaten/Hypothesen%20und%20Testtheorie.html#testtheorie">Kapitel 5</a> kennengelernt. KOnkret ging es darum, dass wir in der Datenenalyse versuchen, nur in 5 Prozent aller Fälle einen Falsch-Positiven Schluss zu ziehen. Immer, wenn wir viele Tests auf einmal rechnen, laufen wir Gefahr, dass sich ein falsch-positiver Befund einschleicht. Um das zu verhindern, sollten die p-Werte bei multiplen Tests korrigiert werden. Genau das macht <code>correlation()</code> automatisch für uns.</p>
+<p>Bei den angezeigten Zahlen handelt es sich um den Korrelationskoeffizienten <code>r</code>. Die Sterne symbolisieren, dass die Korrelationen signifikant sind (also p-Werte unter 0,05 haben). Unter der Tabelle sehen wir einen Hinweis: <code>p-value adjustment method: Holm (1979)</code>. Dieser Satz sagt aus, dass die p-Werte korrigiert wurden. Den Grund dafür haben Sie in <a href="https://jakobhenke.github.io/AuswertungQuantitativerDaten/Hypothesen%20und%20Testtheorie.html#testtheorie">Kapitel 5</a> kennengelernt. Konkret ging es darum, dass wir in der Datenenalyse versuchen, nur in 5 Prozent aller Fälle einen Falsch-Positiven Schluss zu ziehen. Immer, wenn wir viele Tests auf einmal rechnen, laufen wir Gefahr, dass sich ein falsch-positiver Befund einschleicht. Um das zu verhindern, sollten die p-Werte bei multiplen Tests korrigiert werden. Genau das macht <code>correlation()</code> automatisch für uns.</p>
 </section>
 <section id="korrelationen-erkennen-und-einschätzen" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="korrelationen-erkennen-und-einschätzen"><span class="header-section-number">7.5</span> Korrelationen erkennen und einschätzen</h2>

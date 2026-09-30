@@ -305,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Stellt ein, dass sehr kleine Zahlen normal dargestellt werden</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Zusätzlich benötigen wir ein neues Pakete namens <code>car</code>, das wir installieren und laden müssen.</p>
+<p>Zusätzlich benötigen wir ein neues Paket namens <code>car</code>, das wir installieren und laden müssen.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prüft, ob die Pakete "car" und "modelbased" installiert sind; falls nein, werden sie installiert und geladen</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -338,12 +338,12 @@ Attache Paket: 'car'</code></pre>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet pro Person einen Mittelwert der Spalten A501_01 bis A501_04</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lokaleBindung =</span> <span class="fu">row_means</span>(<span class="fu">across</span>(<span class="fu">c</span>(A501_01, A501_02, A501_03, A501_04))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lokaleBindung =</span> <span class="fu">row_means</span>(<span class="fu">across</span>(<span class="fu">c</span>(A501_01<span class="sc">:</span>A501_04)), <span class="at">remove_na =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="varianzanalyse-durchführen" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="varianzanalyse-durchführen"><span class="header-section-number">11.2</span> Varianzanalyse durchführen</h2>
-<p>Im folgenden Teil werden wir eine Varianzanalyse berechnen, bei der wir die neue Variable <code>lokaleBindung</code> als AV verwenden und das Bundesland, in dem die Befragten wohnen, sowie die Abfrage, ob die Befragten eine Lokalzeitung aboniert haben als UVs (Spalten <code>Bula</code> und <code>A204</code>). Letztere codieren wir zu einem beschrifteten Faktor um, wodurch die Interpretation später etwas leichter wird.</p>
+<p>Im folgenden Teil werden wir eine Varianzanalyse berechnen, bei der wir die neue Variable <code>lokaleBindung</code> als AV verwenden und das Bundesland, in dem die Befragten wohnen, sowie die Abfrage, ob die Befragten eine Lokalzeitung abonniert haben als UVs (Spalten <code>Bula</code> und <code>A204</code>). Letztere codieren wir zu einem beschrifteten Faktor um, wodurch die Interpretation später etwas leichter wird.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#codiert die Spalte A204 zu einem beschrifteten Faktor um</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -354,17 +354,126 @@ Attache Paket: 'car'</code></pre>
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="anova"><span class="header-section-number">11.2.1</span> ANOVA</h3>
 <p>Um eine ANOVA zu berechnen, gehen wir in 3 Schritten vor:</p>
 <ol type="1">
-<li>Wir nutzen die <code>lm()</code>-Funktion, um ein lineares Modell (also quasi eine Regression) zu schätzen. Dabei ist es wichtig, dass wir das <code>contrasts</code>-Argument nutzen, und für jede kategoriale Variable (Faktoren, in der ANOVA-Sprache) den Wert <code>"contr.sum"</code> angeben. Das bedeutet nur, dass die entsprechenden Variablen unter der Haube so umcodiert werden, dass die Ausprägungen entweder den Wert -1 oder 1 annehmen. Dadurch kann der Interzept nun als Mittelwert der Gesamtstichprobe interpretiert werden.</li>
-<li>Wir nutzen die <code>Anova()</code>-Funktion aus dem car-Paket, um einen F-Test für jeden Prädiktor durchzuführen.</li>
-<li>Sofern mindestens ein Prädiktor signifikant war, können wir Post-hoc-Tests durchführen, um zu erfahren, welche Gruppen sich voneinander unterscheiden.</li>
+<li>Wir nutzen die <code>lm()</code>-Funktion, um ein lineares Modell (also quasi eine Regression) zu schätzen. Dabei ist es wichtig, dass wir das <code>contrasts</code>-Argument nutzen, und für jede kategoriale Variable (Faktoren, in der ANOVA-Sprache) den Wert <code>"contr.sum"</code> angeben. Das bedeutet nur, dass die entsprechenden Variablen unter der Haube so umcodiert werden, dass die Ausprägungen Werte zwischen -1 und 1 annehmen. Wie der Name andeutet, geht es dabei um eine Summe: Die einzelnen Ausprägungen müssen in der Summe 0 ergeben. Wenn wir so vorgehen kann der Interzept nun als Mittelwert der Gruppenmittelwerte (grand mean) interpretiert werden.</li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Codierung kategorialer Daten
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Schauen wir uns das ein einem Beispiel an. Bei einer klassischen Regression werden Faktoren in Form sogenannter Dummy-Variablen codiert: Eine Ausprägung (die Referenzkategorie, z.B. <code>männlich</code> im Beispiel aus Kapitel 9) bekommt den Wert 0, die andere Ausprägung den Wert 1. Wenn wir stattdessen <code>"contr.sum"</code> angeben, werden die Daten so codiert, dass sie in der Summe 0 ergeben, indem eine Ausprägungen den Wert 1 und die anderen den Wert -1 zugewiesen bekommt. Das funktioniert auch bei Variablen mit mehr Ausprägungen, also Gruppen. Stellen wir uns vor, wir hätten den wichtigsten Zugangsweg zu Nachrichten der Befragten mit vier Ausprägungen gemessen: <code>Fernsehen</code> , <code>Print</code>, <code>Radio</code> und <code>Online</code>. In einer normalen Regression würde die erste Ausprägung zur Referenzkategorie, mit der die anderen Ausprägungen verglichen werden. Das Ergebnis wären drei Dummy-Variablen, die so aussähen:</p>
+<table class="caption-top table">
+<caption>Dummy Codierung für Zugangswege</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bevorzugter Zugangsweg</th>
+<th>Dummy 1 (Print)</th>
+<th>Dummy 2 (Radio)</th>
+<th>Dummy 3 (Online)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fernsehen</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Print</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Radio</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Online</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Unter der Verwendung von <code>"contr.sum"</code> sähen die Kontrast-Variablen so aus:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Bevorzugter Zugangsweg</th>
+<th style="text-align: right;">Kontrast 1</th>
+<th style="text-align: right;">Kontrast 2</th>
+<th style="text-align: right;">Kontrast 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fernsehen</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td>Print</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td>Radio</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>Online</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-1</td>
+</tr>
+</tbody>
+</table>
+<p>Je nachdem, was man vergleichen möchte bzw. welche Aussage getroffen werden soll, kann es sinnvoll sein, die Kontraste bewusst zu wählen. Neben der einfachen Dummy-Codierung und der Summierung zu 0, gibt es noch zahlreiche andere Arten der Kontrastcodierung, denen wir im Forschungsalltag aber nur gelegentlich begegnen.</p>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>Wir nutzen die <code>Anova()</code>-Funktion aus dem car-Paket, um einen F-Test für jeden Prädiktor durchzuführen.</p></li>
+<li><p>Wir führen Post-hoc-Tests oder geplante Kontraste durch, um zu erfahren, welche Gruppen sich voneinander unterscheiden.</p></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>##Post-hoc-Tests vs.&nbsp;geplante Kontraste Post-hoc-Tests werden verwendet, wenn wir nach einem allgemeinen Unterschied zwischen mehreren Gruppen zunächst noch nicht wissen, welche Gruppen sich unterscheiden. Häufig werden dazu alle Gruppen paarweise miteinander verglichen. Haben wir dagegen bereits <strong>vor der Analyse</strong> eine konkrete Hypothese darüber, welche Gruppen oder Gruppen von Gruppen miteinander verglichen werden sollen, können wir einen geplanten Kontrast berechnen. Dadurch testen wir gezielt die theoretisch relevante Hypothese und vermeiden unnötige Vergleiche.</p>
+</div>
+</div>
 <p>Für den ersten Schritt nutzen wir die oben berechnete Variable <code>lokaleBindung</code> als AV. Die Spalten <code>Bula</code> und <code>aboLokal</code> verbinden wir mit dem <code>*</code>-Operator, sodass wir neben den Haupteffekten auch den Interaktionseffekt berechnen. Ganz konkret bedeutet das, dass wir hier 4 Gruppen miteinander vergleichen: (1) Thüringer mit Lokalzeitungsabo, (2) Thüringer ohne Abo, (3) Rheinland-Pfälzer mit Abo und (4) Rheinland-Pfälzer ohne Abo.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet eine Regression mit der lokalen Bindung als AV und Bundesland und Lokalzeitungsabo als UVs. Achten Sie auf das contrasts-Argument!</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(lokaleBindung <span class="sc">~</span> Bula<span class="sc">*</span>aboLokal, <span class="at">data =</span> df_lokal, </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">contrasts=</span><span class="fu">list</span>(<span class="at">Bula=</span><span class="st">"contr.sum"</span>, <span class="at">aboLokal=</span><span class="st">"contr.sum"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Ausnahmsweise ignorieren wir die Ausgabe dieser Berechnung. Stattdessen nutzen wir direkt die <code>Anova()</code>-Funktion, die für jeden Prädiktor einen F-Wert berechnet. Wichtig ist hier, dass wir das Argument <code>type = 3</code> verwenden. Auf die Details gehen wir an dieser Stelle nicht ein, aber im Prinzip geben wir R damit vor, in welcher Reihenfolge die Werte berechnet werden sollen. Tatsächlich kann das bei der ANOVA einen Unterschied machen!</p>
+<p>Ausnahmsweise ignorieren wir die Ausgabe dieser Berechnung. Stattdessen nutzen wir direkt die <code>Anova()</code>-Funktion, die für jeden Prädiktor einen F-Wert berechnet. Wichtig ist hier, dass wir das Argument <code>type = 3</code> verwenden. Auf die Details gehen wir an dieser Stelle nicht ein, aber im Prinzip geben wir R mit dem <code>type</code>-Argument vor, wie die Werte berechnet werden sollen. <code>type = 3</code> ist dann sinnvoll, wenn das Modell Interaktionseffekte enthält.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet F-Werte für jeden Prädiktor</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>modelAnova <span class="ot">&lt;-</span> <span class="fu">Anova</span>(model, <span class="at">type =</span> <span class="dv">3</span>)</span>
@@ -376,16 +485,16 @@ Attache Paket: 'car'</code></pre>
 
 Response: lokaleBindung
                Sum Sq   Df    F value                Pr(&gt;F)    
-(Intercept)   23545.1    1 24406.8582 &lt; 0.00000000000000022 ***
-Bula              8.6    1     8.9132              0.002869 ** 
-aboLokal         35.8    1    37.0623        0.000000001391 ***
-Bula:aboLokal     5.7    1     5.9069              0.015178 *  
-Residuals      1759.6 1824                                     
+(Intercept)   23546.0    1 24406.4143 &lt; 0.00000000000000022 ***
+Bula              8.7    1     9.0139              0.002716 ** 
+aboLokal         36.0    1    37.2712        0.000000001253 ***
+Bula:aboLokal     5.8    1     5.9887              0.014492 *  
+Residuals      1760.7 1825                                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>Bevor wir die Ergebnisse verschriftlichen können, müssen wir noch die Effektstärken berechnen. Dazu nutzen wir die <code>eta_squared()</code>-Funktion aus dem <code>effectsize</code>-Paket. Dieser können wir unsere oben berechnete ANOVA übergeben. Außerdem geben wir das Argument <code>alternative = "two"</code> an. Damit legen wir fest, dass wir keine a priori Annahmen darüber hatten, welche Gruppe(n) einen höheren Mittelwert hatte(n).</p>
+<p>Bevor wir die Ergebnisse verschriftlichen können, müssen wir noch die Effektstärken berechnen. Dazu nutzen wir die <code>eta_squared()</code>-Funktion aus dem <code>effectsize</code>-Paket. Dieser können wir unsere oben berechnete ANOVA übergeben. Außerdem geben wir das Argument <code>alternative = "two"</code> an. Damit lassen wir ein zweiseitiges Konfidenzintervall berechnen, das sowohl eine untere als auch eine obere plausible Grenze für die Effektstärke angibt. Die Funktion berechnet das partielle Eta², das angibt, wie groß der Anteil der durch einen bestimmten Effekt erklärten Varianz im Verhältnis zur nicht erklärten Varianz ist.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet das partielle eta² pro Prädiktor</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(modelAnova, <span class="at">alternative =</span> <span class="st">"two"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -400,9 +509,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 
 Parameter     | Eta2 (partial) |       95% CI
 ---------------------------------------------
-Bula          |       4.86e-03 | [0.00, 0.01]
+Bula          |       4.91e-03 | [0.00, 0.01]
 aboLokal      |           0.02 | [0.01, 0.03]
-Bula:aboLokal |       3.23e-03 | [0.00, 0.01]</code></pre>
+Bula:aboLokal |       3.27e-03 | [0.00, 0.01]</code></pre>
 </div>
 </div>
 <p>Bevor wir die Ergebnisse verschriftlichen, lohnt ein genauerer Blick auf die Ausgabe. Ganz oben sehen wir eine Warnung, dass die Effekte nur dann sinnvoll interpretiert werden können, wenn die sogenannten Kontraste angepasst wurden. Das haben wir oben in unserem Aufruf der <code>lm()</code>-Funktion erledigt! Außerdem weist R uns darauf hin, dass etwaige Kovariaten um den Mittelwert zentriert sein müssen (<em>mean-centered</em>).</p>
@@ -434,9 +543,9 @@ Bula:aboLokal |       3.23e-03 | [0.00, 0.01]</code></pre>
 <pre><code>[1] 0</code></pre>
 </div>
 </div>
-<p>Glücklicherweise hat R eine Funktion, die diesen Prozess für uns übernimmt. Sie heißt <code>scale()</code>. Die Funktion nimmt immer einen Vektor (entweder so wie hier oder z. B. eine Spalte aus einem Datensatz) als erstes Argument. Zwei weitere Argumente sind <code>center</code> und <code>scale</code>, die beide automatisch als <code>TRUE</code> angenommen werden, sofern wir nichts anderes angeben. <code>center</code> bedeutet, dass der Mittelwert subtrahiert wird. <code>scale</code> bedeutet, dass die Beobachtungen zusätzlich durch die Standardabweichung aller Beobachtungen geteilt werden. Das Ergebnis ist dann nicht mehr eine zentrierte Variable, sondern eine <em>normalisierte</em>, die den Mittelwert 0 und die Standardabweichung 1 hat. Wenn Sie eine ANCOVA berechnen, sollten Sie für metrische Variablen vorher unbedingt diese Funktion anwenden!</p>
+<p>Glücklicherweise hat R eine Funktion, die diesen Prozess für uns übernimmt. Sie heißt <code>scale()</code>. Die Funktion nimmt immer einen Vektor (entweder so wie hier oder z. B. eine Spalte aus einem Datensatz) als erstes Argument. Zwei weitere Argumente sind <code>center</code> und <code>scale</code>, die beide automatisch als <code>TRUE</code> angenommen werden, sofern wir nichts anderes angeben. <code>center</code> bedeutet, dass der Mittelwert subtrahiert wird. <code>scale</code> bedeutet, dass die Beobachtungen zusätzlich durch die Standardabweichung aller Beobachtungen geteilt werden. Das Ergebnis ist dann nicht mehr eine zentrierte Variable, sondern eine <em>standardisierte</em>, die den Mittelwert 0 und die Standardabweichung 1 hat. Wenn Sie eine ANCOVA berechnen, sollten Sie metrische Variablen vorher zumindest zentrieren!</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nutzt die Funktion scale(), um den Vektor zu normalisieren</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nutzt die Funktion scale(), um den Vektor zu standardisieren</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>zahlenScale <span class="ot">&lt;-</span> <span class="fu">scale</span>(zahlen)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zahlenScale)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -450,25 +559,25 @@ Bula:aboLokal |       3.23e-03 | [0.00, 0.01]</code></pre>
 </div>
 </div>
 <p>Mit dieser Warnung im Hinterkopf können wir die Ergebnisse interpretieren. Lassen Sie sich von der etwas komischen Darstellung der Effektstärke nicht abschrecken!</p>
-<p>Für das Bundesland wird ein Effekt von `4.91e-03` angegeben. Übersetzt in “normale” Zahlen bedeutet das 0,00491. Wir schreiben also einfach nur 3 Nullen vor die 4,91. Wenn Sie mal nicht sicher sind können Sie solche Zahlen auch unten in die Konsole eingeben und mit Enter ausführen, dann zeigt R Ihnen die Zahl im gewohnten Format an. Ein partielles eta² von 0,00491 bedeutet, dass die Variable ca. 0,5 Prozent der Varianz erklärt. Ob die Leute ein Lokalzeitungsabo haben erklärt dagegen etwa 2 Prozent (partielles eta² = 0,02) und die Interaktion aus diesen beiden Variablen erklärt ca. 0,3 Prozent (partielles eta² = 0,003). Wir haben also drei (sehr) schwache Effekte identifiziert, die aber laut unserer ANOVA-Tabelle oben alle signifikant sind.</p>
+<p>Für das Bundesland wird ein Effekt von `4.91e-03` angegeben. Übersetzt in “normale” Zahlen bedeutet das 0,00491. Wir schreiben also einfach nur 3 Nullen vor die 4,91. Wenn Sie mal nicht sicher sind können Sie solche Zahlen auch unten in die Konsole eingeben und mit Enter ausführen, dann zeigt R Ihnen die Zahl im gewohnten Format an. Ein partielles eta² von 0,00491 bedeutet, dass die Variable ca. 0,5 Prozent der noch zu erklärenden Varianz erklärt. Ob die Leute ein Lokalzeitungsabo haben erklärt dagegen etwa 2 Prozent (partielles eta² = 0,02) und die Interaktion aus diesen beiden Variablen erklärt ca. 0,3 Prozent (partielles eta² = 0,003). Wir haben also drei (sehr) schwache Effekte identifiziert, die aber laut unserer ANOVA-Tabelle oben alle signifikant sind.</p>
 <p>Mit Hilfe der beiden Ausgaben können wir die Ergebnisse nach dem folgenden Muster aufschreiben: Pro Prädiktor werden der F-Wert, die dazugehörigen Freiheitsgrade (Spalte <code>Df</code>) und der p-Wert angegeben. Zusätzliche Informationen über das Gesamtmodell können wir der Tabelle oben entnehmen.</p>
 <blockquote class="blockquote">
 <p>Um zu prüfen, ob ein Lokalzeitungsabo und das Bundesland, in dem die Befragten wohnen, sowie der Interaktionseffekt dieser beiden Variablen einen Effekt auf die lokale Bindung der Befragten haben, wurde eine ANOVA berechnet. Das Bundesland hatte einen signifikanten, aber sehr schwachen Effekt (F(1, 1825) = 9,01; p = 0,003; partielles eta² = 0,005). Der Effekt des Lokalzeitungsabos war ebenfalls signifikant und schwach (F(1, 1825) = 37,27; p &lt; 0,001; partielles eta² = 0,02). Auch der Interaktionseffekt der beiden Variablen war signifikant, aber sehr schwach (F(1, 1825) = 5,99; p = 0,014; partielles eta² = 0,003).</p>
 </blockquote>
-<p>Bevor die Analyse abgeschlossen ist, müssen wir noch die sogenannten Post-hoc-Tests durchführen, bei denen wir die jeweiligen Gruppenmittelwerte miteinander vergleichen. Dazu nutzen wir die <code>estimate_contrasts()</code>-Funktion aus <code>easystats</code>. Wir übergeben der Funktion das Modell, das wir ursprünglich mit <code>lm()</code> geschätzt haben, sowie im Argument <code>contrasts</code> die Variablen aus denen die Gruppenmittelwerte berechnet werden. In unserem Fall sind das einfach die beiden Faktoren <code>Bula</code> und <code>aboLokal</code>. <code>estimate_contrasts()</code> berechnet dann die Mittelwerte und die dazugehörigen Standardfehler für alle Gruppen sowie die dazugehörigen Mittelwertvergleiche (also t-Tests) für alle möglichen Gruppenpaare. Da wir hier eine ganze Reihe an tests durchführen, sollten wir die p-Werte korrigieren (siehe Video). Das machen wir mit dem Argument <code>p_adjust</code>, dem wir den Wert <code>"bonferroni"</code> zuweisen.</p>
+<p>Bevor die Analyse abgeschlossen ist, müssen wir noch die sogenannten Post-hoc-Tests durchführen, bei denen wir die jeweiligen Gruppenmittelwerte miteinander vergleichen. Dazu nutzen wir die <code>estimate_contrasts()</code>-Funktion aus <code>easystats</code>. Wir übergeben der Funktion das Modell, das wir ursprünglich mit <code>lm()</code> geschätzt haben, sowie im Argument <code>contrast</code> die Variablen aus denen die Gruppenmittelwerte berechnet werden. In unserem Fall sind das einfach die beiden Faktoren <code>Bula</code> und <code>aboLokal</code>. <code>estimate_contrasts()</code> berechnet dann die entsprechenden Mittelwertvergleiche (also t-Tests) für alle möglichen Gruppenpaare. Da wir hier eine ganze Reihe an Tests durchführen, sollten wir die p-Werte korrigieren (siehe Video). Das machen wir mit dem Argument <code>p_adjust</code>, dem wir den Wert <code>"bonferroni"</code> zuweisen.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet Post-Hoc-Tests für die Anova</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(model, <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>), <span class="at">p_adjust =</span> <span class="st">"bonferroni"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Marginal Contrasts Analysis
 
-Parameter                  | Difference |   SE |         95% CI | t(1824) |      p
+Parameter                  | Difference |   SE |         95% CI | t(1825) |      p
 ----------------------------------------------------------------------------------
-RLP kein Abo - RLP Abo     |      -0.44 | 0.06 | [-0.56, -0.31] |   -6.95 | &lt; .001
+RLP kein Abo - RLP Abo     |      -0.44 | 0.06 | [-0.56, -0.31] |   -6.98 | &lt; .001
 TH Abo - RLP Abo           |       0.03 | 0.09 | [-0.14,  0.20] |    0.33 | &gt; .999
 TH kein Abo - RLP Abo      |      -0.16 | 0.06 | [-0.28, -0.04] |   -2.53 |  0.068
-TH Abo - RLP kein Abo      |       0.46 | 0.08 | [ 0.31,  0.62] |    5.74 | &lt; .001
-TH kein Abo - RLP kein Abo |       0.28 | 0.06 | [ 0.17,  0.39] |    4.92 | &lt; .001
+TH Abo - RLP kein Abo      |       0.47 | 0.08 | [ 0.31,  0.62] |    5.76 | &lt; .001
+TH kein Abo - RLP kein Abo |       0.28 | 0.06 | [ 0.17,  0.39] |    4.95 | &lt; .001
 TH kein Abo - TH Abo       |      -0.19 | 0.08 | [-0.35, -0.03] |   -2.31 |  0.125
 
 Variable predicted: lokaleBindung
@@ -476,25 +585,25 @@ Predictors contrasted: Bula, aboLokal
 p-value adjustment method: Bonferroni</code></pre>
 </div>
 </div>
-<p>Hier sehen wir (in der letzten Spalte), dass wir drei signifikante Gruppenvergleiche haben: Menschen aus Rheinland-Pfalz mit Abo haben eine höhere lokale Bindung als Menschen aus Rheinland-Pfalz ohne Abo. Das gleiche gilt nicht für Menschen aus Thüringen! Außerdem haben Menschen aus Thüringen mit Abo eine höhere Bindung als Menschen aus RLP ohne Abo. Letztere haben außerdem eine geringere Bindung als Menschen aus Thüringen ohne Abo. Das ist zugegebenermaßen etwas komplex. Um die Ergebnisse etwas besser nachvollziehen zu können, lohnt ein Blick auf die deskriptiven Werte. Diese können Sie sich anzeigen lassen, indem Sie ie <code>estimate_means()</code>-Funktion aufrufen, der wir wieder das Modell sowie die beiden Faktoren übergeben. Eine solche Tabelle sollten Sie auch im Ergebnisteil einer empirischen Arbeit mit angeben!<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Hier sehen wir (in der letzten Spalte), dass wir drei signifikante Gruppenvergleiche haben: Menschen aus Rheinland-Pfalz mit Abo haben eine höhere lokale Bindung als Menschen aus Rheinland-Pfalz ohne Abo. Das gleiche gilt nicht für Menschen aus Thüringen! Außerdem haben Menschen aus Thüringen mit Abo eine höhere Bindung als Menschen aus RLP ohne Abo. Letztere haben außerdem eine geringere Bindung als Menschen aus Thüringen ohne Abo. Das ist zugegebenermaßen etwas komplex. Um die Ergebnisse etwas besser nachvollziehen zu können, lohnt ein Blick auf die deskriptiven Werte. Diese können Sie sich anzeigen lassen, indem Sie die <code>estimate_means()</code>-Funktion aufrufen, der wir wieder das Modell sowie die beiden Faktoren übergeben. Eine solche Tabelle sollten Sie auch im Ergebnisteil einer empirischen Arbeit mit angeben!<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet die Gruppenmittelwerte aus der ANOVA und zeigt diese an</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_means</span>(model, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimated Marginal Means
 
-Bula | aboLokal | Mean |   SE |       95% CI | t(1824)
+Bula | aboLokal | Mean |   SE |       95% CI | t(1825)
 ------------------------------------------------------
 RLP  | Abo      | 4.13 | 0.05 | [4.04, 4.23] |   85.52
-TH   | Abo      | 4.16 | 0.07 | [4.02, 4.30] |   59.17
-RLP  | kein Abo | 3.70 | 0.04 | [3.62, 3.78] |   92.91
+TH   | Abo      | 4.16 | 0.07 | [4.02, 4.30] |   59.16
+RLP  | kein Abo | 3.70 | 0.04 | [3.62, 3.77] |   92.94
 TH   | kein Abo | 3.97 | 0.04 | [3.90, 4.05] |  100.03
 
 Variable predicted: lokaleBindung
 Predictors modulated: Bula, aboLokal</code></pre>
 </div>
 </div>
-<p>Hier sehen wir nun sehr deutlich, dass Befragte aus Thüringen mit und ohne Abo jeweils eine etwas höhere lokale Bindung hatten als die jeweiligen Gruppen aus Rheinland-Pfalz. Außerdem haben in jedem Bundesland die Befragten mit Abo eine höhere Bindung als Befragte ohne Abo. Den signifikanten Interaktionseffekt erkennen Sie daran, dass der Unterschied zwischen Thüringen und Rheinland-Pfalz nur für Befragte ohne Abo relativ klar zu sehen ist, nicht aber für Befragte mit Abo!</p>
+<p>Hier sehen wir nun sehr deutlich, dass Befragte aus Thüringen mit und ohne Abo jeweils eine etwas höhere lokale Bindung hatten als die jeweiligen Gruppen aus Rheinland-Pfalz. Außerdem haben in jedem Bundesland die Befragten mit Abo eine höhere Bindung als Befragte ohne Abo. Den Interaktionseffekt erkennen Sie daran, dass sich der Unterschied zwischen den Bundesländern je nach Abo-Status verändert. Formal getestet wird, ob der Unterschied zwischen Abo und kein Abo in den beiden Bundesländern identisch ist. Das ist hier nicht der Fall.</p>
 <p>Bevor wir diese Ergebnisse visualisieren, schreiben wir sie noch kurz auf:</p>
 <blockquote class="blockquote">
 <p>Post-hoc-Tests zeigten, dass drei Gruppenvergleiche signifikant waren: Befragte aus Rheinland-Pfalz mit Abo einer Lokalzeitung hatten eine höhere lokale Bindung als Befragte aus Rheinland-Pfalz ohne Abo (t(1825) = 6,98; p &lt; 0,001). Außerdem hatten Befragte aus TH mit Abo eine höhere Bindung als Befragte aus Rheinland-Pfalz ohne Abo (t(1825) = 5,75; p &lt; 0,001). Diese Gruppe hatte wiederum eine geringere Bindung als Befragte aus Thüringen ohne Abo (t(1825) = -4,95; p &lt; 0,001)</p>
@@ -504,9 +613,9 @@ Predictors modulated: Bula, aboLokal</code></pre>
 <section id="ergebnis-visualisieren" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="ergebnis-visualisieren"><span class="header-section-number">11.3</span> Ergebnis visualisieren</h2>
 <p>Im Kontext von ANOVAs wird oft eine Visualisierung verwendet, die wir ganz am Ende von Kapitel 4 schon mal kennengelernt haben: Dort haben wir die Mittelwerte und Standardabweichungen von Gruppenmittelwerten geplottet. Hier machen wir im Prinzip das Gleiche, nur dass wir nicht die Standardabweichungen, sondern die 95%-Konfidenzintervalle der Mittelwerte visualisieren. Außerdem müssen wir anders als in Kapitel 4 berücksichtigen, dass wir nun zwei Gruppierungsvariablen haben.</p>
-<p>Zuerst erstellen wir ein Objekt, in dem wir die Informationen aus der estimate_means<code>()</code>-Funktion speichern.</p>
+<p>Zuerst erstellen wir ein Objekt, in dem wir die Informationen aus der <code>estimate_means()</code>-Funktion speichern.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wandelt die Ausgabe von emmeans() in einen Datensatz um und speichtert diesen in einem Objekt namens MWsCIs</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Spiechert die Gruppenmittelwerte, Standardfehler und Konfidenzintervalle</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>MWsCIs <span class="ot">&lt;-</span> <span class="fu">estimate_means</span>(model, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Bula"</span>, <span class="st">"aboLokal"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Damit können wir nun einen Plot erstellen. Verglichen mit dem Plot aus Kapitel 4 ergänzen wir hier nur das Argument <code>color</code> innerhalb der <code>aes()</code>-Funktion, um das Lokalzeitungsabo darzustellen.</p>
@@ -534,15 +643,12 @@ Predictors modulated: Bula, aboLokal</code></pre>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>plotANOVA <span class="ot">&lt;-</span> MWsCIs <span class="sc">|&gt;</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Bula, <span class="at">y =</span> Mean, <span class="at">color =</span> aboLokal))<span class="sc">+</span></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="dv">1</span>))<span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CI_low, <span class="at">ymax =</span> CI_high), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CI_low, <span class="at">ymax =</span> CI_high), <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="dv">1</span>))<span class="sc">+</span></span>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bundesland"</span>, <span class="at">y =</span> <span class="st">"lokale Bindung"</span>, <span class="at">color =</span> <span class="st">"Lokalzeitung"</span>)<span class="sc">+</span></span>
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"darkgreen"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>plotANOVA</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"darkgreen"</span>))</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>plotANOVA</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
