@@ -368,7 +368,7 @@ Attache Paket: 'car'</code></pre>
 <div class="callout-body-container callout-body">
 <p>Schauen wir uns das ein einem Beispiel an. Bei einer klassischen Regression werden Faktoren in Form sogenannter Dummy-Variablen codiert: Eine Ausprägung (die Referenzkategorie, z.B. <code>männlich</code> im Beispiel aus Kapitel 9) bekommt den Wert 0, die andere Ausprägung den Wert 1. Wenn wir stattdessen <code>"contr.sum"</code> angeben, werden die Daten so codiert, dass sie in der Summe 0 ergeben, indem eine Ausprägungen den Wert 1 und die anderen den Wert -1 zugewiesen bekommt. Das funktioniert auch bei Variablen mit mehr Ausprägungen, also Gruppen. Stellen wir uns vor, wir hätten den wichtigsten Zugangsweg zu Nachrichten der Befragten mit vier Ausprägungen gemessen: <code>Fernsehen</code> , <code>Print</code>, <code>Radio</code> und <code>Online</code>. In einer normalen Regression würde die erste Ausprägung zur Referenzkategorie, mit der die anderen Ausprägungen verglichen werden. Das Ergebnis wären drei Dummy-Variablen, die so aussähen:</p>
 <table class="caption-top table">
-<caption>Dummy Codierung für Zugangswege</caption>
+<caption>Dummy-Codierung für Zugangswege</caption>
 <colgroup>
 <col style="width: 25%">
 <col style="width: 25%">
@@ -412,38 +412,45 @@ Attache Paket: 'car'</code></pre>
 </table>
 <p>Unter der Verwendung von <code>"contr.sum"</code> sähen die Kontrast-Variablen so aus:</p>
 <table class="caption-top table">
+<caption>Codierung für Zugangswege mit “contr.sum”</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Bevorzugter Zugangsweg</th>
-<th style="text-align: right;">Kontrast 1</th>
-<th style="text-align: right;">Kontrast 2</th>
-<th style="text-align: right;">Kontrast 3</th>
+<th>Kontrast 1</th>
+<th>Kontrast 2</th>
+<th>Kontrast 3</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Fernsehen</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
 </tr>
 <tr class="even">
 <td>Print</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
 </tr>
 <tr class="odd">
 <td>Radio</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td>Online</td>
-<td style="text-align: right;">-1</td>
-<td style="text-align: right;">-1</td>
-<td style="text-align: right;">-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
 </tr>
 </tbody>
 </table>
@@ -460,11 +467,11 @@ Attache Paket: 'car'</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span>Post-hoc-Tests vs.&nbsp;geplante Kontraste
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>##Post-hoc-Tests vs.&nbsp;geplante Kontraste Post-hoc-Tests werden verwendet, wenn wir nach einem allgemeinen Unterschied zwischen mehreren Gruppen zunächst noch nicht wissen, welche Gruppen sich unterscheiden. Häufig werden dazu alle Gruppen paarweise miteinander verglichen. Haben wir dagegen bereits <strong>vor der Analyse</strong> eine konkrete Hypothese darüber, welche Gruppen oder Gruppen von Gruppen miteinander verglichen werden sollen, können wir einen geplanten Kontrast berechnen. Dadurch testen wir gezielt die theoretisch relevante Hypothese und vermeiden unnötige Vergleiche.</p>
+<p>Post-hoc-Tests werden verwendet, wenn wir nach einem allgemeinen Unterschied zwischen mehreren Gruppen zunächst noch nicht wissen, welche Gruppen sich unterscheiden. Häufig werden dazu alle Gruppen paarweise miteinander verglichen. Haben wir dagegen bereits <strong>vor der Analyse</strong> eine konkrete Hypothese darüber, welche Gruppen oder Gruppen von Gruppen miteinander verglichen werden sollen, können wir einen geplanten Kontrast berechnen. Dadurch testen wir gezielt die theoretisch relevante Hypothese und vermeiden unnötige Vergleiche.</p>
 </div>
 </div>
 <p>Für den ersten Schritt nutzen wir die oben berechnete Variable <code>lokaleBindung</code> als AV. Die Spalten <code>Bula</code> und <code>aboLokal</code> verbinden wir mit dem <code>*</code>-Operator, sodass wir neben den Haupteffekten auch den Interaktionseffekt berechnen. Ganz konkret bedeutet das, dass wir hier 4 Gruppen miteinander vergleichen: (1) Thüringer mit Lokalzeitungsabo, (2) Thüringer ohne Abo, (3) Rheinland-Pfälzer mit Abo und (4) Rheinland-Pfälzer ohne Abo.</p>
