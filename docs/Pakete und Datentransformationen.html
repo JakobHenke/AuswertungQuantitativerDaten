@@ -285,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="pakete-installieren"><span class="header-section-number">3.1.1</span> Pakete installieren</h3>
 <p>Um ein Paket zu installieren, müssen Sie zunächst dessen Namen kennen. Dann haben Sie zwei Möglichkeiten:</p>
 <ol type="1">
-<li><p>Sie können die Funktion <code>install.packages()</code> nutzen. Als Argument nimmt die Funktion den Namen mindestens eines Pakets in Anführungszeichen, oder mehrere Pakete durch Kommata getrennt. Für den weiteren Verlauf des Kapitels werden wir das Paket <code>tidyverse</code> nutzen. Damit wir das Paket nicht jedes Mal aufs Neue installieren, wenn wir ein Skript ausführen, können wir die Funktion mit dem folgenden Befehl aufrufen.</p>
+<li><p>Sie können die Funktion <code>install.packages()</code> nutzen. Als Argument nimmt die Funktion den Namen mindestens eines Pakets in Anführungszeichen. Für den weiteren Verlauf des Kapitels werden wir das Paket <code>tidyverse</code> nutzen. Damit wir das Paket nicht jedes Mal aufs Neue installieren, wenn wir ein Skript ausführen, können wir die Funktion mit dem folgenden Befehl aufrufen.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prüft, ob das Paket "tidyverse" installiert ist. Falls nicht, wird es installiert und geladen</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(tidyverse)){</span>
@@ -297,11 +297,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()

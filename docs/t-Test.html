@@ -242,7 +242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link active" data-scroll-target="#vorbereitung"><span class="header-section-number">10.1</span> Vorbereitung</a></li>
   <li><a href="#t-test-durchführen" id="toc-t-test-durchführen" class="nav-link" data-scroll-target="#t-test-durchführen"><span class="header-section-number">10.2</span> t-Test durchführen</a>
   <ul class="collapse">
-  <li><a href="#einstichproben-t-test" id="toc-einstichproben-t-test" class="nav-link" data-scroll-target="#einstichproben-t-test"><span class="header-section-number">10.2.1</span> Einstichproben t-Test</a></li>
+  <li><a href="#einstichproben-t-test" id="toc-einstichproben-t-test" class="nav-link" data-scroll-target="#einstichproben-t-test"><span class="header-section-number">10.2.1</span> Einstichproben-t-Test</a></li>
   <li><a href="#t-test-für-gepaarte-stichproben" id="toc-t-test-für-gepaarte-stichproben" class="nav-link" data-scroll-target="#t-test-für-gepaarte-stichproben"><span class="header-section-number">10.2.2</span> t-Test für gepaarte Stichproben</a></li>
   <li><a href="#t-test-für-unabhängige-stichproben" id="toc-t-test-für-unabhängige-stichproben" class="nav-link" data-scroll-target="#t-test-für-unabhängige-stichproben"><span class="header-section-number">10.2.3</span> t-Test für unabhängige Stichproben</a></li>
   </ul></li>
@@ -337,11 +337,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="10.2" class="anchored" data-anchor-id="t-test-durchführen"><span class="header-section-number">10.2</span> t-Test durchführen</h2>
 <p>Um einen t-Test durchzuführen benötigen wir die <code>t.test()</code>-Funktion. Damit können wir alle drei Varianten des t-Tests rechnen, die wir im Video kennengelernt haben.</p>
 <section id="einstichproben-t-test" class="level3" data-number="10.2.1">
-<h3 data-number="10.2.1" class="anchored" data-anchor-id="einstichproben-t-test"><span class="header-section-number">10.2.1</span> Einstichproben t-Test</h3>
-<p>Wie im Video besprochen berechnen wir einen t-Test für eine Stichprobe immer dann, wenn wir wissen möchten, ob sich der von uns gemessene Mittelwert von einem a priori definierten Wert unterscheidet. Wenn wir z.B. wüssten, dass die Menschen in Thüringen und Rheinland-Pfalz sich im Durchschnitt nicht sehr an ihren Wohnort gebunden fühlen (also z.B. der Wert 2 dem Mittelwert der Grundgesamtheit entspricht), könnten wir mit dieser Variante des t-Tests anhand unserer Stichprobe prüfen, ob der Mittelwert in der Population ebenfalls 2 beträgt.</p>
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="einstichproben-t-test"><span class="header-section-number">10.2.1</span> Einstichproben-t-Test</h3>
+<p>Wie im Video besprochen berechnen wir einen t-Test für eine Stichprobe immer dann, wenn wir wissen möchten, ob sich der von uns gemessene Mittelwert von einem a priori definierten Wert unterscheidet. Wenn wir z. B. auf Grundlage früherer Forschung davon ausgingen, dass die Menschen in Thüringen und Rheinland-Pfalz sich im Durchschnitt nicht sehr an ihren Wohnort gebunden fühlen (also z. B. einen Wert von 2 als Mittelwert der Grundgesamtheit annehmen), könnten wir mit dieser Variante des t-Tests anhand unserer Stichprobe prüfen, ob sich der Stichprobenmittelwert signifikant von 2 unterscheidet.</p>
 <p>Um diesen Test durchzuführen, übergeben wir der <code>t.test()</code>-Funktion zunächst die Daten. Hier also die Spalte <code>lokaleBindung</code>. Wichtig ist, dass wir in diesem Beispiel keine Pipe (<code>|&gt;</code>) nutzen und anders als bei der Regression sagen wir der <code>t.test()</code>-Funktion auch nicht, welchen Datensatz wir benutzen. Wir müssen also mit Hilfe des Dollarzeichens erst den Datensatz und dann die Spalte angeben, so wie wir es in Kapitel 2 kennengelernt haben. Außerdem nutzen wir das Argument <code>mu</code>. Damit können wir den Wert angeben, gegen den wir unseren Stichprobenmittelwert testen wollen.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen einstichproben t-Test</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet einen Einstichproben-t-Test</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tTest1sample <span class="ot">&lt;-</span> <span class="fu">t.test</span>(df_lokal<span class="sc">$</span>lokaleBindung,  <span class="at">mu =</span> <span class="dv">2</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt die Ergebnisse an</span></span>
@@ -360,15 +360,15 @@ mean of x
  3.935044 </code></pre>
 </div>
 </div>
-<p>Schauen wir uns das Ergebnis an. Oben werden uns der t-Wert, also die Teststatistik, die Freiheitsgrade (df) und der p-Wert des Tests angezeigt. Darunter erinnert uns R daran, welche Hypothese wir getestet haben. Darunter befindet sich wiederum ein 95%-Konfidenzintervall. Es wird auf Grundlage unserer Stichprobe berechnet und gibt einen Bereich plausibler Werte für den Populationsmittelwert an. Ganz unten steht schließlich der in unserer Stichprobe beobachtete Mittelwert.</p>
-<p>Wir halten fest: Wir haben geprüft, ob sich der Populationsmittelwert vom Wert 2 unterscheidet. Das Ergebnis lautet: t(1840) = 83,155; p &lt; 0,001. Das bedeutet, dass wir die Nullhypothese (Populationsmittelwert = 2) verwerfen können.</p>
+<p>Schauen wir uns das Ergebnis an. Oben werden uns der t-Wert, also die Teststatistik, die Freiheitsgrade (df) und der p-Wert des Tests angezeigt. Darunter erinnert uns R daran, welche Hypothese wir getestet haben. Darunter befindet sich wiederum ein 95%-Konfidenzintervall. Es wird auf Grundlage unserer Stichprobe berechnet und gibt einen Bereich plausibler Werte für den Mittelwert der Population an, aus der unsere Stichprobe stammt. Ganz unten steht schließlich der in unserer Stichprobe beobachtete Mittelwert.</p>
+<p>Wir halten fest: Wir haben geprüft, ob sich der Mittelwert signifikant vom Wert 2 unterscheidet. Das Ergebnis lautet: t(1840) = 83,155; p &lt; 0,001. Das bedeutet, dass wir die Nullhypothese (Populationsmittelwert = 2) verwerfen können.</p>
 </section>
 <section id="t-test-für-gepaarte-stichproben" class="level3" data-number="10.2.2">
 <h3 data-number="10.2.2" class="anchored" data-anchor-id="t-test-für-gepaarte-stichproben"><span class="header-section-number">10.2.2</span> t-Test für gepaarte Stichproben</h3>
 <p>Der t-Test für gepaarte Stichproben funktioniert im Grunde sehr ähnlich. Statt das <code>mu</code>-Argument zu nutzen, übergeben wir diesmal aber zwei Spalten aus einem Datensatz. Dazu nutzen wir das Argument <code>paired = TRUE</code>. Da der Datensatz, mit dem wir arbeiten, eine einfache Querschnittsbefragung darstellt, in der es keine Paare gibt, können wir leider kein Beispiel rechnen. Wie der Code aussehen würde, sehen Sie aber unten:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### BEISPIELCODE, DER NICHT AUSGEFÜHRT WERDEN KANN! ####</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tTestPaare &lt;- .test(df$Spalte1, df$Spalte2, paired = TRUE)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tTestPaare &lt;- t.test(df$Spalte1, df$Spalte2, paired = TRUE)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="t-test-für-unabhängige-stichproben" class="level3" data-number="10.2.3">

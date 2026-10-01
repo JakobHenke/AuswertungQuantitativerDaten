@@ -329,7 +329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geschlechtMitNAs =</span> <span class="fu">na_if</span>(A602, <span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geschlechtMitNAs =</span> <span class="fu">factor</span>(geschlechtMitNAs, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"männlich"</span>, <span class="st">"weiblich"</span>, <span class="st">"divers"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Anschließend können wir die <code>distribution_mode()</code>-Funktion aus dem <code>datawizard</code>-Paket verwenden. Schauen wir uns einmal an, was passiert, wenn wir <code>Mode()</code> einfach entsprechend ausführen:</p>
+<p>Anschließend können wir die <code>distribution_mode()</code>-Funktion aus dem <code>datawizard</code>-Paket verwenden, die wir innerhalb <code>summarise()</code> aufrufen. Durch <code>summarise()</code> wird der Datensatz verdichtet. Das heißt, wir reduzieren ihn auf die Dinge, die wir innerhalb von <code>summarise()</code> berechnen. Das ist oft sinnvoll für deskriptive Statistiken. Schauen wir uns einmal an, was passiert, wenn wir <code>distribution_mode()</code> darin ausführen:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Versucht den Modus der Spalte geschlechtMitNAs zu berechnen</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -342,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1 weiblich</code></pre>
 </div>
 </div>
-<p>Nun sehen wir, dass der Wert <code>weiblich</code> am häufigsten vorkommt.</p>
+<p>Nun sehen wir, dass der Wert <code>weiblich</code> am häufigsten vorkommt. Was wir nicht sehen ist, wie oft der Wert vorkommt.</p>
 <p>Schauen wir uns als nächstes an, wie Sie nominale Daten bzw. den Modus visualisieren können. Im letzten Kapitel wurde in Kürze das <code>tidyverse</code> vorgestellt und auf das Paket <code>ggplot2</code> verwiesen, mit dem wir Plots erstellen können.</p>
 <p>Im Folgenden werden Schritt für Schritt ein einfaches Balkendiagramm erstellen und es nach und nach verbessern. Wir fangen damit an, dass wir das <code>tidyverse</code> laden. Wir erstellen dann ein neues Objekt für unseren Plot. Dazu geben wir unseren Datensatz mit der Pipe an die Funktion <code>ggplot()</code> weiter. Das ist die Hauptfunktion des Pakets. Üblicherweise wird innerhalb dieser Funktion die Funktion <code>aes()</code> (für aesthetics) aufgerufen, in der wir je nach Diagramm angeben, welche Spalten auf der x- und y-Achse dargestellt werden sollen. Für ein Balkendiagramm benötigen wir nur die x-Achse, geben also <code>x = geschlechtMitNAs</code> an. Damit sagen wir erstmal nur, welche Spalte wir darstellen wollen, aber noch nichts darüber, was für eine Darstellung es werden soll. Um die Art des Diagramms festzulegen, gibt es in <code>ggplot2</code> unzählige Funktionen, die alle mit <code>geom_</code> beginnen (für geometry). Hinter dem Unterstrich folgt dann der (englische) Name des Diagrammtyps. In unserem Fall eines Balkendiagramms, heißt die entsprechende Funktion <code>geom_bar()</code>. Anders als sonst, verbinden wir die Funktionen in <code>ggplot2</code> nicht über die Pipe, sondern ein Pluszeichen. In der Summe sieht der Code dann so aus:</p>
 <div class="cell">
@@ -760,7 +760,7 @@ Caused by warning:
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Die exakte Definition ist, dass die Länge der Linien durch den Innerquartilabstand definiert werden. Hierbei handelt es sich um die Distanz zwischen dem 25. und dem 75. Quartil. Dieser Abstand wird mit 1,5 multipliziert, um die Länge der sogenannten Whisker zu erhalten.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Die exakte Definition ist, dass die maximale Länge der Linien durch den Innerquartilabstand definiert werden. Hierbei handelt es sich um die Distanz zwischen dem 25. und dem 75. Quartil. Dieser Abstand wird mit 1,5 multipliziert, um die maximale Länge der sogenannten Whisker zu erhalten. Wenn kein Punkt so weit vom 25. bzw. 75. Quartil entfernt ist, sind die Whisker entsprechend kürzer.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
