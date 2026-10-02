@@ -407,7 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
          813          996            7           18 </code></pre>
 </div>
 </div>
-<p>Oben haben Sie erfahren, dass man mit <code>mutate()</code> neue Spalten hinzufügen kann. Sie können aber auch bestehende Spalten verändern. Das sollten aber die absolute Aussanahme sein! Eine davon ist, wenn Sie zum Erstellen neuer Spalten mehrere Schritte benötigen. Zum Beispiel können wir mit der Antwort <code>"keine Angabe"</code> auf die Geschlechtsabfrage wenig anfangen. Für viele Analysen wäre es daher sinnvoll, wenn diese Werte als fehlende Werte codiert wären. In R nennen wir solche Werte <code>NAs</code> (für not available). Um diese Werte entsprechend als fehlend zu codieren, können wir in zwei Schritten vorgehen. Erst codieren wir den Wert 4 aus der Ausgangsspalte <code>A602</code> als fehlend. Das geht mit der <code>na_if()</code>-Funktion aus dem <code>dplyr</code>-Paket. Dieser Funktion übergeben wir ein Objekt und den Wert, der in <code>NA</code> umgewandelt werden soll. Im zweiten Schritt können wir dann einen Faktor mit den drei Kategorien <code>"männlich"</code>, <code>"weiblich"</code> und <code>"divers"</code> erstellen.</p>
+<p>Oben haben Sie erfahren, dass man mit <code>mutate()</code> neue Spalten hinzufügen kann. Sie können aber auch bestehende Spalten verändern. Das sollten aber die absolute Ausnahme sein! Eine davon ist, wenn Sie zum Erstellen neuer Spalten mehrere Schritte benötigen. Zum Beispiel können wir mit der Antwort <code>"keine Angabe"</code> auf die Geschlechtsabfrage wenig anfangen. Für viele Analysen wäre es daher sinnvoll, wenn diese Werte als fehlende Werte codiert wären. In R nennen wir solche Werte <code>NAs</code> (für not available). Um diese Werte entsprechend als fehlend zu codieren, können wir in zwei Schritten vorgehen. Erst codieren wir den Wert 4 aus der Ausgangsspalte <code>A602</code> als fehlend. Das geht mit der <code>na_if()</code>-Funktion aus dem <code>dplyr</code>-Paket. Dieser Funktion übergeben wir ein Objekt und den Wert, der in <code>NA</code> umgewandelt werden soll. Im zweiten Schritt können wir dann einen Faktor mit den drei Kategorien <code>"männlich"</code>, <code>"weiblich"</code> und <code>"divers"</code> erstellen.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt eine Spalte aus der Geschlechtsabfrage. Erst wird der Wert "keine Angabe" als fehlend deklariert, dann wird ein Faktor mit den übrigen drei Kategorien erstellt</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -432,7 +432,7 @@ männlich weiblich   divers
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "1981"         "1957"         "1962"         "1997"         "1967"        
  [6] "1984"         "1961"         "1989"         "1978"         "1964"        
-[11] "1971"         "1993"         "1973"         "1991"         "Deutschland "
+[11] "1971"         "1993"         "1973"         "1991"         "Deutschland" 
 [16] "2005"         "1972"         "1988"         "1965"         "1966"        
 [21] "1982"         "1958"         "1985"         "1953"         "1974"        
 [26] "1979"         "1963"         "1970"         "1959"         "1954"        
@@ -442,13 +442,11 @@ männlich weiblich   divers
 [46] "1950"         "1995"         "01.11.1967"   "1996"         "1944"        
 [51] "1994"         "1986"         "1955"         "1948"         "1951"        
 [56] "2001"         "1942"         "1949"         "2000"         "1947"        
-[61] "1942 "        "1941"         "1939"         "w000"         "2003"        
-[66] "1998"         "1992"         "1946"         "1975 "        NA            
-[71] "1945"         "Deutschland"  "Keine Angabe" "1964 "        "1943"        
-[76] "1936"         "1938"         "2007"         "1957 "        "1935"        
-[81] "1972 "        "1940"         "1965 "        "1934"         "16.02.1957"  
-[86] "Datenschutz " "&lt;60"          "1933"         "24.10.1945"   "I 966"       
-[91] "1937"         "1961 "       </code></pre>
+[61] "1941"         "1939"         "w000"         "2003"         "1998"        
+[66] "1992"         "1946"         NA             "1945"         "Keine Angabe"
+[71] "1943"         "1936"         "1938"         "2007"         "1935"        
+[76] "1940"         "1934"         "16.02.1957"   "Datenschutz"  "&lt;60"         
+[81] "1933"         "24.10.1945"   "I 966"        "1937"        </code></pre>
 </div>
 </div>
 <p>Wie es aussieht, haben einige Befragte die Frage nicht ganz verstanden und unsinnige Werte (z. B. Deutschland) oder ihren genauen Geburtstag angegeben. Wieder andere haben ein Leerzeichen am Ende der Jahresangabe angehängt. All das führt dazu, dass die Spalte nicht als Zahl, sondern als String gespeichert ist. Das ist ziemlich unpraktisch!</p>

@@ -1242,7 +1242,7 @@ Levels: männlich weiblich divers keine Angabe</code></pre>
  0.443293348  0.543075245  0.003816794  0.009814613 </code></pre>
 </div>
 </div>
-<p>Als letztes haben wir oben die Werte dieser Tabelle mit 100 multipliziert und das Ergebnis auf zwei Nachkommastellen gerundet. Wenn wir versuchen, diesen Schritt umzusetzen, sehen wir zwar, dass die Prozentwerte richtig angegeben werden, allerdings funktioniert das Runden nicht. Kurz gesagt liegt das daran, dass R es nicht schafft, den Ausdruck <code>prop.table()*100</code> weiterzuleiten.</p>
+<p>Als letztes haben wir oben die Werte dieser Tabelle mit 100 multipliziert und das Ergebnis auf zwei Nachkommastellen gerundet. Wenn wir versuchen, diesen Schritt umzusetzen, sehen wir zwar, dass die Prozentwerte richtig angegeben werden, allerdings funktioniert das Runden nicht. Kurz gesagt liegt das daran, dass die Kombination von Pipe und Multiplikation hier nicht so ausgewertet, wie wir es beabsichtigen.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wandelt die Geschlechtsabfrage in einen beschrifteten Faktor um und übergibt diesen an die table()-Funktion und erstellt dann eine Tabelle mit relativen Häufigkeiten, die in Prozentwerte umgerechnet werden; das Runden funktioniert nicht</span></span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>df_lokal<span class="sc">$</span>A602 <span class="sc">|&gt;</span></span>

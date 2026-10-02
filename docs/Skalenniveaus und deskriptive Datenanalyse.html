@@ -369,7 +369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Der Hintergrund und die Farbe der Balken sind nicht sonderlich ansehnlich.</li>
 <li>Die Beschriftungen der Achsen (<code>geschlechtMitNAs</code> und <code>count</code>) sind nicht gerade selbsterklärend.</li>
 </ul>
-<p>Diese Liste können wir nun einfach abarbeiten. Manchmal ist es sinnvoll, die Daten noch ein bisschen aufzubereiten, bevor wir sie an <code>ggplot()</code> übergeben. Dafür deklarieren wir ein neues Objekt, das die Daten enthalten soll. Als Erstes können wir dann mit der <code>filter()</code>-Funktion, die Sie im letzten Kapitel kennengelernt haben, die <code>NAs</code> entfernen. Anschließend nutzen wir die <code>count()</code>-Funktion aus <code>dplyr</code>. Diese Funktion fasst unsere Daten zusammen, indem sie für jede valide Ausprägung (also ohne fehlende Werte) die Gesamtanzahl zählt. Anschließend nutzen wir <code>mutate()</code>, um die relative Häufigkeit jeder Ausprägung zu berechnen. Die absolute Höufigkeit hat <code>count()</code> in eine Variable namens <code>n</code> geschrieben. Wir können das <code>n</code> jeder Gruppe durch die Summe aller ns teilen und mit 100 multiplizieren: <code>n/sum(n)*100</code>. Diese Berechnung schreiben wir innerhalb von <code>round()</code>, damit wir nicht zu viele Nachkommastellen bekommen. Das Ergebnis sehen Sie unten:</p>
+<p>Diese Liste können wir nun einfach abarbeiten. Manchmal ist es sinnvoll, die Daten noch ein bisschen aufzubereiten, bevor wir sie an <code>ggplot()</code> übergeben. Dafür deklarieren wir ein neues Objekt, das die Daten enthalten soll. Als Erstes können wir dann mit der <code>filter()</code>-Funktion, die Sie im letzten Kapitel kennengelernt haben, die <code>NAs</code> entfernen. Anschließend nutzen wir die <code>count()</code>-Funktion aus <code>dplyr</code>. Diese Funktion fasst unsere Daten zusammen, indem sie für jede valide Ausprägung (also ohne fehlende Werte) die Gesamtanzahl zählt. Anschließend nutzen wir <code>mutate()</code>, um die relative Häufigkeit jeder Ausprägung zu berechnen. Die absolute Häufigkeit hat <code>count()</code> in eine Variable namens <code>n</code> geschrieben. Wir können das <code>n</code> jeder Gruppe durch die Summe aller ns teilen und mit 100 multiplizieren: <code>n/sum(n)*100</code>. Diese Berechnung schreiben wir innerhalb von <code>round()</code>, damit wir nicht zu viele Nachkommastellen bekommen. Das Ergebnis sehen Sie unten:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt einen reduzierten Datensatz, der die relativen Häufigkeiten der Ausprägungen von geschlechtMitNAs enthält</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -540,16 +540,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Eine andere häufige Visualisierung von ordinalen Daten ist der sogenannte Boxplot, der mit der Funktion <code>geom_boxplot()</code> erstellt wird. Beachten Sie im Beispiel unten, dass wir die Spalte lokalzeitung im Aufruf von <code>ggplot()</code> bzw. darin <code>aes()</code> als y-Wert definieren. Wir könnten auch den x-Wert wählen, dann würde der Boxplot auf der Seite liegen.</p>
+<p>Eine andere häufige Visualisierung des Medians ist der sogenannte Boxplot, der mit der Funktion <code>geom_boxplot()</code> erstellt wird und insbesondere für metrische Daten sinnvoll ist. Hier nutzen wir dafür die Spalte <code>A103_10</code>, in der abgefragt wurde, wie hoch das Interesse der Befragten am Thema Hochwasser ist. Beachten Sie im Beispiel unten, dass wir die Spalte erst umbenennen und dann im Aufruf von <code>ggplot()</code> bzw. darin <code>aes()</code> als y-Wert definieren. Wir könnten auch den x-Wert wählen, dann würde der Boxplot auf der Seite liegen.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokalzeitung)) <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> lokalzeitung))<span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Häufigkeit der Lokalzeitungsnutzung"</span>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_lokal <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">intHochwas =</span> A103_10)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser<span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(intHochwas)) <span class="sc">|&gt;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> intHochwas))<span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Interesse am Thema Hochwasser"</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -558,7 +562,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Was Sie hier sehen, ist erstmal nicht sonderlich hübsch, sollte aber dennoch kurz erklärt werden: Die dicke schwarze Linie beim Wert 4 zeigt den Median. Die eingekasteten Bereiche darüber und darunter zeigen das 75. bzw. das 25. Quartil. Oder einfach gesagt: 25 % der Befragten haben den Wert <code>2</code> oder weniger angegeben und weitere 25 % den Wert <code>5</code> oder mehr. Die Linien nach unten und oben zeigen den Bereich, in dem die meisten Werte angesiedelt sind.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Was Sie hier sehen, ist erstmal nicht sonderlich hübsch, sollte aber dennoch kurz erklärt werden: Die dicke schwarze Linie beim Wert <code>3</code> zeigt den Median. Die eingekasteten Bereiche darüber und darunter zeigen das 75. bzw. das 25. Quartil. Oder einfach gesagt: 25 % der Befragten haben den Wert <code>2</code> oder weniger angegeben und weitere 25 % den Wert <code>4</code> oder mehr. Die Linien nach unten und oben zeigen den Bereich, in dem die meisten Werte angesiedelt sind.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Folgende Probleme hat die Darstellung:</p>
 <ul>
 <li>Der Boxplot ist sehr breit. Das sieht furchtbar aus!</li>
@@ -569,12 +573,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Fangen wir mit den ersten beiden Problemen an. Wir sehen auf der Grafik oben, dass auf der x-Achse der Bereich von <code>x = -0,4</code> bis <code>x = 0,4</code> (was auch immer diese Werte bedeuten mögen!) dargestellt ist und der Boxplot genau diesen Bereich einnimmt. Wir können die Funktion <code>xlim()</code> nutzen, um den dargestellten Bereich zu erweitern. Dazu müssen wir einfach nur zwei Werte angeben, z.B. <code>-1</code> und <code>1</code>.</p>
 <p>Um die y-Achse etwas schöner zu machen, können wir eine ähnliche Funktion nutzen, wie im Balkendiagramm oben: <code>scale_y_continuous()</code>. Mit dem Argument <code>breaks</code> können wir angeben, welche Werte beschriftet sein sollen. Hier können wir <code>1:6</code> angeben, um alle ganzen Zahlen zwischen 1 und 6 anzeigen zu lassen.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung <span class="ot">&lt;-</span> boxplot_lokalzeitung<span class="sc">+</span>  </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser <span class="ot">&lt;-</span> boxplot_hochwasser<span class="sc">+</span>  </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">+</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -591,13 +595,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Die horizontalen Linien zwischen den ganzen Zahlen –&gt; das Element heißt <code>panel.grid.minor.y</code></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung <span class="ot">&lt;-</span> boxplot_lokalzeitung<span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser <span class="ot">&lt;-</span> boxplot_hochwasser<span class="sc">+</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>())</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -606,18 +610,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Deutlich häufiger werden Ihnen Boxplots begegnen (oder selbst erstellen), wenn es um die Darstellung mehrerer Gruppen geht. Im folgenden Beispiel sehen Sie einen Boxplot für die Nutzung von Lokalzeitungen nach Geschlecht der Befragten. Im Wesentlichen ist er sehr ähnlich wie der Plot oben, allerdings müssen wir diesmal keine Elemente entfernen. Vor allem aber müssen wir im Aufruf von <code>ggplot()</code> bzw. darin <code>aes()</code> angeben, dass das Geschlecht der Befragten auf der x-Achse dargestellt werden soll.</p>
+<p>Deutlich häufiger werden Ihnen Boxplots begegnen (oder selbst erstellen), wenn es um die Darstellung mehrerer Gruppen geht. Im folgenden Beispiel sehen Sie einen Boxplot für das Interesse am Thema Hochwasser nach Geschlecht der Befragten. Im Wesentlichen ist er sehr ähnlich wie der Plot oben, allerdings müssen wir diesmal keine Elemente entfernen. Vor allem aber müssen wir im Aufruf von <code>ggplot()</code> bzw. darin <code>aes()</code> angeben, dass das Geschlecht der Befragten auf der x-Achse dargestellt werden soll.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(lokalzeitung)) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser_geschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(intHochwas)) <span class="sc">|&gt;</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(geschlechtMitNAs)) <span class="sc">|&gt;</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> lokalzeitung, <span class="at">x =</span> geschlechtMitNAs))<span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> intHochwas, <span class="at">x =</span> geschlechtMitNAs))<span class="sc">+</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)<span class="sc">+</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Häufigkeit der Lokalzeitungsnutzung"</span>, <span class="at">x =</span> <span class="st">"Geschlecht"</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Interesse am Thema Hochwasser"</span>, <span class="at">x =</span> <span class="st">"Geschlecht"</span>)</span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser_geschlecht</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -626,9 +630,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Das Ergebnis sieht schon sehr ordentlich aus. Der einsame Punkt in der Spalte <code>divers</code> steht für einen Ausreißer: Eine Person liest deutlich häufiger Lokalzeitungen als andere Menschen, die sich nicht-binär identifizieren. In erster Linie liegt das an der sehr geringen Fallzahl in der Gruppe (vgl. das Balkendiagramm von oben). Um das sichtbar zu machen, können wir die Rohdaten anzeigen lassen. Das geht grundsätzlich mit geom_point(), hat aber den Nachteil, dass dann alle Datenpunkte an derselben Stelle dargestellt werden:</p>
+<p>Das Ergebnis sieht schon sehr ordentlich aus. Wir können den Plot erweitern, indem wir die Rohdaten anzeigen lassen. Das geht grundsätzlich mit geom_point(), hat aber den Nachteil, dass dann alle Datenpunkte an derselben Stelle dargestellt werden:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht<span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser_geschlecht<span class="sc">+</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
@@ -640,10 +644,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Das hilft uns nicht wirklich weiter. Eine bessere Möglichkeit ist geom_jitter(). Damit werden die Rohdaten etwas gestreut geplottet. Durch das Argument alpha = .25 können wir die Punkte zusätzlich etwas transparent machen.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht <span class="ot">&lt;-</span> boxplot_lokalzeitung_geschlecht<span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser_geschlecht <span class="ot">&lt;-</span> boxplot_hochwasser_geschlecht<span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">25</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>boxplot_lokalzeitung_geschlecht</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>boxplot_hochwasser_geschlecht</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -664,20 +668,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">str_sub</span>(geburtsjahr, <span class="sc">-</span><span class="dv">4</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">as.integer</span>(geburtsjahr)) <span class="sc">|&gt;</span></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geburtsjahr =</span> <span class="fu">ifelse</span>(geburtsjahr <span class="sc">&lt;</span> <span class="dv">1000</span>, geburtsjahr<span class="sc">+</span><span class="dv">1000</span>, geburtsjahr)) <span class="sc">|&gt;</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">alter =</span> <span class="dv">2022</span> <span class="sc">-</span> geburtsjahr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: There was 1 warning in `mutate()`.
-ℹ In argument: `geburtsjahr = as.integer(geburtsjahr)`.
-Caused by warning:
-! NAs durch Umwandlung erzeugt</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet Mittelwert und Standardabweichung des Alters</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>df_alter <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MWAlter =</span> <span class="fu">round</span>(<span class="fu">mean</span>(alter, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>),</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">SDAlter =</span> <span class="fu">round</span>(<span class="fu">sd</span>(alter, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>df_alter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">alter =</span> <span class="dv">2022</span> <span class="sc">-</span> geburtsjahr)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet Mittelwert und Standardabweichung des Alters</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>df_alter <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MWAlter =</span> <span class="fu">round</span>(<span class="fu">mean</span>(alter, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>),</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">SDAlter =</span> <span class="fu">round</span>(<span class="fu">sd</span>(alter, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>))</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>df_alter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  MWAlter SDAlter
 1   49.66   15.31</code></pre>
@@ -685,15 +684,15 @@ Caused by warning:
 </div>
 <p>Wir sehen, dass die Befragten im Mittel 49,66 also fast 50 Jahre alt waren, bei einer Standardabweichung von 15,31 Jahren. Im Video oben haben Sie erfahren, dass bei einer Normalverteilung ca. 68 % aller Werte innerhalb der Region Mittelwert - 1 Standardabweichung bis Mittelwert + 1 Standardabweichung liegen. Hier wäre das entsprechend der Bereich von 34,35 bis 64,97 Jahren, zumindest sofern die Variable normalverteilt ist. Um das zu prüfen und generell um metrische Daten zu visualisieren, können wir ein sogenanntes Histogramm zeichnen. Dazu nutzen wir <code>geom_histogram()</code>. Im Prinzip handelt es sich dabei um eine Art Balkendiagramm für metrische Daten, bei der einzelne Ausprägungen zusammengefasst werden.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>histogramm_alter <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(alter)) <span class="sc">|&gt;</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> alter))<span class="sc">+</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"lightgrey"</span>, <span class="at">bins =</span> <span class="dv">40</span>)<span class="sc">+</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Alter der Befragten"</span>, <span class="at">y =</span> <span class="st">"Häufigkeit"</span>)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>histogramm_alter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>histogramm_alter <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(alter)) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> alter))<span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"lightgrey"</span>, <span class="at">bins =</span> <span class="dv">40</span>)<span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Alter der Befragten"</span>, <span class="at">y =</span> <span class="st">"Häufigkeit"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>histogramm_alter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -706,25 +705,25 @@ Caused by warning:
 <p>Während uns das Histogramm einen guten Überblick über die Verteilung als Ganze gibt, ist es manchmal sinnvoll, Mittelwert und Standardabweichung direkt darzustellen. Das gilt insbesondere dann, wenn Sie mehrere Gruppen vergleichen wollen. Im folgenden Beispiel stellen wir das Durchschnittsalter (also den Mittelwert) der Befragten nach Geschlecht dar. Dazu wollen wir die Streuung um den Mittelwert der jeweiligen Gruppen darstellen. Hier machen wir das, indem wir die Standardabweichung ebenfalls darstellen. In wissenschaftlichen Arbeiten werden Ihnen auch immer mal Darstellungen begegnen, in denen andere Maße genutzt werden: entweder der Standardfehler oder sogenannte Konfidenzintervalle. Die Begriffe werden wir noch kennenlernen, ignorieren sie aber in diesem Kapitel noch.</p>
 <p>Für unser Beispiel berechnen wir als erstes Mittelwert und Standardabweichung der jeweiligen Gruppen. Alles, was wir dafür brauchen, haben wir schon kennengelernt: Wir nutzen <code>filter()</code>, um fehlende Werte auszuschließen, nutzen <code>group_by()</code>, um die Daten zu gruppieren und rufen dann <code>mean()</code> und <code>sd()</code> innerhalb von <code>summarise()</code> auf.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet Mittelwert und Standardabweichung nach Geschlecht</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df_lokal_alterUndGeschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(geschlechtMitNAs)) <span class="sc">|&gt;</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(alter)) <span class="sc">|&gt;</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geschlechtMitNAs) <span class="sc">|&gt;</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MWAlter =</span> <span class="fu">mean</span>(alter),</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">SDAlter =</span> <span class="fu">sd</span>(alter))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnet Mittelwert und Standardabweichung nach Geschlecht</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df_lokal_alterUndGeschlecht <span class="ot">&lt;-</span> df_lokal <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(geschlechtMitNAs)) <span class="sc">|&gt;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(alter)) <span class="sc">|&gt;</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(geschlechtMitNAs) <span class="sc">|&gt;</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MWAlter =</span> <span class="fu">mean</span>(alter),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">SDAlter =</span> <span class="fu">sd</span>(alter))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Um die Gruppenmittelwerte mit jeweiliger Standardabweichung abzubilden, nutzen wir zwei neue <code>geom_</code>-Funktionen: <code>geom_point()</code> für die Mittelwerte und <code>geom_errorbar()</code> für die Standardabweichungen. Aber fangen wir oben an: zunächst legen wir in <code>ggplot()</code> und <code>aes()</code> fest, dass wir das Alter auf der y-Achse und das Geschlecht auf der x-Achse darstellen wollen. geom_point() sorgt dafür, dass die Gruppenmittelwerte jeweils durch einen Punkt dargestellt werden. <code>geom_errorbar()</code> zeichnet Balken um diese Punkte. Dazu müssen wir wieder in aes() angeben, wo diese Balken anfangen und aufhören sollen. Den Startpunkt legen wir mit <code>ymin=MWAlter-SDAlter</code> und den Endpunkt mit <code>ymax=MWAlter+SDAlter</code> fest.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plottet die Gruppenmittelwerte und Standardabweichungen</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>alter_nach_geschlecht <span class="ot">&lt;-</span> df_lokal_alterUndGeschlecht <span class="sc">|&gt;</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> geschlechtMitNAs, <span class="at">y =</span> MWAlter))<span class="sc">+</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>MWAlter<span class="sc">-</span>SDAlter, <span class="at">ymax=</span>MWAlter<span class="sc">+</span>SDAlter))<span class="sc">+</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Geschlecht"</span>, <span class="at">y =</span> <span class="st">"Alter"</span>)<span class="sc">+</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>alter_nach_geschlecht</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plottet die Gruppenmittelwerte und Standardabweichungen</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>alter_nach_geschlecht <span class="ot">&lt;-</span> df_lokal_alterUndGeschlecht <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> geschlechtMitNAs, <span class="at">y =</span> MWAlter))<span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>MWAlter<span class="sc">-</span>SDAlter, <span class="at">ymax=</span>MWAlter<span class="sc">+</span>SDAlter))<span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Geschlecht"</span>, <span class="at">y =</span> <span class="st">"Alter"</span>)<span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>alter_nach_geschlecht</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
