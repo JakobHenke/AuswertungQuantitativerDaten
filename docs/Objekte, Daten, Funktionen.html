@@ -298,7 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In diesem Kapitel lernen Sie, wie Sie Objekte deklarieren, wie Objekte benannt sein sollten und welche Objekttypen es gibt.</p>
 <section id="objekte-deklarieren" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="objekte-deklarieren"><span class="header-section-number">2.1.1</span> Objekte deklarieren</h3>
-<p>Sie können Objekte erstellen und ihnen einen Wert zuzuweisen, indem Sie einen Namen für das Objekt in Ihr Skript schreiben, daneben einen Pfeil (<code>&lt;-</code>) und danach den Wert des Objektes deklarieren.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Sie können Objekte erstellen und ihnen einen Wert zuweisen, indem Sie einen Namen für das Objekt in Ihr Skript schreiben, daneben einen Pfeil (<code>&lt;-</code>) und danach den Wert des Objektes deklarieren.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>So wie hier:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt die Objekte x und y mit den Werten 3 und 6</span></span>
@@ -329,9 +329,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 13</code></pre>
 </div>
 </div>
-<p>Die Objekte <code>x</code>, <code>y</code> und <code>z</code> sind bisher jeweils natürliche (also ganze) Zahlen. Sie können aber auch andere Zahlen erstellen, z.B. negative Zahlen oder Zahlen mit Dezimalstellen:</p>
+<p>Die Objekte <code>x</code>, <code>y</code> und <code>z</code> sind bisher jeweils natürliche (also ganze) Zahlen. Sie können aber auch andere Zahlen erstellen, z. B. negative Zahlen oder Zahlen mit Dezimalstellen:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x und y werden neue Werte zugewiesen, die keine ganze Zahlen sind. </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x und y werden neue Werte zugewiesen, die keine ganzen Zahlen sind. </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">7</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fl">6.5</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -346,7 +346,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Jetzt haben wir <code>x</code> den Wert -7 und <code>y</code> den Wert 6,5 zugewiesen. Beachten Sie, dass wir einen Punkt als Dezimalzeichen genutzt haben! Entsprechend dieser Zuweisungen ist z nun -0,5.</p>
 <p>Objekte können auch andere Werte als Zahlen enthalten, z. B. Zeichenketten, sogenannte <strong>Strings</strong>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ein String der "name" heißt wird erstellt und mit dem Wert "Hans" versehen</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ein String, der "name" heißt, wird erstellt und mit dem Wert "Hans" versehen</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="st">"Hans"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -360,34 +360,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Wenn Sie in RStudio Anführungszeichen setzen wollen, geht das um einiges einfacher als z. B. in Word. Wenn Sie in einem Skript z.B. <kbd title="Shift" aria-hidden="true">Shift</kbd><span class="visually-hidden">Shift</span> + <kbd title="2" aria-hidden="true">2</kbd><span class="visually-hidden">2</span>drücken, werden gleich Anführungszeichen für den Anfang und das Ende des Strings gesetzt, sodass Sie dazwischen Ihren Text platzieren können. Sie können aber auch jeden vorhandenen Text markieren und dann <kbd title="Shift" aria-hidden="true">Shift</kbd><span class="visually-hidden">Shift</span> + <kbd title="2" aria-hidden="true">2</kbd><span class="visually-hidden">2</span> drücken und es werden Anführungszeichen um den Text herum gesetzt.</p>
+<p>Wenn Sie in RStudio Anführungszeichen setzen wollen, geht das um einiges einfacher als z. B. in Word. Wenn Sie in einem Skript z. B. <kbd title="Shift" aria-hidden="true">Shift</kbd><span class="visually-hidden">Shift</span> + <kbd title="2" aria-hidden="true">2</kbd><span class="visually-hidden">2</span> drücken, werden gleich Anführungszeichen für den Anfang und das Ende des Strings gesetzt, sodass Sie dazwischen Ihren Text platzieren können. Sie können aber auch jeden vorhandenen Text markieren und dann <kbd title="Shift" aria-hidden="true">Shift</kbd><span class="visually-hidden">Shift</span> + <kbd title="2" aria-hidden="true">2</kbd><span class="visually-hidden">2</span> drücken und es werden Anführungszeichen um den Text herum gesetzt.</p>
 </div>
 </div>
-<p>Ohne weitere Funktionen haben wir allerdings deutlich weniger Möglichkeiten, mit Strings zu arbeiten. Wir können Sie z.B. nicht ohne Weiteres kombinieren.</p>
+<p>Ohne weitere Funktionen haben wir allerdings deutlich weniger Möglichkeiten, mit Strings zu arbeiten. Wir können sie z. B. nicht ohne Weiteres kombinieren.</p>
 </section>
 <section id="objektnamen" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="objektnamen"><span class="header-section-number">2.1.2</span> Objektnamen</h3>
-<p>Bisher haben wir unseren Objekten sehr einfache Namen gegeben, die nicht sonderlich hilfreich sind und würden wir nur bei einfachen Buchstaben bleiben, gingen uns bald die Namen aus. Darum empfiehlt es sich, andere Namen zu verwenden. Welche das konkret sind, ist Ihnen überlassen. R gibt allerdings einige Regeln vor:</p>
+<p>Bisher haben wir unseren Objekten sehr einfache Namen gegeben, die nicht sonderlich hilfreich sind, und würden wir nur bei einfachen Buchstaben bleiben, gingen uns bald die Namen aus. Darum empfiehlt es sich, andere Namen zu verwenden. Welche das konkret sind, ist Ihnen überlassen. R gibt allerdings einige Regeln vor:</p>
 <ul>
 <li>Grundsätzlich sind Buchstaben, Zahlen, Punkte und Unterstriche erlaubt.</li>
 <li>Sonderzeichen (z. B. Bindestriche, Prozentzeichen) und Leerzeichen sind nicht erlaubt.</li>
-<li>R akzeptiert zwar Umlaute, dadurch wird das Skript aber anfälliger für Fehler (z.B. im internationalen Umfeld).</li>
+<li>R akzeptiert zwar Umlaute, dadurch wird das Skript aber anfälliger für Fehler (z. B. im internationalen Umfeld).</li>
 <li>Objektnamen sollten mit einem Buchstaben beginnen.</li>
 <li>Objektnamen beachten Groß- und Kleinschreibung.</li>
 <li>Objektnamen sind einzigartig. Das heißt, wenn Sie zwei Objekten nacheinander gleich benennen, wird das zweite das erste überschreiben.</li>
-<li><code>TRUE</code> und <code>FALSE</code> sind als Namen verboten, da es sich hierbei um sogenannte boolesche Konstanten handelt. Da Sie mit <code>T</code> und <code>F</code> abgekürzt werden können, sollten auch diese Namen vermieden werden. Was genau es damit auf sich hat, werden wir im Lauf der Veranstaltung lernen.</li>
+<li><code>TRUE</code> und <code>FALSE</code> sind als Namen verboten, da es sich hierbei um sogenannte boolesche Konstanten handelt. Da sie mit <code>T</code> und <code>F</code> abgekürzt werden können, sollten auch diese Namen vermieden werden. Was genau es damit auf sich hat, werden wir im Lauf der Veranstaltung lernen.</li>
 </ul>
 <p>Darüber hinaus gibt es einige sinnvolle Konventionen, an die Sie sich halten sollten:</p>
 <ul>
-<li>Anschließend an den Ausschluss von <code>TRUE</code> und <code>FALSE</code> bzw. <code>T</code> und <code>F</code>, sollten Namen vermieden werden, die schon anderweitig vergeben sind, z.B. durch Funktionen.</li>
-<li>Objektnamen sollten so gewählt sein, dass sie auch nach einer längeren Pause noch wissen, was sich hinter einem Objekt verbirgt. In einigen Fällen ist das relativ einfach. Wenn Sie zum Beispiel im Rahmen einer Befragung das Alter der Befragten erhoben haben, können Sie die entsprechende Variable einfach <code>Alter</code> nennen. Manchmal wird es aber auch schwieriger. Wenn Sie zum Beispiel die Einstellung der Befragten zur Statistik über mehrere Fragen erhoben haben, empfiehlt es sich, einen gemeinsamen Präfix zu verwenden, z. B. <code>einstellungStatistik</code> und dann eine Zahl. So wissen Sie zwar nicht mehr unbedingt, was der genaue Wortlaut der Frage war, aber Sie sollten die Variable schnell wiedererkennen können.</li>
-<li>Es gibt verschiedene Konventionen zu längeren Objektnamen. Im vorherigen Punkt wurde z.B. der Konvention gefolgt, das erste Wort klein und das darauffolgende (bzw. alle weiteren Wörter) groß zu schreiben. Genauso gut könnten Sie die Wörter anders kenntlich machen, z.B. so: <code>einstellung_statistik</code>. Manchmal sieht man auch Dinge wie <code>einstellung.statistik</code>, <code>EINSTELLUNG_STATISTIK</code>, oder <code>EinstellungStatistik</code>. Wie sie es machen, ist Ihnen überlassen, aber versuchen Sie sich an eine dieser Konventionen zu halten.</li>
+<li>Anschließend an den Ausschluss von <code>TRUE</code> und <code>FALSE</code> bzw. <code>T</code> und <code>F</code> sollten Namen vermieden werden, die schon anderweitig vergeben sind, z. B. durch Funktionen.</li>
+<li>Objektnamen sollten so gewählt sein, dass Sie auch nach einer längeren Pause noch wissen, was sich hinter einem Objekt verbirgt. In einigen Fällen ist das relativ einfach. Wenn Sie zum Beispiel im Rahmen einer Befragung das Alter der Befragten erhoben haben, können Sie die entsprechende Variable einfach <code>Alter</code> nennen. Manchmal wird es aber auch schwieriger. Wenn Sie zum Beispiel die Einstellung der Befragten zur Statistik über mehrere Fragen erhoben haben, empfiehlt es sich, ein gemeinsames Präfix zu verwenden, z. B. <code>einstellungStatistik</code> und dann eine Zahl. So wissen Sie zwar nicht mehr unbedingt, was der genaue Wortlaut der Frage war, aber Sie sollten die Variable schnell wiedererkennen können.</li>
+<li>Es gibt verschiedene Konventionen zu längeren Objektnamen. Im vorherigen Punkt wurde z. B. der Konvention gefolgt, das erste Wort klein und das darauffolgende (bzw. alle weiteren Wörter) groß zu schreiben. Genauso gut könnten Sie die Wörter anders kenntlich machen, z. B. so: <code>einstellung_statistik</code>. Manchmal sieht man auch Dinge wie <code>einstellung.statistik</code>, <code>EINSTELLUNG_STATISTIK</code> oder <code>EinstellungStatistik</code>. Wie Sie es machen, ist Ihnen überlassen, aber versuchen Sie sich an eine dieser Konventionen zu halten.</li>
 </ul>
 </section>
 <section id="objekttypen" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="objekttypen"><span class="header-section-number">2.1.3</span> Objekttypen</h3>
-<p>Bisher haben wir unseren Objekten nur einfache Zahlenwerte bzw. einen String zugewiesen. Man kann diese Objekte auch einfach <strong>Variablen</strong> nennen. Aber Vorsicht: Der Begriff ist gewissermaßen zweideutig: In der Programmierlogik von R bezeichnen wir Objekte als Variable, wenn wir dort etwas Speichern, das wir irgendwie variieren können. In der Statistik meint der Begriff dagegen in der Regel eine Sache, über die wir Daten gesammelt haben. Also zum Beispiel eine Frage im Fragebogen oder eine Kategorie in der Inhaltsanalyse.</p>
-<p>Die sehr einfachen Variablen, die wir oben angelegt haben, kommen in der Praxis relativ selten vor. Stattdessen haben wir es häufig mit einer ganzen Abfolge von Zahlen (oder Strings) zu tun, z.B. wenn wir Daten einer Stichprobe erhoben haben.</p>
+<p>Bisher haben wir unseren Objekten nur einfache Zahlenwerte bzw. einen String zugewiesen. Man kann diese Objekte auch einfach <strong>Variablen</strong> nennen. Aber Vorsicht: Der Begriff ist gewissermaßen zweideutig: In der Programmierlogik von R bezeichnen wir Objekte als Variable, wenn wir dort etwas speichern, das wir irgendwie variieren können. In der Statistik meint der Begriff dagegen in der Regel eine Sache, über die wir Daten gesammelt haben. Also zum Beispiel eine Frage im Fragebogen oder eine Kategorie in der Inhaltsanalyse.</p>
+<p>Die sehr einfachen Variablen, die wir oben angelegt haben, kommen in der Praxis relativ selten vor. Stattdessen haben wir es häufig mit einer ganzen Abfolge von Zahlen (oder Strings) zu tun, z. B. wenn wir Daten einer Stichprobe erhoben haben.</p>
 <p>Glücklicherweise müssen wir nicht für jede Antwort jeder Person ein eigenes Objekt erstellen, sondern können sogenannte <strong>Vektoren</strong> verwenden. Hierbei handelt es sich um Objekte, die aus verschiedenen Elementen zusammengesetzt sind. Vektoren sind so etwas wie das Rückgrat von R, da viele Dinge intern als Vektoren behandelt werden, z. B. einzelne Zeilen oder Spalten in einer Tabelle. Entsprechend sind auch viele Funktionen in R darauf ausgelegt, auf Vektoren angewendet zu werden. Wir werden sie uns daher etwas genauer ansehen.</p>
 <p>Vektoren können zum Beispiel mit der Funktion (dazu unten mehr) <code>c()</code> erstellt werden. Das <strong>c</strong> steht dabei für “combine”. Die einzelnen Elemente werden mit einem Komma getrennt.</p>
 <div class="cell">
@@ -395,7 +395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>zahlen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>In diesem Beispiel haben wir einen Vektor namens <code>zahlen</code> erstellt, der die Zahlen von 1 bis 10 enthält. In solch einfachen Fällen gibt es übrigens einen kleinen Trick und zwar den Doppelpunkt:</p>
+<p>In diesem Beispiel haben wir einen Vektor namens <code>zahlen</code> erstellt, der die Zahlen von 1 bis 10 enthält. In solch einfachen Fällen gibt es übrigens einen kleinen Trick, und zwar den Doppelpunkt:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt den Vektor "zahlenAnders", der ebenfalls die Zahlen von 1 bis 10 enthält</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -404,7 +404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Mit diesem Befehl sagen wir R, dass alle Zahlen von 1 bis einschließlich 10 in einem Vektor kombiniert werden sollen, ohne jede Zahl einzeln aufschreiben zu müssen.</p>
 <p>Vielleicht ist Ihnen aufgefallen, dass die beiden Vektoren <code>zahlen</code> und <code>zahlenAnders</code> im Environment leicht unterschiedlich dargestellt werden. Für den Moment können wir das jedoch ignorieren.</p>
 <p><img src="Screenshots/integer_numeric.PNG" class="img-fluid"></p>
-<p>Die einzelnen Zahlen in den oben angelegten Vektoren, werden als <strong>Elemente</strong> bezeichnet. Sie können einzeln angewählt und ggf. manipuliert werden. Dafür nutzen wir sogenannte <strong>Indizes</strong>. Hier kommt die <code>[1]</code> ins Spiel, die wir im letzten Kapitel ignoriert haben. Damit hat uns R signalisiert, dass das Ergebnis hinter dieser <code>[1]</code> das erste Element eines Vektors war. Da es nur ein Element gab, wirkt das zunächst etwas überflüssig. In manchen Situationen kann es aber vorkommen, dass das Ergebnis eines Befehls mehrere Elemente enthält. Und in wieder anderen Situationen kann es sinnvoll sein, einzelne Elemente eines Vektors direkt anzusprechen. Das geht ebenfalls mit eckigen Klammern. Beispielsweise lassen wir hier das dritte Element des Vektors <code>zahlen</code> anzeigen.</p>
+<p>Die einzelnen Zahlen in den oben angelegten Vektoren werden als <strong>Elemente</strong> bezeichnet. Sie können einzeln angewählt und ggf. manipuliert werden. Dafür nutzen wir sogenannte <strong>Indizes</strong>. Hier kommt die <code>[1]</code> ins Spiel, die wir im letzten Kapitel ignoriert haben. Damit hat uns R signalisiert, dass das Ergebnis hinter dieser <code>[1]</code> das erste Element eines Vektors war. Da es nur ein Element gab, wirkt das zunächst etwas überflüssig. In manchen Situationen kann es aber vorkommen, dass das Ergebnis eines Befehls mehrere Elemente enthält. Und in wieder anderen Situationen kann es sinnvoll sein, einzelne Elemente eines Vektors direkt anzusprechen. Das geht ebenfalls mit eckigen Klammern. Beispielsweise lassen wir hier das dritte Element des Vektors <code>zahlen</code> anzeigen.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Das dritte Element von "zahlen" wird ausgegeben</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -441,7 +441,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 1 2 5</code></pre>
 </div>
 </div>
-<p>Wir können auch mehrere Elemente auf einmal ändern. Dabei müssen wir aber allerdings ein paar Dinge beachten:</p>
+<p>Wir können auch mehrere Elemente auf einmal ändern. Dabei müssen wir aber ein paar Dinge beachten:</p>
 <ul>
 <li>Wir können entweder alle Elemente durch einen Wert ersetzen:</li>
 </ul>
@@ -455,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <ul>
-<li>Oder so viele Werte, dass die Anzahl der alten Werte ein Vielfaches der Anzahl der neuen Werte sind (z. B. 5 neue auf die 10 alten Werte). Die neuen Werte werden dann so lange wiederholt, bis der Vektor wieder dieselbe Länge hat:</li>
+<li>Oder so viele Werte, dass die Anzahl der alten Werte ein Vielfaches der Anzahl der neuen Werte ist (z. B. 5 neue auf die 10 alten Werte). Die neuen Werte werden dann so lange wiederholt, bis der Vektor wieder dieselbe Länge hat:</li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Werte in "zahlen" werden durch die Werte von 1 bis 5 ersetzt und dann angezeigt</span></span>
@@ -515,7 +515,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 65.0 58.5 52.0 45.5 39.0 32.5 26.0 19.5 13.0  6.5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dividiert die Elementen von "zahlen" durch y </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dividiert die Elemente von "zahlen" durch y </span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>zahlen<span class="sc">/</span>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 1.5384615 1.3846154 1.2307692 1.0769231 0.9230769 0.7692308 0.6153846
@@ -547,7 +547,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>wasBisherGeschah <span class="ot">&lt;-</span> <span class="fu">list</span>(x, y, z, name, zahlen, zahlenAnders)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>In dieser Liste haben wir alle bisher erstellten Objekte zusammengefasst. Ähnlich wie bei den Vektoren, können wir auch Listenelemente direkt über einen Index ansprechen. Diesmal nutzen wir aber doppelte Klammern: <code>[[]]</code>. Zum Beispiel können wir so das vierte Element ausgeben lassen:</p>
+<p>In dieser Liste haben wir alle bisher erstellten Objekte zusammengefasst. Ähnlich wie bei den Vektoren können wir auch Listenelemente direkt über einen Index ansprechen. Diesmal nutzen wir aber doppelte Klammern: <code>[[]]</code>. Zum Beispiel können wir so das vierte Element ausgeben lassen:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeigt das vierte Element der Liste an</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -603,19 +603,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Sie können aber auch auf den Namen klicken. Dann öffnet sich oben im Editor (da, wo Sie Ihr Skript schreiben) ein neues Tab, in dem Sie sich das Objekt genauer ansehen können.</p>
 </div>
 </div>
-<p>Der letzte Objekttyp ist der, wegen dem wir eigentlich hier sind: <strong>Datensätze</strong>. Wir werden Sie uns nun etwas genauer ansehen.</p>
+<p>Der letzte Objekttyp ist der, wegen dem wir eigentlich hier sind: <strong>Datensätze</strong>. Wir werden sie uns nun etwas genauer ansehen.</p>
 </section>
 </section>
 <section id="datensätze" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="datensätze"><span class="header-section-number">2.2</span> Daten(sätze)</h2>
-<p>In der Wissenschaft haben wir es in der Regel mit Daten zu tun. Soweit so gut. Aber was sind Daten eigentlich genau? Die Frage mag auf den ersten Blick trivial erscheinen, ist aber erstaunlich komplex. Beispielsweise könnten Sie im Rahmen einer qualitativen Studie Interviews mit Menschen führen, diese transkribieren und hätten dann Daten in Textform vorliegen. Aber wäre das Ihr erster Gedanke, wenn Sie danach gefragt werden, was Daten eigentlich genau sind? Tatsächlich haben diese Art von Daten, also qualitative Daten, relativ wenig mit dem zu tun, was wir in diesem Kurs machen. Wir beschäftigen uns mit <strong>quantitativen Daten</strong>. Weil dieser Ausdruck auf Dauer etwas sperrig ist, kürzen wir ihn hier aber etwas ab und sprechen nur von Daten.</p>
+<p>In der Wissenschaft haben wir es in der Regel mit Daten zu tun. Soweit so gut. Aber was sind Daten eigentlich genau? Die Frage mag auf den ersten Blick trivial erscheinen, ist aber erstaunlich komplex. Beispielsweise könnten Sie im Rahmen einer qualitativen Studie Interviews mit Menschen führen, diese transkribieren und hätten dann Daten in Textform vorliegen. Aber wäre das Ihr erster Gedanke, wenn Sie danach gefragt werden, was Daten eigentlich genau sind? Tatsächlich hat diese Art von Daten, also qualitative Daten, relativ wenig mit dem zu tun, was wir in diesem Kurs machen. Wir beschäftigen uns mit <strong>quantitativen Daten</strong>. Weil dieser Ausdruck auf Dauer etwas sperrig ist, kürzen wir ihn hier aber etwas ab und sprechen nur von Daten.</p>
 <section id="struktur-von-datensätzen" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="struktur-von-datensätzen"><span class="header-section-number">2.2.1</span> Struktur von Datensätzen</h3>
-<p>Was also sind denn jetzt Daten im Sinne dieses Kurses? In erster Linie meinen wir mit Daten <strong>Informationen</strong>, die in <strong>Zahlenform</strong> vorliegen oder zumindest so repräsentiert werden können. Das erlaubt uns, damit zu rechnen. In R werden diese Zahlen meistens als eine Art Tabelle gespeichert. Die meisten von ihnen folgen einem einfachen Muster: <strong>Jede Zeile ist ein Fall, jede Spalte eine Variable.</strong> Ein Fall ist z.B. ein ausgefüllter Fragebogen, ein codierter Medieninhalt oder ein Versuchsdurchlauf eines Experiments. Eine Variable ist z.B. eine Frage aus einem Fragebogen, eine Kategorie aus einem Codebuch oder ein im Experiment gemessener Wert.</p>
+<p>Was also sind denn jetzt Daten im Sinne dieses Kurses? In erster Linie meinen wir mit Daten <strong>Informationen</strong>, die in <strong>Zahlenform</strong> vorliegen oder zumindest so repräsentiert werden können. Das erlaubt uns, damit zu rechnen. In R werden diese Zahlen meistens als eine Art Tabelle gespeichert. Die meisten von ihnen folgen einem einfachen Muster: <strong>Jede Zeile ist ein Fall, jede Spalte eine Variable.</strong> Ein Fall ist z. B. ein ausgefüllter Fragebogen, ein codierter Medieninhalt oder ein Versuchsdurchlauf eines Experiments. Eine Variable ist z. B. eine Frage aus einem Fragebogen, eine Kategorie aus einem Codebuch oder ein im Experiment gemessener Wert.</p>
 </section>
 <section id="datensätze-erstellen" class="level3" data-number="2.2.2">
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="datensätze-erstellen"><span class="header-section-number">2.2.2</span> Datensätze erstellen</h3>
-<p>Wir schauen uns so eine Tabelle mal an einem einfachen Beispiel an, indem wir die <code>data.frame()</code>-Funktion nutzen. Ähnlich wie die <code>list()</code>-Funktion, können wir <code>data.frame()</code> nutzen, um ein Objekt aus mehreren vorhandenen Objekten zu erstellen. Auch hier können wir einzelnen Elementen einen Namen geben. Wir nennen diesen Datensatz <code>df</code> (Abkürzung von data frame), ein generischer Name, dem Sie in Beispielen immer mal wieder begegnen werden. Andere geläufige Namen sind <code>dat</code> oder <code>data</code>.</p>
+<p>Wir schauen uns so eine Tabelle mal an einem einfachen Beispiel an, indem wir die <code>data.frame()</code>-Funktion nutzen. Ähnlich wie die <code>list()</code>-Funktion können wir <code>data.frame()</code> nutzen, um ein Objekt aus mehreren vorhandenen Objekten zu erstellen. Auch hier können wir einzelnen Elementen einen Namen geben. Wir nennen diesen Datensatz <code>df</code> (Abkürzung von data frame), ein generischer Name, dem Sie in Beispielen immer mal wieder begegnen werden. Andere geläufige Namen sind <code>dat</code> oder <code>data</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt den Datensatz df, der 3 Variablen enthält</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -652,7 +652,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code> [1] 10  9  8  7  6  5  4  3  2  1</code></pre>
 </div>
 </div>
-<p>Ab und zu kann es auch vorkommen, dass Sie eine bestimmte Zeile ansprechen wollen. Dazu können wir wieder Indizes benutzen, allerdings etwas anders als zuvor. Zum Beispiel liefert der Befehl <code>df[1]</code> dasselbe Ergebnis wie <code>df$var1</code>, nur etwas anders repräsentiert: Einmal als 10x1 Tabelle (also quasi als Datensatz) und einmal als eindimensionaler Vektor.</p>
+<p>Ab und zu kann es auch vorkommen, dass Sie eine bestimmte Spalte oder Zeile ansprechen wollen. Dazu können wir wieder Indizes benutzen, allerdings etwas anders als zuvor. Zum Beispiel liefert der Befehl <code>df[1]</code> dasselbe Ergebnis wie <code>df$var1</code>, nur etwas anders repräsentiert: Einmal als 10x1 Tabelle (also quasi als Datensatz) und einmal als eindimensionaler Vektor.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt jeweils die erste Variable in df an</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -675,7 +675,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code> [1] 10  9  8  7  6  5  4  3  2  1</code></pre>
 </div>
 </div>
-<p>Einzelne Zeilen können wir ansprechen, indem wir hinter die Zahl im Index ein Komma schreiben. <code>df[1,]</code> Wir sagen R damit, dass wir am ersten Element der ersten Dimension interessiert sind, die immer links vom Komma steht.</p>
+<p>Einzelne Zeilen können wir ansprechen, indem wir hinter die Zahl im Index ein Komma schreiben: <code>df[1,]</code>. Wir sagen R damit, dass wir am ersten Element der ersten Dimension interessiert sind, die immer links vom Komma steht.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt die erste Zeile in df an</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -685,7 +685,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1   10    1  0.1</code></pre>
 </div>
 </div>
-<p>Wir können auch rechts vom Komma eine Zahl ergänzen, z.B. wenn wir nur den dritten Wert aus der zehnten Zeile sehen wollen:</p>
+<p>Wir können auch rechts vom Komma eine Zahl ergänzen, z. B. wenn wir nur den dritten Wert aus der zehnten Zeile sehen wollen:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zeigt den Wert aus Zeile 10, Spalte 3 in df an</span></span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -697,9 +697,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="datensätze-laden" class="level3" data-number="2.2.4">
 <h3 data-number="2.2.4" class="anchored" data-anchor-id="datensätze-laden"><span class="header-section-number">2.2.4</span> Datensätze laden</h3>
-<p>Aufbauend auf diesen Grundlagen könnten Sie sich schon einen ganz guten Überblick über einen Datensatz machen. Aber: Woher bekommen Sie eigentlich Daten und wie werden Daten in R eingelesen? Im weiteren Verlauf dieses Kurses werden wir mit Daten arbeiten, die hier am Seminar für Medien- und Kommunikationswissenschaften entstanden sind. Im späteren Verlauf Ihres Studiums werden Sie dann mit Ihren eigenen Daten arbeiten. Das Einlesen in R ist relativ einfach. Sie brauchen dazu nur einen Datensatz und müssen wissen, wo auf Ihrem System er gespeichert ist. Am einfachsten ist es, wenn Sie die Daten im selben Ordner ablegen, wie Ihr R-Projekt. Damit Sie nicht den Überblick verlieren, ist es sinnvoll, zunächst einen Unterordner anzulegen, in dem Sie die Daten ablegen können.</p>
+<p>Aufbauend auf diesen Grundlagen könnten Sie sich schon einen ganz guten Überblick über einen Datensatz machen. Aber: Woher bekommen Sie eigentlich Daten und wie werden Daten in R eingelesen? Im weiteren Verlauf dieses Kurses werden wir mit Daten arbeiten, die hier am Seminar für Medien- und Kommunikationswissenschaften entstanden sind. Im späteren Verlauf Ihres Studiums werden Sie dann mit Ihren eigenen Daten arbeiten. Das Einlesen in R ist relativ einfach. Sie brauchen dazu nur einen Datensatz und müssen wissen, wo auf Ihrem System er gespeichert ist. Am einfachsten ist es, wenn Sie die Daten im selben Ordner ablegen wie Ihr R-Projekt. Damit Sie nicht den Überblick verlieren, ist es sinnvoll, zunächst einen Unterordner anzulegen, in dem Sie die Daten ablegen können.</p>
 <p>Hier laden wir mit der <code>read.csv()</code>-Funktion einen Datensatz, der von Prof.&nbsp;Dogruel erhoben wurde. Es handelt sich dabei um eine Befragung zur Nutzung von Lokalmedien von Menschen aus Thüringen und Rheinland-Pfalz. Sie finden den Datensatz sowie ein zugehöriges Codebook bei Moodle. Letzteres enthält Informationen über die einzelnen Spalten im Datensatz. Laden Sie den Datensatz herunter und legen Sie ihn dort ab, wo Sie das Projekt aus der letzten Sitzung gespeichert haben.</p>
-<p>Damit der unten dargestellte Code funktioniert, muss R wissen, wo es nach dem Datensatz suchen muss. Dazu sollte das Projekt aus der letzten Woche geöffnet sein. Das können Sie oben rechts in RStudio kontrollieren. Wenn es ungefähr so aussieht, wie auf dem Bild unten, ist alles in Ordnung. Andernfalls müssen Sie das Projekt erst öffnen (siehe Kapitel 1).</p>
+<p>Damit der unten dargestellte Code funktioniert, muss R wissen, wo es nach dem Datensatz suchen muss. Dazu sollte das Projekt aus der letzten Woche geöffnet sein. Das können Sie oben rechts in RStudio kontrollieren. Wenn es ungefähr so aussieht wie auf dem Bild unten, ist alles in Ordnung. Andernfalls müssen Sie das Projekt erst öffnen (siehe Kapitel 1).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Screenshots/projektoffen.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
@@ -716,10 +716,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="funktionen" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="funktionen"><span class="header-section-number">2.3</span> Funktionen</h2>
-<p>Fast alle Aufgaben in R lassen sich mit Hilfe von Funktionen lösen. Einige haben Sie in den vorherigen Abschnitten bereits kennengelernt, z.B. <code>c()</code> und <code>list()</code>. In diesem Abschnitt werden Sie einige weitere kennenlernen, Sie sollen aber vor allem lernen, wie Funktionen eigentlich funktionieren.</p>
+<p>Fast alle Aufgaben in R lassen sich mit Hilfe von Funktionen lösen. Einige haben Sie in den vorherigen Abschnitten bereits kennengelernt, z. B. <code>c()</code> und <code>list()</code>. In diesem Abschnitt werden Sie einige weitere kennenlernen, Sie sollen aber vor allem lernen, wie Funktionen eigentlich funktionieren.</p>
 <section id="argumente" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="argumente"><span class="header-section-number">2.3.1</span> Argumente</h3>
-<p>Das wichtigste Konzept, das Sie dazu verstehen müssen, sind die sogenannten <strong>Argumente</strong>. Damit sind Informationen gemeint, die wir einer Funktion übergeben und mit denen sie arbeitet. Argumente werden in Klammern hinter dem Namen der Funktion aufgeführt. Als wir oben die <code>c()</code>-Funktion genutzt haben, waren dementsprechend die Zahlen, die wir in die Klammern geschrieben haben die Argumente. Und als Sie die Liste erstellt haben, haben Sie die vorher angelegten Objekte als Argumente übergeben.</p>
+<p>Das wichtigste Konzept, das Sie dazu verstehen müssen, sind die sogenannten <strong>Argumente</strong>. Damit sind Informationen gemeint, die wir einer Funktion übergeben und mit denen sie arbeitet. Argumente werden in Klammern hinter dem Namen der Funktion aufgeführt. Als wir oben die <code>c()</code>-Funktion genutzt haben, waren dementsprechend die Zahlen, die wir in die Klammern geschrieben haben, die Argumente. Und als Sie die Liste erstellt haben, haben Sie die vorher angelegten Objekte als Argumente übergeben.</p>
 <p>Beides waren relativ simple Fälle, die Ihnen im R-Alltag aber immer wieder begegnen werden, denn die allermeisten Funktionen benötigen ein Objekt, mit dem sie arbeiten können. Durch andere Argumente können wir bestimmen, wie die Funktion genau arbeiten soll. Im weiteren Verlauf dieses Kapitels und in den kommenden Wochen werden wir einige solcher Argumente kennenlernen. Zunächst genügt es, festzuhalten, dass Funktionen mit Argumenten darüber informiert werden, an welchem Objekt sie ihre Aufgabe ausüben sollen und ggf., was sie dabei zu beachten haben.</p>
 </section>
 <section id="rückgabe" class="level3" data-number="2.3.2">
@@ -735,7 +735,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Wenn Sie einmal nicht wissen, wie eine Funktion funktioniert oder Sie z.B. wissen wollen, welche Argumente eine Funktion benötigt oder was sie zurückgibt, können Sie ganz einfach Hilfe erhalten. Dazu geben Sie einfach ein ? gefolgt vom Namen der Funktion ein, z. B. <code>?read.csv</code>. Im Bereich unten rechts zeigt R Ihnen dann die Dokumentation der Funktion an.</p>
+<p>Wenn Sie einmal nicht wissen, wie eine Funktion funktioniert oder Sie z. B. wissen wollen, welche Argumente eine Funktion benötigt oder was sie zurückgibt, können Sie ganz einfach Hilfe erhalten. Dazu geben Sie einfach ein ? gefolgt vom Namen der Funktion ein, z. B. <code>?read.csv</code>. Im Bereich unten rechts zeigt R Ihnen dann die Dokumentation der Funktion an.</p>
 </div>
 </div>
 </section>
@@ -753,7 +753,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Es ist etwas mühselig, die Werte gedanklich immer wieder neu zu ordnen. Um dies zu vermeiden, können wir die <code>factor()</code>-Funktion benutzen. Diese wandelt einen Vektor (die Spalte <code>A602</code>) in einen Faktor mit beschrifteten Werten um. Faktor bedeutet in diesem Kontext, dass wir wenige distinkte Werte haben. Es handelt sich um eine sogenannte kategorische Variable. Keine Sorge, darüber werden wir in den kommenden Wochen noch mehr reden.</p>
-<p>Für die <code>factor()</code>-Funktion müssen wir neben der Spalte auch das <code>labels</code>-Argument nutzen, also die Beschriftung festlegen. Die Rückgabe der Funktion ist ein Vektor, der genauso lang ist, wie unser Ausgangsvektor (die Spalte <code>A602</code>), aber beschriftete Werte hat. Das können wir nutzen, um uns Arbeit zu sparen. Statt die Rückgabe der Funktion erst in einem neuen Objekt zu speichern, können wir <code>factor()</code> direkt in der <code>table()</code>-Funktion aufrufen.</p>
+<p>Für die <code>factor()</code>-Funktion müssen wir neben der Spalte auch das <code>labels</code>-Argument nutzen, also die Beschriftung festlegen. Die Rückgabe der Funktion ist ein Vektor, der genauso lang ist wie unser Ausgangsvektor (die Spalte <code>A602</code>), aber beschriftete Werte hat. Das können wir nutzen, um uns Arbeit zu sparen. Statt die Rückgabe der Funktion erst in einem neuen Objekt zu speichern, können wir <code>factor()</code> direkt in der <code>table()</code>-Funktion aufrufen.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt eine Häufigkeitstabelle der Geschlechtsabfrage, die vorher in einen beschrifteten Faktor umgewandelt wird</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -786,7 +786,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   44.3293348   54.3075245    0.3816794    0.9814613 </code></pre>
 </div>
 </div>
-<p>Und um das Ergebnis noch besser lesbar zu machen, können wir die round()-Funktion nutzen, um das Ergebnis zu runden. Das <code>digits</code>-Argument gibt dabei die Anzahl der Nachkommastellen an.</p>
+<p>Und um das Ergebnis noch besser lesbar zu machen, können wir die <code>round()</code>-Funktion nutzen, um das Ergebnis zu runden. Das <code>digits</code>-Argument gibt dabei die Anzahl der Nachkommastellen an.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rundet die Prozentwerte auf 2 Nachkommastellen</span></span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -807,7 +807,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Übrigens: Funktionen erwarten Argumente in einer festen Reihenfolge, die Sie mit der Hilfsfunktion (<code>?</code> gefolgt vom Namen der Funktion) erfahren können. Solange wir die Argumente in dieser Reihenfolge nutzen, müssen wir sie nicht benennen. Im vorherigen Befehl können wir z.B. das <code>digits =</code> einfach weglassen und erhalten dasselbe Ergebnis.</p>
+<p>Übrigens: Funktionen erwarten Argumente in einer festen Reihenfolge, die Sie mit der Hilfsfunktion (<code>?</code> gefolgt vom Namen der Funktion) erfahren können. Solange wir die Argumente in dieser Reihenfolge nutzen, müssen wir sie nicht benennen. Im vorherigen Befehl können wir z. B. das <code>digits =</code> einfach weglassen und erhalten dasselbe Ergebnis.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rundet die Prozentwerte auf 2 Nachkommastellen, lässt aber den Namen des digits-Arguments weg.</span></span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -823,7 +823,7 @@ Tip
 </section>
 <section id="pipes" class="level3" data-number="2.3.4">
 <h3 data-number="2.3.4" class="anchored" data-anchor-id="pipes"><span class="header-section-number">2.3.4</span> Pipes</h3>
-<p>Das Verschachteln von Funktionen im Beispiel oben funktioniert zwar gut, wird aber schnell schwer nachvollziehbar. Man sagt auch, dass der Code nicht sonderlich lesbar ist. Um diesem Problem zu begegnen, können wir sogenannte <strong>Pipes</strong> (im Sinne von Pipeline) verwenden. Dazu nutzen wir den <code>|&gt;</code> Operator. Die Funktionsweise ist zugegebenermaßen etwas gewöhnungsbedürftig, mit etwas Übung erleichtert er unser Leben aber sehr. Pipes nehmen ein Objekt, das links von ihnen steht und übergeben es als erstes Argument in eine Funktion, die rechts davon bzw. in der Regel in einer neuen Zeile darunter steht. Wenn wir einen Ausdruck wie im Beispiel mit der Tabelle mit Pipes replizieren wollen, gehen wir von innen nach außen vor. Schauen wir uns das mal an, indem wir zunächst die Spalte <code>A602</code> in einen Faktor umwandeln. Dazu übergeben wir die Spalte mit dem <code>|&gt;</code> Operator an die <code>factor()</code>-Funktion. R erkennt automatisch, dass das Objekt (also die Spalte) als erstes Argument genutzt werden muss. Wir müssen also nur das <code>labels</code>-Argument ergänzen. Vorsicht, da wir das Ergebnis nicht in einem neuen Objekt speichern, wird es in der Konsole angezeigt und ist sehr lang!</p>
+<p>Das Verschachteln von Funktionen im Beispiel oben funktioniert zwar gut, wird aber schnell schwer nachvollziehbar. Man sagt auch, dass der Code nicht sonderlich lesbar ist. Um diesem Problem zu begegnen, können wir sogenannte <strong>Pipes</strong> (im Sinne von Pipeline) verwenden. Dazu nutzen wir den <code>|&gt;</code>-Operator. Die Funktionsweise ist zugegebenermaßen etwas gewöhnungsbedürftig, mit etwas Übung erleichtert er unser Leben aber sehr. Pipes nehmen ein Objekt, das links von ihnen steht, und übergeben es als erstes Argument in eine Funktion, die rechts davon bzw. in der Regel in einer neuen Zeile darunter steht. Wenn wir einen Ausdruck wie im Beispiel mit der Tabelle mit Pipes replizieren wollen, gehen wir von innen nach außen vor. Schauen wir uns das mal an, indem wir zunächst die Spalte <code>A602</code> in einen Faktor umwandeln. Dazu übergeben wir die Spalte mit dem <code>|&gt;</code>-Operator an die <code>factor()</code>-Funktion. R erkennt automatisch, dass das Objekt (also die Spalte) als erstes Argument genutzt werden muss. Wir müssen also nur das <code>labels</code>-Argument ergänzen. Vorsicht, da wir das Ergebnis nicht in einem neuen Objekt speichern, wird es in der Konsole angezeigt und ist sehr lang!</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1242,7 +1242,7 @@ Levels: männlich weiblich divers keine Angabe</code></pre>
  0.443293348  0.543075245  0.003816794  0.009814613 </code></pre>
 </div>
 </div>
-<p>Als letztes haben wir oben die Werte dieser Tabelle mit 100 multipliziert und das Ergebnis auf zwei Nachkommastellen gerundet. Wenn wir versuchen, diesen Schritt umzusetzen, sehen wir zwar, dass die Prozentwerte richtig angegeben werden, allerdings funktioniert das Runden nicht. Kurz gesagt liegt das daran, dass R es nicht schafft den Ausdruck <code>prop.table()*100</code> weiterzuleiten.</p>
+<p>Als letztes haben wir oben die Werte dieser Tabelle mit 100 multipliziert und das Ergebnis auf zwei Nachkommastellen gerundet. Wenn wir versuchen, diesen Schritt umzusetzen, sehen wir zwar, dass die Prozentwerte richtig angegeben werden, allerdings funktioniert das Runden nicht. Kurz gesagt liegt das daran, dass R es nicht schafft, den Ausdruck <code>prop.table()*100</code> weiterzuleiten.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wandelt die Geschlechtsabfrage in einen beschrifteten Faktor um und übergibt diesen an die table()-Funktion und erstellt dann eine Tabelle mit relativen Häufigkeiten, die in Prozentwerte umgerechnet werden; das Runden funktioniert nicht</span></span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>df_lokal<span class="sc">$</span>A602 <span class="sc">|&gt;</span></span>
@@ -1256,7 +1256,7 @@ Levels: männlich weiblich divers keine Angabe</code></pre>
   44.3293348   54.3075245    0.3816794    0.9814613 </code></pre>
 </div>
 </div>
-<p>Wir können Abhilfe schaffen, indem wir das Ergebnis der <code>prop.table()</code>-Funktion direkt an die <code>round()</code>-Funktion weitergeben und erst deren Ergebnis runden. Wichtig ist dabei, dass wir erst auf 4 Nachkommastellen runden und diese dann mit 100 multiplizieren, sodass wir am Ende eine Zahl mit 4 Stellen (2 vor und 2 nach dem Komma) bekommen.</p>
+<p>Wir können Abhilfe schaffen, indem wir das Ergebnis der <code>prop.table()</code>-Funktion direkt an die <code>round()</code>-Funktion weitergeben und erst deren Ergebnis runden. Wichtig ist dabei, dass wir erst auf 4 Nachkommastellen runden und diese dann mit 100 multiplizieren, sodass wir am Ende eine Prozentzahl mit 2 Nachkommastellen erhalten.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wandelt die Geschlechtsabfrage in einen beschrifteten Faktor um und übergibt diesen an die table()-Funktion und erstellt dann eine Tabelle mit relativen Häufigkeiten, die in Prozentwerte umgerechnet werden; das Ergebnis wird gerundet</span></span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>df_lokal<span class="sc">$</span>A602 <span class="sc">|&gt;</span></span>
@@ -1274,7 +1274,7 @@ Levels: männlich weiblich divers keine Angabe</code></pre>
 </section>
 <section id="r-beenden" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="r-beenden"><span class="header-section-number">2.4</span> R beenden</h2>
-<p>Wenn Sie R bzw. RStudio beenden, fragt Sie das Programm, ob Sie den sogenannten <strong>Workspace</strong> speichern möchten. Dabei handelt es sich um alle Objekte (u.ä.), die Sie in R angelegt haben. In der Regel sollten Sie das ablehnen. Hierfür gibt es mindestens zwei gute Gründe: Erstens sollten Skripte in sich reproduzierbar sein. Das heißt, sie sollten immer identisch funktionieren und nicht davon abhängig sein, wele Objekte sich im Workspace befinden. Und zweitens kann das Environment (siehe letztes Kapitel) mit der Zeit ziemlich voll und unübersichtlich werden.</p>
+<p>Wenn Sie R bzw. RStudio beenden, fragt Sie das Programm, ob Sie den sogenannten <strong>Workspace</strong> speichern möchten. Dabei handelt es sich um alle Objekte (u. Ä.), die Sie in R angelegt haben. In der Regel sollten Sie das ablehnen. Hierfür gibt es mindestens zwei gute Gründe: Erstens sollten Skripte in sich reproduzierbar sein. Das heißt, sie sollten immer identisch funktionieren und nicht davon abhängig sein, welche Objekte sich im Workspace befinden. Und zweitens kann das Environment (siehe letztes Kapitel) mit der Zeit ziemlich voll und unübersichtlich werden.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Screenshots/R beenden.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
